@@ -5,3 +5,4 @@ Alter table Goal add primary key(GoalID);
 Alter table Logs add primary key(LogID);
 Alter table Sets add primary key(SetsID);
 Alter table Workout add primary key(WorkoutID);
+Alter table Plan add primary key(PlanID);

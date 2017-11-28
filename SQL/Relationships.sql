@@ -17,3 +17,10 @@ Alter table Workout add foreign key(Exercises) references ExerciseList(ExerciseL
 /*Goal foreign keys*/
 Alter table Goal add foreign key(SetID) references Sets(SetsID);
 Alter table Goal add foreign key(UserID) references User(UserID);
+
+/*Planned workouts foreign keys*/
+Alter table PlannedWorkouts add foreign key(PlanID) references Plan(PlanID);
+Alter table PlannedWorkouts add foreign key(WorkoutID) references Workout(WorkoutID);
+
+/*Plan foreign keys*/
+Alter table Plan add foreign key(UserID) references User(UserID);
