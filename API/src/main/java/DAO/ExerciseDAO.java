@@ -1,7 +1,7 @@
 package DAO;
 
 import Entity.Exercise;
-import Entity.ExerciseMapper;
+import Entity.mappers.ExerciseMapper;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 

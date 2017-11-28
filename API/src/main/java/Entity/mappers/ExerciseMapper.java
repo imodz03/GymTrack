@@ -1,5 +1,8 @@
-package Entity;
+package Entity.mappers;
 
+import Entity.Exercise;
+import Entity.enums.Bodypart;
+import Entity.enums.ExerciseCategory;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
@@ -15,6 +18,16 @@ public class ExerciseMapper implements ResultSetMapper<Exercise> {
         mapped.setExerciseID(r.getString(1));
         mapped.setExerciseName(r.getString(2));
         mapped.setDescription(r.getString(3));
+
+        ExerciseCategory excatM = ExerciseCategory.DEFAULT;
+
+        if (r.getString(4).contains("Strength")){
+            mapped.setExerciseCategory(ExerciseCategory.STRENGTH_TRAINING);
+        }else{
+            mapped.setExerciseCategory(ExerciseCategory.valueOf(r.getString(4).toUpperCase()));
+        }
+
+        mapped.setBodypart(Bodypart.valueOf(r.getString(5).toUpperCase()));
 
         return mapped;
     }

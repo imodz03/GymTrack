@@ -6,9 +6,14 @@ public enum ExerciseCategory {
     ANAEROBIC("Anaerobic"),
     STRENGTH_TRAINING("Strength Training"),
     STRETCHING("Stretching"),
-    BALANCING("Balancing");
+    BALANCING("Balancing"),
+    DEFAULT("Default");
 
     private String val;
+
+    public String getVal(){
+        return val;
+    }
 
     ExerciseCategory(String val){
         this.val = val;
