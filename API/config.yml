@@ -1,0 +1,7 @@
+name: GymTrack
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: root
+  password: Poppy2911
+  url: jdbc:mysql://localhost:3306/GymTrack
+  validationQuery: "/* MyService Health Check */ SELECT 1"
