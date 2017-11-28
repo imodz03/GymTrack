@@ -1,6 +1,9 @@
+import CRUDResources.ExerciseResource;
 import Configuration.ApplicationConfig;
+import DAO.ExerciseDAO;
 import io.dropwizard.Application;
 import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
 
@@ -16,6 +19,11 @@ public class GymTrack extends Application<ApplicationConfig> {
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "mysql");
 
+        ExerciseDAO exerciseDAO = jdbi.onDemand(ExerciseDAO.class);
+
+        JerseyEnvironment env = environment.jersey();
+
+        env.register(new ExerciseResource(exerciseDAO));
 
     }
 
