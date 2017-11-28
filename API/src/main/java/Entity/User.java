@@ -19,6 +19,8 @@ public class User {
     private int bmi;
     private int bodyfatPerc;
 
+    public User(){}
+
     public User(String userID, String firstname, String surname, String username, JsonObject preferences) {
         this.userID = userID;
         this.firstname = firstname;
