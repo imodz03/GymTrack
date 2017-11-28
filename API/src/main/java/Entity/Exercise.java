@@ -1,5 +1,8 @@
 package Entity;
 
+import Entity.enums.Bodypart;
+import Entity.enums.ExerciseCategory;
+
 public class Exercise {
 
     private String exerciseID;

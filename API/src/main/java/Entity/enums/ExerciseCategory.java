@@ -1,4 +1,4 @@
-package Entity;
+package Entity.enums;
 
 public enum ExerciseCategory {
 
