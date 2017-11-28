@@ -53,8 +53,8 @@ public class Exercise {
         this.bodypart = bodypart;
     }
 
-    public ExerciseCategory getExerciseCategory() {
-        return exerciseCategory;
+    public String getExerciseCategory() {
+        return exerciseCategory.getVal();
     }
 
     public void setExerciseCategory(ExerciseCategory exerciseCategory) {
