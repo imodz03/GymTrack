@@ -28,7 +28,7 @@ public interface ExerciseDAO {
     @SqlUpdate("insert into " + EXERCISE + "(ExerciseLibraryID, exerciseName, description, category, bodypart) values(:exercise.exerciseID, :exercise.exerciseName, :exercise.description, :exercise.exerciseCategory, :exercise.bodypart)")
     int create(@BindBean("exercise") Exercise exercise);
 
-    @SqlUpdate("")
-    int update(@BindBean("exercise") Exercise exercise);
+    @SqlUpdate("update " + EXERCISE + " set exerciseName = :exercise.exerciseName, description = :exercise.description, category = :exercise.exerciseCategory, bodypart = :exercise.bodypart where ExerciseLibraryID = :id")
+    int update(@BindBean("exercise") Exercise exercise, @Bind("id")String id);
 
 }

@@ -48,16 +48,18 @@ public class ExerciseResource{
             exercise.setExerciseID(UUID.getUUID());
         }
 
-        int test = dao.create(exercise);
-        return Response.ok(test).build();
+        int check = dao.create(exercise);
+        return Response.ok(check).build();
     }
 
     @PUT
-    public Response update(Exercise exercise){
+    @Path("/{id}")
+    public Response update(@PathParam("id")String id, Exercise body){
+        System.out.println(body);
 
-        int test = dao.update(exercise);
+        int check = dao.update(body, id);
 
-        return null;
+        return Response.ok(check).build();
 
     }
 

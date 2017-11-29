@@ -60,4 +60,15 @@ public class Exercise {
     public void setExerciseCategory(ExerciseCategory exerciseCategory) {
         this.exerciseCategory = exerciseCategory;
     }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "\nexerciseID='" + exerciseID + '\'' +
+                ", \nexerciseName='" + exerciseName + '\'' +
+                ", \ndescription='" + description + '\'' +
+                ", \nbodypart=" + bodypart +
+                ", \nexerciseCategory=" + exerciseCategory +
+                "\n}";
+    }
 }
