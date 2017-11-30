@@ -124,4 +124,22 @@ public class User {
     public void setBodyfatPerc(int bodyfatPerc) {
         this.bodyfatPerc = bodyfatPerc;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "\nuserID='" + userID + '\'' +
+                ", \nfirstname='" + firstname + '\'' +
+                ", \nsurname='" + surname + '\'' +
+                ", \nusername='" + username + '\'' +
+                ", \npreferences=" + preferences +
+                ", \nemail='" + email + '\'' +
+                ", \nbio='" + bio + '\'' +
+                ", \nphoto='" + photo + '\'' +
+                ", \nheight=" + height +
+                ", \nweight=" + weight +
+                ", \nbmi=" + bmi +
+                ", \nbodyfatPerc=" + bodyfatPerc +
+                "\n}";
+    }
 }

@@ -2,6 +2,7 @@ package CRUDResources;
 
 import DAO.UserDAO;
 import Entity.User;
+import Helpers.UUID;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -27,7 +28,13 @@ public class UserResource {
     @POST
     public Response create(User user){
 
-        return Response.ok(dao.createUser(user)).build();
+        if (user.getUserID().isEmpty()){
+            user.setUserID(UUID.getUUID());
+        }
+
+        System.out.println(user);
+
+        return Response.ok().build();
 
     }
 
