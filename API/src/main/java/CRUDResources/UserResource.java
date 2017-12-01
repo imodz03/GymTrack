@@ -16,15 +16,11 @@ public class UserResource {
     @Inject
     private UserDAO dao;
 
-    public UserResource(){
-//        this.dao = dao;
-    }
+    public UserResource(){}
 
     @GET
     public Response getAll(){
-
         return Response.ok(dao.getAll()).build();
-
     }
 
     @POST
@@ -35,6 +31,8 @@ public class UserResource {
         }
 
         System.out.println(user);
+
+        int resp = dao.createUser(user);
 
         return Response.ok().build();
 

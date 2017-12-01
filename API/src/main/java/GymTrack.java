@@ -4,11 +4,9 @@ import Configuration.ApplicationConfig;
 import Configuration.GymTrackModule;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
-import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.skife.jdbi.v2.DBI;
 
 public class GymTrack extends Application<ApplicationConfig> {
 
