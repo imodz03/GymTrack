@@ -3,6 +3,7 @@ package CRUDResources;
 import DAO.ExerciseDAO;
 import Entity.Exercise;
 import Helpers.UUID;
+import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -13,10 +14,11 @@ import java.util.List;
 @Path("/API/resource/exercise")
 public class ExerciseResource{
 
+    @Inject
     private ExerciseDAO dao;
 
-    public ExerciseResource(ExerciseDAO dao){
-        this.dao = dao;
+    public ExerciseResource(){
+        //this.dao = dao;
     }
 
     @GET

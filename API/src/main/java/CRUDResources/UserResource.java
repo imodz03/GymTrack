@@ -3,6 +3,7 @@ package CRUDResources;
 import DAO.UserDAO;
 import Entity.User;
 import Helpers.UUID;
+import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -12,10 +13,11 @@ import javax.ws.rs.core.Response;
 @Path("/API/resource/user")
 public class UserResource {
 
+    @Inject
     private UserDAO dao;
 
-    public UserResource(UserDAO dao){
-        this.dao = dao;
+    public UserResource(){
+//        this.dao = dao;
     }
 
     @GET
