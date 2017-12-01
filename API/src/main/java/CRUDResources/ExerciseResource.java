@@ -12,7 +12,7 @@ import java.util.List;
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
 @Path("/API/resource/exercise")
-public class ExerciseResource{
+public class ExerciseResource implements ICRUDResource<Exercise> {
 
     @Inject
     private ExerciseDAO dao;
@@ -22,14 +22,14 @@ public class ExerciseResource{
     }
 
     @GET
-    public List<Exercise> getAll(){
-        return dao.getAll();
+    public Response getAll(){
+        return Response.ok(dao.getAll()).build();
     }
 
     @GET
     @Path("/{id}")
-    public Exercise getById(@PathParam("id")String id){
-        return dao.getById(id);
+    public Response getByID(@PathParam("id")String id){
+        return Response.ok(dao.getById(id)).build();
     }
 
     @DELETE
