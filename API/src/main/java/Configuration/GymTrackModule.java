@@ -3,6 +3,8 @@ package Configuration;
 import DAO.ExerciseDAO;
 import DAO.ExerciseListDAO;
 import DAO.UserDAO;
+import Services.ExerciseService;
+import Services.Implementation.ExerciseServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import io.dropwizard.jdbi.DBIFactory;
@@ -22,7 +24,7 @@ public class GymTrackModule extends AbstractModule{
 
     @Override
     protected void configure() {
-
+        bind(ExerciseService.class).to(ExerciseServiceImpl.class);
     }
 
     @Provides

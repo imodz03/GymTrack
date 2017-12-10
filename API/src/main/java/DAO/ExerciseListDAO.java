@@ -15,7 +15,7 @@ public interface ExerciseListDAO {
     @SqlQuery("Select * from " + EXERCISELIST + " order by ExerciseListID;")
     List<ExerciseList> getAll();
 
-    ExerciseList getById(String id);
+    List<ExerciseList> getById(String id);
 
     int update(String id, ExerciseList exerciseList);
 

@@ -3,6 +3,7 @@ package CRUDResources;
 import DAO.ExerciseListDAO;
 import Entity.ExerciseList;
 import Helpers.OneToManyCombiner;
+import Services.ExerciseService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.Consumes;
@@ -21,6 +22,9 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
     @Inject
     private ExerciseListDAO dao;
 
+    @Inject
+    private ExerciseService exerciseService;
+
     @GET
     public Response getAll() {
 
@@ -30,7 +34,9 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
 
         if (list.size() > 0){
             returnable = OneToManyCombiner.combineExercises(list);
-
+            for (ExerciseList exerciseList : returnable) {
+                exerciseService.populateExercises(exerciseList.getExercises());
+            }
         }
 
         System.out.println(returnable);
