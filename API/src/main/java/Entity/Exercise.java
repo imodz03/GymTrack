@@ -13,6 +13,11 @@ public class Exercise {
 
     public Exercise(){}
 
+    public Exercise(String id){
+        this();
+        this.exerciseID = id;
+    }
+
     public Exercise(String exerciseID, String exerciseName, String description, Bodypart bodypart, ExerciseCategory exerciseCategory) {
         this.exerciseID = exerciseID;
         this.exerciseName = exerciseName;
