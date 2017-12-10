@@ -1,3 +1,4 @@
+import CRUDResources.ExerciseListResource;
 import CRUDResources.ExerciseResource;
 import CRUDResources.UserResource;
 import Configuration.ApplicationConfig;
@@ -37,6 +38,7 @@ public class GymTrack extends Application<ApplicationConfig> {
 
         env.register(new ExerciseResource());
         env.register(new UserResource());
+        env.register(new ExerciseListResource());
 
     }
 

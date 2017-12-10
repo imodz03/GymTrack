@@ -35,7 +35,7 @@ public class ExerciseResource implements ICRUDResource<Exercise> {
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id")String id){
-        Number result = dao.delete(id);
+        int result = dao.delete(id);
         if ((int)result == 1){
             return Response.ok().build();
         }else {

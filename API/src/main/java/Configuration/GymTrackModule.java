@@ -1,6 +1,7 @@
 package Configuration;
 
 import DAO.ExerciseDAO;
+import DAO.ExerciseListDAO;
 import DAO.UserDAO;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -32,6 +33,11 @@ public class GymTrackModule extends AbstractModule{
     @Provides
     UserDAO provideUserDAO(){
         return jdbi.onDemand(UserDAO.class);
+    }
+
+    @Provides
+    ExerciseListDAO provideExerciseListDAO(){
+        return jdbi.onDemand(ExerciseListDAO.class);
     }
 
 

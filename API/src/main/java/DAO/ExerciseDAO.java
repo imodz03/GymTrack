@@ -23,7 +23,7 @@ public interface ExerciseDAO {
     Exercise getById(@Bind("id")String id);
 
     @SqlUpdate("delete from " + EXERCISE + " where ExerciseLibraryID = :id")
-    Number delete(@Bind("id")String id);
+    int delete(@Bind("id")String id);
 
     @SqlUpdate("insert into " + EXERCISE + "(ExerciseLibraryID, exerciseName, description, category, bodypart) values(:exercise.exerciseID, :exercise.exerciseName, :exercise.description, :exercise.exerciseCategory, :exercise.bodypart)")
     int create(@BindBean("exercise") Exercise exercise);
