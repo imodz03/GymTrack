@@ -48,13 +48,18 @@ public class UserResource implements ICRUDResource<User> {
         return Response.ok(dao.getById(id)).build();
     }
 
-    @Override
-    public Response update(String id, User user) {
-        return null;
+    @Path("/{id}")
+    @PUT
+    public Response update(@PathParam("id") String id, User user) {
+        int  update = dao.update(user);
+
+        return Response.ok(update).build();
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @Path("/{id}")
+    @DELETE
+    public Response delete(@PathParam("id") String id) {
+        int delete = dao.delete(id);
+        return Response.ok(delete).build();
     }
 }

@@ -27,4 +27,11 @@ public interface UserDAO {
             " values(:user.userID, :user.firstname, :user.surname, :user.email, :user.username, :user.bio, :user.photo, :user.preferences, :user.weight, :user.height, :user.bmi);")
     int createUser(@BindBean("user")User user);
 
+    //todo finish user update
+    @SqlUpdate("update " + USER + " set firstname = :user.firstname, surname = :user.surname, email = :user.email, username = :user.username, preferences = :user.preferences, bio = :user.bio, photo = :user.photo, height = :user.height, weight = :user.weight, BMI = :user.bmi, bodyFatPercentage = :user.bodyfatPerc")
+    int update(@BindBean("user")User user);
+
+    @SqlUpdate("delete from "+ USER + " Where UserID = :id")
+    int delete(@Bind("id")String id);
+
 }
