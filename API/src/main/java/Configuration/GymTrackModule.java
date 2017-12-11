@@ -3,7 +3,9 @@ package Configuration;
 import DAO.ExerciseDAO;
 import DAO.ExerciseListDAO;
 import DAO.UserDAO;
+import Services.ExerciseListService;
 import Services.ExerciseService;
+import Services.Implementation.ExerciseListServiceImpl;
 import Services.Implementation.ExerciseServiceImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -25,6 +27,7 @@ public class GymTrackModule extends AbstractModule{
     @Override
     protected void configure() {
         bind(ExerciseService.class).to(ExerciseServiceImpl.class);
+        bind(ExerciseListService.class).to(ExerciseListServiceImpl.class);
     }
 
     @Provides

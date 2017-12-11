@@ -2,7 +2,9 @@ package DAO;
 
 import Entity.ExerciseList;
 import Entity.mappers.ExerciseListMapper;
+import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.List;
@@ -15,12 +17,17 @@ public interface ExerciseListDAO {
     @SqlQuery("Select * from " + EXERCISELIST + " order by ExerciseListID;")
     List<ExerciseList> getAll();
 
-    List<ExerciseList> getById(String id);
+    @Mapper(ExerciseListMapper.class)
+    @SqlQuery("Select * from " + EXERCISELIST + " where ExerciseListID = :id")
+    List<ExerciseList> getById(@Bind("id")String id);
 
+    //update isn't really applicable to exerciseList
     int update(String id, ExerciseList exerciseList);
 
-    int create(ExerciseList exerciseList);
+    @SqlUpdate("insert into " + EXERCISELIST + "(ExerciseListID, ExerciseID) values(:elid, :eleid)")
+    int create(@Bind("elid")String elid, @Bind("eleid")String eleid);
 
-    int delete(String id);
+    @SqlUpdate("delete from " + EXERCISELIST + " Where ExerciseListID = :id")
+    int delete(@Bind("id")String id);
 
 }

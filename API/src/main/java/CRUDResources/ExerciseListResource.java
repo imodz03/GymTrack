@@ -3,15 +3,12 @@ package CRUDResources;
 import DAO.ExerciseListDAO;
 import Entity.ExerciseList;
 import Helpers.OneToManyCombiner;
+import Services.ExerciseListService;
 import Services.ExerciseService;
 import com.google.inject.Inject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 @Produces("Application/JSON")
@@ -25,42 +22,58 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
     @Inject
     private ExerciseService exerciseService;
 
+    @Inject
+    private ExerciseListService exerciseListService;
+
     @GET
     public Response getAll() {
 
         List<ExerciseList> list = dao.getAll();
 
-        List<ExerciseList> returnable = new ArrayList<>();
-
         if (list.size() > 0){
-            returnable = OneToManyCombiner.combineExercises(list);
-            for (ExerciseList exerciseList : returnable) {
+            list = OneToManyCombiner.combineExercises(list);
+            for (ExerciseList exerciseList : list) {
                 exerciseService.populateExercises(exerciseList.getExercises());
             }
         }
 
-        System.out.println(returnable);
-
-        return Response.ok(returnable).build();
+        return Response.ok(list).build();
     }
 
-    @Override
-    public Response getByID(String id) {
-        return null;
+    @Path("/{id}")
+    @GET
+    public Response getByID(@PathParam("id") String id) {
+
+        List<ExerciseList> list = dao.getById(id);
+
+        if (list.size() > 0){
+            list = OneToManyCombiner.combineExercises(list);
+            for (ExerciseList exerciseList : list) {
+                exerciseService.populateExercises(exerciseList.getExercises());
+            }
+        }
+
+        return Response.ok(list).build();
+
     }
 
-    @Override
+    //when posting to this method only include the exercise ID not all fields
+    @POST
     public Response create(ExerciseList exerciseList) {
-        return null;
+        boolean result = exerciseListService.createELEntry(exerciseList);
+        return Response.ok(result).build();
     }
 
+    //not sure how applicable this is unless adding
     @Override
     public Response update(String id, ExerciseList exerciseList) {
         return null;
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id")String id) {
+        int result = dao.delete(id);
+        return Response.ok(result).build();
     }
 }
