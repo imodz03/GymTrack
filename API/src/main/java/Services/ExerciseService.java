@@ -8,4 +8,6 @@ public interface ExerciseService {
 
     List<Exercise> populateExercises(List<Exercise> exercises);
 
+    Exercise populateExercise(Exercise exercise);
+
 }

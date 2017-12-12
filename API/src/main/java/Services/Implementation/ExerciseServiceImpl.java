@@ -24,4 +24,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     }
 
+    public Exercise populateExercise(Exercise exercise){
+        Exercise populate = dao.getById(exercise.getExerciseID());
+        return populate;
+
+    }
+
 }

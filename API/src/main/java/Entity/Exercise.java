@@ -9,7 +9,7 @@ public class Exercise {
     private String exerciseName;
     private String description;
     private Bodypart bodypart;
-    private ExerciseCategory exerciseCategory;
+    private ExerciseCategory exerciseCategory; // for strength training the value posted needs to be strength_training
 
     public Exercise(){}
 

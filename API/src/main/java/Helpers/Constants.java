@@ -6,5 +6,6 @@ public class Constants {
     public static final String EXERCISE = "ExerciseLibrary";
     public static final String USER = "User";
     public static final String EXERCISELIST = "ExerciseList";
+    public static final String SET = "Sets";
 
 }

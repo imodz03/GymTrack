@@ -76,4 +76,18 @@ public class Set {
     public void setDistance(double distance) {
         this.distance = distance;
     }
+
+    @Override
+    public String toString() {
+        return "Set{" +
+                "SetID='" + SetID + '\'' +
+                ", exercise=" + exercise +
+                ", position=" + position +
+                ", reps=" + reps +
+                ", weight=" + weight +
+                ", time=" + time +
+                ", speed=" + speed +
+                ", distance=" + distance +
+                '}';
+    }
 }
