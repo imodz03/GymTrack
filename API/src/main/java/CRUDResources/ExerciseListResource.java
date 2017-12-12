@@ -57,7 +57,7 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
 
     }
 
-    //when posting to this method only include the exercise ID not all fields
+    //when posting to this method it has issues reading the JSON for
     @POST
     public Response create(ExerciseList exerciseList) {
         boolean result = exerciseListService.createELEntry(exerciseList);
