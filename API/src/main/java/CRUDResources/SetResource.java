@@ -40,7 +40,14 @@ public class SetResource implements ICRUDResource<Set> {
     @GET
     @Path("/{id}")
     public Response getByID(@PathParam("id")String id) {
-        return Response.ok(dao.getById(id)).build();
+
+        Set resp = dao.getById(id);
+
+        Exercise exer = exerciseService.populateExercise(resp.getExercise());
+
+        resp.setExercise(exer);
+
+        return Response.ok(resp).build();
     }
 
     @Override
