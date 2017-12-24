@@ -3,6 +3,7 @@ package CRUDResources;
 import DAO.SetDAO;
 import Entity.Exercise;
 import Entity.Set;
+import Helpers.UUID;
 import Services.ExerciseService;
 import com.google.inject.Inject;
 
@@ -50,18 +51,28 @@ public class SetResource implements ICRUDResource<Set> {
         return Response.ok(resp).build();
     }
 
-    @Override
+    // TODO: 24/12/2017 proper response codes
+    @POST
     public Response create(Set set) {
-        return null;
+
+        set.setSetID(UUID.getUUID());
+
+        int res = dao.create(set, set.getExercise().getExerciseID());
+
+        return Response.ok(res).build();
     }
 
-    @Override
-    public Response update(String id, Set set) {
-        return null;
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id")String id, Set set) {
+        System.out.println(set);
+        int res = dao.update(id, set.getExercise().getExerciseID(), set);
+        return Response.ok(res).build();
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id")String id) {
+        return Response.ok(dao.delete(id)).build();
     }
 }

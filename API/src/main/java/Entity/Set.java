@@ -45,8 +45,8 @@ public class Set {
         this.reps = reps;
     }
 
-    public double getWeight() {
-        return weight;
+    public String getWeight() {
+        return weight+"";
     }
 
     public void setWeight(double weight) {
