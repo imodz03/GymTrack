@@ -10,7 +10,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
 @Path("/API/resource/set")
@@ -31,11 +30,10 @@ public class SetResource implements ICRUDResource<Set> {
             for (Set dbre : dbres) {
                 Exercise populated = exerciseService.populateExercise(dbre.getExercise());
                 dbre.setExercise(populated);
-                System.out.println(dbre);
             }
         }
 
-        return Response.ok(dao.getAll()).build();
+        return Response.ok(dbres).build();
     }
 
     @Override
