@@ -21,7 +21,12 @@ public class User {
 
     public User(){}
 
+    public User(String userID){
+        this.userID = userID;
+    }
+
     public User(String userID, String firstname, String surname, String username, JsonObject preferences) {
+        this();
         this.userID = userID;
         this.firstname = firstname;
         this.surname = surname;

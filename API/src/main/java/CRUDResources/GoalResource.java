@@ -1,36 +1,48 @@
 package CRUDResources;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import DAO.GoalDAO;
+import Entity.Goal;
+import Helpers.UUID;
+import com.google.inject.Inject;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
 @Path("/API/resource/goal")
+public class GoalResource implements ICRUDResource<Goal>{
 
-public class GoalResource implements ICRUDResource<GoalResource>{
+    @Inject
+    private GoalDAO dao;
 
-    @Override
     @GET
     public Response getAll() {
+        return Response.ok(dao.getAll()).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response getByID(@PathParam("id")String id) {
+        return Response.ok(dao.getById(id)).build();
+    }
+
+    @POST
+    public Response create(Goal goal) {
+        if (goal.getGoalID().isEmpty()){
+            goal.setGoalID(UUID.getUUID());
+        }
+
+        System.out.println(goal);
+
+        //dao.create(goal, goal.getSet().getSetID(), goal.getUser().getUserID());
+
         return null;
     }
 
     @Override
-    public Response getByID(String id) {
-        return null;
-    }
-
-    @Override
-    public Response create(GoalResource goalResource) {
-        return null;
-    }
-
-    @Override
-    public Response update(String id, GoalResource goalResource) {
+    public Response update(String id, Goal goal) {
         return null;
     }
 

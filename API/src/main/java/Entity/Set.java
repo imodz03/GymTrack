@@ -13,6 +13,11 @@ public class Set {
 
     public Set(){}
 
+    public Set(String setID){
+        this();
+        this.SetID = setID;
+    }
+
     public String getSetID() {
         return SetID;
     }

@@ -1,9 +1,6 @@
 package Configuration;
 
-import DAO.ExerciseDAO;
-import DAO.ExerciseListDAO;
-import DAO.SetDAO;
-import DAO.UserDAO;
+import DAO.*;
 import Services.ExerciseListService;
 import Services.ExerciseService;
 import Services.Implementation.ExerciseListServiceImpl;
@@ -49,6 +46,11 @@ public class GymTrackModule extends AbstractModule{
     @Provides
     SetDAO provideSetDAO(){
         return jdbi.onDemand(SetDAO.class);
+    }
+
+    @Provides
+    GoalDAO providesGoalDAO(){
+        return jdbi.onDemand(GoalDAO.class);
     }
 
 
