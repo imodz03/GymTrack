@@ -11,6 +11,6 @@ public class Constants {
     public static final String LOG = "Logs";
     public static final String PLAN = "Plan";
     public static final String PLWORKOUTS = "PlannedWorkouts";
-    public static final String WORKOUT = "Workouts";
+    public static final String WORKOUT = "Workout";
 
 }
