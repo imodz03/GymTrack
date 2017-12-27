@@ -22,7 +22,13 @@ public interface GoalDAO {
     @SqlQuery("SELECT * FROM " + GOAL + " Where GoalID = :id")
     Goal getById(@Bind("id")String id);
 
-    @SqlUpdate("INSERT INTO " + GOAL + " (GoalID, SetID, UserID, targetDate, dateAchieved) values(goal.goalID, :setID, :userID, :goal.targetDate, :goal.dateAchieved)")
-    int create(@BindBean("goal")Goal goal, @Bind("setID")String setID, @Bind("userID")String userID);
+    @SqlUpdate("INSERT INTO " + GOAL + " (GoalID, SetID, UserID, targetDate, dateAchieved) values(:goalID, :setID, :userID, :goal.targetDate, :goal.dateAchieved)")
+    int create(@Bind("goalID")String goalID, @BindBean("goal")Goal goal, @Bind("setID")String setID, @Bind("userID")String userID);
+
+    @SqlUpdate("UPDATE " + GOAL + " SET SetID = :setID, targetDate = :goal.targetDate, dateAchieved = :goal.dateAchieved where GoalID = :id")
+    int update(@Bind("id")String goalID, @Bind("setID")String setID, @BindBean("goal")Goal goal);
+
+    @SqlUpdate("DELETE FROM " + GOAL + " Where GoalID = :id")
+    int delete(@Bind("id")String goalID);
 
 }

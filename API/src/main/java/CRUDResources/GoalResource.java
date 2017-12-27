@@ -36,18 +36,20 @@ public class GoalResource implements ICRUDResource<Goal>{
 
         System.out.println(goal);
 
-        //dao.create(goal, goal.getSet().getSetID(), goal.getUser().getUserID());
-
-        return null;
+        return Response.ok(
+                dao.create(goal.getGoalID(), goal, goal.getSet().getSetID(), goal.getUser().getUserID())
+        ).build();
     }
 
-    @Override
-    public Response update(String id, Goal goal) {
-        return null;
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id")String id, Goal goal) {
+        return Response.ok(dao.update(id, goal.getSet().getSetID(), goal)).build();
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") String id) {
+        return Response.ok(dao.delete(id)).build();
     }
 }
