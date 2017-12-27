@@ -19,6 +19,10 @@ public class Workout {
 
     public Workout(){}
 
+    public Workout(String id){
+        this.WorkoutID = id;
+    }
+
     public String getWorkoutID() {
         return WorkoutID;
     }

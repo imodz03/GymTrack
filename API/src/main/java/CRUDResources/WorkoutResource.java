@@ -4,15 +4,12 @@ import DAO.WorkoutDAO;
 import Entity.Workout;
 import com.google.inject.Inject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
-@Path("/API/resource/Workout")
+@Path("/API/resource/workout")
 public class WorkoutResource implements ICRUDResource<Workout> {
 
     @Inject
@@ -20,7 +17,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @GET
     public Response getAll() {
-        return null;
+        return Response.ok(dao.getAll()).build();
     }
 
     @Override
@@ -28,7 +25,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         return null;
     }
 
-    @Override
+    @POST
     public Response create(Workout workout) {
         return null;
     }
