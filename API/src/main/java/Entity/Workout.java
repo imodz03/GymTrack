@@ -87,8 +87,8 @@ public class Workout {
         isPublic = aPublic;
     }
 
-    public DateTime getDate() {
-        return date;
+    public String getDate() {
+        return date.toString("yyyy-MM-dd");
     }
 
     public void setDate(DateTime date) {

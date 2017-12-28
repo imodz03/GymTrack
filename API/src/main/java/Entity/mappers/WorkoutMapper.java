@@ -33,10 +33,10 @@ public class WorkoutMapper implements ResultSetMapper<Workout> {
         // TODO: 27/12/2017 map category
         mappable.setSets(setList);
         mappable.setUser(mappableUser);
-        mappable.setPublic(r.getBoolean(7));
+        mappable.setPublic(r.getBoolean(8));
 
-        if (r.getDate(8) != null){
-            mappable.setDate(new DateTime(r.getDate(8)));
+        if (r.getDate(9) != null){
+            mappable.setDate(new DateTime(r.getDate(9)));
         }
 
 

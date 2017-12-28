@@ -2,6 +2,7 @@ package CRUDResources;
 
 import DAO.WorkoutDAO;
 import Entity.Workout;
+import Helpers.UUID;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
@@ -20,23 +21,36 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         return Response.ok(dao.getAll()).build();
     }
 
-    @Override
-    public Response getByID(String id) {
-        return null;
+    @GET
+    @Path("/{id}")
+    public Response getByID(@PathParam("id") String id) {
+        return Response.ok(dao.getByID(id)).build();
     }
 
     @POST
     public Response create(Workout workout) {
-        return null;
+
+        if (workout.getWorkoutID().isEmpty()){
+            workout.setWorkoutID(UUID.getUUID());
+        }
+
+        int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
+
+        return Response.ok(result).build();
     }
 
-    @Override
-    public Response update(String id, Workout workout) {
-        return null;
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id") String id, Workout workout) {
+
+        int res = dao.update(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID(), id);
+
+        return Response.ok(res).build();
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") String id) {
+        return Response.ok(dao.delete(id)).build();
     }
 }

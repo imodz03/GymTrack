@@ -2,6 +2,7 @@ package Entity;
 
 public class Set {
 
+    //this id will be shared accross multiple entities
     private String SetID;
     private Exercise exercise;
     private int position;
