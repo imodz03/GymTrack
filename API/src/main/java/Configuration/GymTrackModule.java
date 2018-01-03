@@ -58,5 +58,10 @@ public class GymTrackModule extends AbstractModule{
         return jdbi.onDemand(WorkoutDAO.class);
     }
 
+    @Provides
+    PlanDAO providesPlanDAO(){
+        return jdbi.onDemand(PlanDAO.class);
+    }
+
 
 }

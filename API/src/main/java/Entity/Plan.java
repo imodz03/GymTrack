@@ -10,7 +10,7 @@ public class Plan {
     private String description;
     private User user;
     private boolean isPublic;
-    private int repeats = 1;
+    private int repeats = 0;
 
     private List<PlannedWorkouts> workouts;
 
