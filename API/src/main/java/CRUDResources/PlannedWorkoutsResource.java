@@ -4,14 +4,21 @@ import DAO.PlannedWorkoutsDAO;
 import Entity.PlannedWorkouts;
 import com.google.inject.Inject;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+@Produces("Application/JSON")
+@Consumes("Application/JSON")
+@Path("/API/resource/pw")
 public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
 
     @Inject
     private PlannedWorkoutsDAO dao;
 
-    @Override
+    @GET
     public Response getAll() {
         return null;
     }
