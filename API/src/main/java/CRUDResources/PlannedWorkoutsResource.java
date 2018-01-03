@@ -2,13 +2,13 @@ package CRUDResources;
 
 import DAO.PlannedWorkoutsDAO;
 import Entity.PlannedWorkouts;
+import Helpers.UUID;
+import Services.WorkoutService;
 import com.google.inject.Inject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
@@ -18,19 +18,48 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     @Inject
     private PlannedWorkoutsDAO dao;
 
+    @Inject
+    private WorkoutService workoutService;
+
     @GET
     public Response getAll() {
-        return null;
+
+        List<PlannedWorkouts> res = dao.getAll();
+
+        if (res.size() > 0){
+            for (PlannedWorkouts re : res) {
+                re.setWorkout(workoutService.populate(re.getWorkout()));
+            }
+        }
+
+        return Response.ok(res).build();
     }
 
-    @Override
-    public Response getByID(String id) {
-        return null;
+    @GET
+    @Path("/{id}")
+    public Response getByID(@PathParam("id") String id) {
+
+        PlannedWorkouts res = dao.getById(id);
+
+        if (!res.getPwID().isEmpty()){
+            res.setWorkout(workoutService.populate(res.getWorkout()));
+        }
+
+        return Response.ok(res).build();
     }
 
-    @Override
+    @POST
     public Response create(PlannedWorkouts plannedWorkouts) {
-        return null;
+
+        if (plannedWorkouts.getPwID().isEmpty()){
+            plannedWorkouts.setPwID(UUID.getUUID());
+        }
+
+        System.out.println(plannedWorkouts);
+
+        int resp = dao.create(plannedWorkouts, plannedWorkouts.getWorkout().getWorkoutID());
+
+        return Response.ok(1).build();
     }
 
     @Override

@@ -5,6 +5,8 @@ import Services.ExerciseListService;
 import Services.ExerciseService;
 import Services.Implementation.ExerciseListServiceImpl;
 import Services.Implementation.ExerciseServiceImpl;
+import Services.Implementation.WorkoutServiceImpl;
+import Services.WorkoutService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import io.dropwizard.jdbi.DBIFactory;
@@ -26,6 +28,7 @@ public class GymTrackModule extends AbstractModule{
     protected void configure() {
         bind(ExerciseService.class).to(ExerciseServiceImpl.class);
         bind(ExerciseListService.class).to(ExerciseListServiceImpl.class);
+        bind(WorkoutService.class).to(WorkoutServiceImpl.class);
     }
 
     @Provides

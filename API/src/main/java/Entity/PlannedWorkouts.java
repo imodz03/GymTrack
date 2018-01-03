@@ -5,9 +5,16 @@ import Entity.enums.DoW;
 public class PlannedWorkouts {
 
     private String pwID;
+    private String planID;
     private Workout workout;
     private int workoutDay;
     private DoW dayOfWeek;
+
+    public PlannedWorkouts(){}
+
+    public PlannedWorkouts(String pwID){
+        this.pwID = pwID;
+    }
 
     public PlannedWorkouts(String pwID, Workout workout, int workoutDay) {
         this.pwID = pwID;
@@ -51,5 +58,24 @@ public class PlannedWorkouts {
 
     public void setDayOfWeek(DoW dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getPlanID() {
+        return planID;
+    }
+
+    public void setPlanID(String planID) {
+        this.planID = planID;
+    }
+
+    @Override
+    public String toString() {
+        return "PlannedWorkouts{" +
+                "pwID='" + pwID + '\'' +
+                ", planID='" + planID + '\'' +
+                ", workout=" + workout.getWorkoutID() +
+                ", workoutDay=" + workoutDay +
+                ", dayOfWeek=" + dayOfWeek +
+                '}';
     }
 }
