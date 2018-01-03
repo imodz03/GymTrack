@@ -55,20 +55,25 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
             plannedWorkouts.setPwID(UUID.getUUID());
         }
 
-        System.out.println(plannedWorkouts);
-
         int resp = dao.create(plannedWorkouts, plannedWorkouts.getWorkout().getWorkoutID());
 
         return Response.ok(1).build();
     }
 
-    @Override
-    public Response update(String id, PlannedWorkouts plannedWorkouts) {
-        return null;
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id") String id, PlannedWorkouts plannedWorkouts) {
+
+        System.out.println(plannedWorkouts);
+
+        int res = dao.update(plannedWorkouts, plannedWorkouts.getWorkout().getWorkoutID(), id);
+
+        return Response.ok(res).build();
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") String id) {
+        return Response.ok(dao.delete(id)).build();
     }
 }

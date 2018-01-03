@@ -22,7 +22,13 @@ public interface PlannedWorkoutsDAO {
     @SqlQuery("SELECT * FROM " + PLWORKOUTS + " WHERE PWID = :id")
     PlannedWorkouts getById(@Bind("id")String id);
 
-    @SqlUpdate("INSERT INTO " + PLWORKOUTS + " (PWID, PlanID, WorkoutID, WorkoutDay, WorkoutDOW) values(:pw.pwID, :pw.planID, :WorkoutID, :pw.workoutDay, :pw.dayOfWeekg)")
+    @SqlUpdate("INSERT INTO " + PLWORKOUTS + " (PWID, PlanID, WorkoutID, WorkoutDay, WorkoutDOW) values(:pw.pwID, :pw.planID, :WorkoutID, :pw.workoutDay, :pw.dayOfWeek)")
     int create(@BindBean("pw")PlannedWorkouts plannedWorkouts, @Bind("WorkoutID")String wID);
+
+    @SqlUpdate("UPDATE " + PLWORKOUTS + " SET PlanID = :pw.planID, WorkoutID = :WorkoutID, WorkoutDay = :pw.workoutDay, WorkoutDOW = :pw.dayOfWeek WHERE PWID = :id")
+    int update(@BindBean("pw")PlannedWorkouts plannedWorkouts, @Bind("WorkoutID")String wID, @Bind("id")String id);
+
+    @SqlUpdate("DELETE FROM " + PLWORKOUTS + " WHERE PWID = :id")
+    int delete(@Bind("id")String id);
 
 }

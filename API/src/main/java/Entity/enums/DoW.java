@@ -8,7 +8,8 @@ public enum DoW {
     THURSDAY("Thu"),
     FRIDAY("Fri"),
     SATURDAY("Sat"),
-    SUNDAY("Sun");
+    SUNDAY("Sun"),
+    NONE("None");
 
     String val;
 
@@ -17,9 +18,7 @@ public enum DoW {
     }
 
     public static DoW valOf(String val){
-        System.out.println(val);
         for (DoW doW : DoW.values()) {
-            System.out.println(doW.val);
             if (doW.val.equals(val)){
                 return doW;
             }
@@ -29,8 +28,7 @@ public enum DoW {
 
     }
 
-    @Override
-    public String toString() {
+    public String getVal(){
         return val;
     }
 }

@@ -27,6 +27,8 @@ public class PlannedWorkoutsMapper implements ResultSetMapper<PlannedWorkouts> {
 
         if (r.getString(5) != null){
             mappable.setDayOfWeek(DoW.valOf(r.getString(5)));
+        }else{
+            mappable.setDayOfWeek(DoW.NONE);
         }
 
         return mappable;

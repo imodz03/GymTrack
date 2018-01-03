@@ -52,8 +52,8 @@ public class PlannedWorkouts {
         this.workoutDay = workoutDay;
     }
 
-    public DoW getDayOfWeek() {
-        return dayOfWeek;
+    public String getDayOfWeek() {
+        return dayOfWeek.getVal();
     }
 
     public void setDayOfWeek(DoW dayOfWeek) {
