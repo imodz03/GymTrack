@@ -17,6 +17,7 @@ public interface SetDAO {
     @SqlQuery("select * from " + SET)
     List<Set> getAll();
 
+    // TODO: 10/02/2018 get by id needs to return a list ordered by position
     @Mapper(SetsMapper.class)
     @SqlQuery("select * from " + SET + " where SetsID = :id")
     Set getById(@Bind("id")String id);
