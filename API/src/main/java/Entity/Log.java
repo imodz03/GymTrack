@@ -46,4 +46,13 @@ public class Log {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getSetID(){
+        String ret = "";
+        if (sets.size() > 0 ){
+            ret = sets.get(0).getSetID();
+        }
+
+        return  ret;
+    }
 }

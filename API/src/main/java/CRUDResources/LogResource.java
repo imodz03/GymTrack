@@ -3,6 +3,7 @@ package CRUDResources;
 import DAO.LogDAO;
 import Entity.Log;
 import Entity.Workout;
+import Helpers.UUID;
 import Services.WorkoutService;
 import com.google.inject.Inject;
 
@@ -49,16 +50,33 @@ public class LogResource implements ICRUDResource<Log> {
 
     @POST
     public Response create(Log log) {
-        return null;
+
+        if (log.getLogID().isEmpty()){
+            log.setLogID(UUID.getUUID());
+        }
+
+        int result = dao.create(log.getLogID(), log.getSetID(),
+                log.getWorkout().getWorkoutID(), log.getUser().getUserID());
+
+        return Response.ok(result).build();
     }
 
-    @Override
-    public Response update(String id, Log log) {
-        return null;
+    @PUT
+    @Path("/{id}")
+    public Response update(@PathParam("id") String id, Log log) {
+
+        int result = dao.update(id, log.getSetID(), log.getWorkout().getWorkoutID(),
+                log.getUser().getUserID());
+
+        return Response.ok(result).build();
     }
 
-    @Override
-    public Response delete(String id) {
-        return null;
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") String id) {
+
+        int res = dao.delete(id);
+
+        return Response.ok(res).build();
     }
 }
