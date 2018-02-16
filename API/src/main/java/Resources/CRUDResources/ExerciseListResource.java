@@ -1,4 +1,4 @@
-package CRUDResources;
+package Resources.CRUDResources;
 
 import DAO.ExerciseListDAO;
 import Entity.ExerciseList;
