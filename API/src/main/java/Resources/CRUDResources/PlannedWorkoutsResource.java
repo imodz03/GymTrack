@@ -1,4 +1,4 @@
-package CRUDResources;
+package Resources.CRUDResources;
 
 import DAO.PlannedWorkoutsDAO;
 import Entity.PlannedWorkouts;

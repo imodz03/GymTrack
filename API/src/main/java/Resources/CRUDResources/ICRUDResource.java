@@ -1,4 +1,4 @@
-package CRUDResources;
+package Resources.CRUDResources;
 
 import javax.ws.rs.core.Response;
 

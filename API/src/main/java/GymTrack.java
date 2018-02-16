@@ -20,7 +20,7 @@ public class GymTrack extends Application<ApplicationConfig> {
 
         guiceBundle = GuiceBundle.<ApplicationConfig>newBuilder()
                 .addModule(myModule)
-                .enableAutoConfig("CRUDResources")
+                .enableAutoConfig("Resources")
                 .setConfigClass(ApplicationConfig.class).build();
 
         bootstrap.addBundle(guiceBundle);

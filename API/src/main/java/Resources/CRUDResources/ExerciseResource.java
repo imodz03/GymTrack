@@ -1,4 +1,4 @@
-package CRUDResources;
+package Resources.CRUDResources;
 
 import DAO.ExerciseDAO;
 import Entity.Exercise;
@@ -7,7 +7,6 @@ import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.List;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
