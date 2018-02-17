@@ -1,7 +1,13 @@
 package Resources.Auth;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
+import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.DynamicFeature;
@@ -15,11 +21,11 @@ import java.util.stream.Stream;
 
 public class AuthDynamicFeature implements DynamicFeature {
 
+    @Inject
     private Algorithm algorithm;
 
-    public AuthDynamicFeature(Algorithm algorithm){
+    public AuthDynamicFeature(){
 
-        this.algorithm = algorithm;
 
     }
 
@@ -48,9 +54,18 @@ public class AuthDynamicFeature implements DynamicFeature {
     }
 
     private ContainerRequestFilter getAuthFilter(AuthRequired auth){
-        System.out.println("---------------bleh");
         return requestContext -> {
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
+
+            String userToken = requestContext.getHeaderString("userToken");
+
+            JWTVerifier verifier = JWT.require(algorithm).withIssuer("ElliotB").build();
+
+            try{
+                DecodedJWT jwt = verifier.verify(userToken);
+                requestContext.setProperty("user", "");
+            }catch (SignatureVerificationException e){
+                throw new WebApplicationException(Response.Status.FORBIDDEN);
+            }
         };
     }
 }

@@ -4,6 +4,7 @@ public class AuthUser {
 
     private String username;
     private String userID;
+    private String token;
 
     public AuthUser(){}
 
@@ -26,5 +27,13 @@ public class AuthUser {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
