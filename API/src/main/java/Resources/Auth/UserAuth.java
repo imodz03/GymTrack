@@ -1,9 +1,9 @@
-package CRUDResources;
+package Resources.Auth;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-@Path("/user")
+@Path("/auth")
 public class UserAuth {
 
     @GET

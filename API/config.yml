@@ -1,4 +1,6 @@
 name: GymTrack
+password: Password123
+keyalias: mykey
 database:
   driverClass: com.mysql.jdbc.Driver
   user: root

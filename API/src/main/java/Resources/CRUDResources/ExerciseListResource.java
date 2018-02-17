@@ -3,6 +3,7 @@ package Resources.CRUDResources;
 import DAO.ExerciseListDAO;
 import Entity.ExerciseList;
 import Helpers.OneToManyCombiner;
+import Resources.Auth.AuthRequired;
 import Services.ExerciseListService;
 import Services.ExerciseService;
 import com.google.inject.Inject;
@@ -26,6 +27,7 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
     private ExerciseListService exerciseListService;
 
     @GET
+    @AuthRequired
     public Response getAll() {
 
         List<ExerciseList> list = dao.getAll();

@@ -12,6 +12,12 @@ public class ApplicationConfig extends Configuration {
     @JsonProperty
     private String name;
 
+    @JsonProperty
+    private String password;
+
+    @JsonProperty
+    private String keyalias;
+
     @Valid
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
@@ -24,5 +30,21 @@ public class ApplicationConfig extends Configuration {
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory() {
         return database;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getKeyalias() {
+        return keyalias;
+    }
+
+    public void setKeyalias(String keyalias) {
+        this.keyalias = keyalias;
     }
 }
