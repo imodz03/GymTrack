@@ -1,9 +1,14 @@
-package Resources.Auth;
+package Auth.Beans;
+
+import com.auth0.jwt.interfaces.Claim;
+
+import java.util.Map;
 
 public class AuthUser {
 
     private String username;
     private String userID;
+    private ROLE role = ROLE.MEMBER;
     private String token;
 
     public AuthUser(){}
@@ -35,5 +40,21 @@ public class AuthUser {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public ROLE getRole() {
+        return role;
+    }
+
+    public void setRole(ROLE role) {
+        this.role = role;
+    }
+
+    public static AuthUser build(Map<String, Claim> map){
+
+        AuthUser au = new AuthUser(map.get("username").asString(), map.get("userID").asString());
+        au.setRole(ROLE.getRoleOfVal(map.get("role").asInt()));
+
+        return au;
     }
 }

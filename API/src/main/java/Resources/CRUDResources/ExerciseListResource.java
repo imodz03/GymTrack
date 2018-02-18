@@ -1,21 +1,28 @@
 package Resources.CRUDResources;
 
+import Auth.Beans.AuthUser;
+import Auth.Beans.UserID;
 import DAO.ExerciseListDAO;
 import Entity.ExerciseList;
 import Helpers.OneToManyCombiner;
-import Resources.Auth.AuthRequired;
+import Auth.Annotations.AuthRequired;
+import Auth.Beans.ROLE;
 import Services.ExerciseListService;
 import Services.ExerciseService;
 import com.google.inject.Inject;
+import com.sun.xml.internal.ws.client.RequestContext;
+import org.glassfish.jersey.server.ContainerRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
 @Path("/API/resource/el")
-public class ExerciseListResource implements ICRUDResource<ExerciseList> {
+public class ExerciseListResource {
 
     @Inject
     private ExerciseListDAO dao;
@@ -27,7 +34,7 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
     private ExerciseListService exerciseListService;
 
     @GET
-    @AuthRequired
+    @AuthRequired(ROLE.MODERATOR)
     public Response getAll() {
 
         List<ExerciseList> list = dao.getAll();
@@ -67,7 +74,6 @@ public class ExerciseListResource implements ICRUDResource<ExerciseList> {
     }
 
     //not sure how applicable this is unless adding
-    @Override
     public Response update(String id, ExerciseList exerciseList) {
         return null;
     }

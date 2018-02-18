@@ -1,4 +1,6 @@
-package Resources.Auth;
+package Auth.Annotations;
+
+import Auth.Beans.ROLE;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,14 +13,4 @@ public @interface AuthRequired {
 
     ROLE value() default ROLE.MEMBER;
 
-}
-
-enum ROLE{
-    MEMBER(0), MODERATOR(1);
-
-    int val;
-
-    ROLE(int val){
-        this.val = val;
-    }
 }

@@ -1,22 +1,19 @@
 import Configuration.ApplicationConfig;
 import Configuration.GymTrackModule;
-import Resources.Auth.AuthDynamicFeature;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.google.inject.Inject;
+import Auth.AuthDynamicFeature;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import java.util.stream.Stream;
+
 
 public class GymTrack extends Application<ApplicationConfig> {
 
     private GuiceBundle<ApplicationConfig> guiceBundle;
     private GymTrackModule myModule;
-
-    @Inject
-    private Algorithm algorithm;
 
     public static void main(String[] args) throws Exception {
         new GymTrack().run(args);
@@ -41,8 +38,8 @@ public class GymTrack extends Application<ApplicationConfig> {
 
         JerseyEnvironment je = environment.jersey();
 
-        AuthDynamicFeature authDynamicFeature = new AuthDynamicFeature();
-        je.register(authDynamicFeature);
+        Stream.of(new AuthDynamicFeature()).forEach(je::register);
+
 
     }
 
