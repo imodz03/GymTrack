@@ -8,8 +8,8 @@ create table User(
   bio text,
   photo varchar(200),
   preferences JSON,
-  weight Decimal(3,2),
-  height Decimal(3,2),
+  weight int,
+  height int,
   BMI smallint,
   bodyFatPercentage smallint
 );
