@@ -8,6 +8,7 @@ public class AuthUser {
 
     private String username;
     private String userID;
+    private String pass;
     private ROLE role = ROLE.MEMBER;
     private String token;
 
@@ -48,6 +49,14 @@ public class AuthUser {
 
     public void setRole(ROLE role) {
         this.role = role;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public static AuthUser build(Map<String, Claim> map){

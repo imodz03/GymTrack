@@ -15,8 +15,12 @@ import static Helpers.Constants.WORKOUT;
 public interface WorkoutDAO {
 
     @Mapper(WorkoutMapper.class)
-    @SqlQuery("SELECT * FROM " + WORKOUT + ";")
+    @SqlQuery("SELECT * FROM " + WORKOUT + " WHERE public = true;")
     List<Workout> getAll();
+
+    @Mapper(WorkoutMapper.class)
+    @SqlQuery("SELECT * FROM " + WORKOUT + " WHERE UserID = :id;")
+    List<Workout> getMine(@Bind("id") String uid);
 
     @Mapper(WorkoutMapper.class)
     @SqlQuery("SELECT * FROM " + WORKOUT + " WHERE WorkoutID = :id")

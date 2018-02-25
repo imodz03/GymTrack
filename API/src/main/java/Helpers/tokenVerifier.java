@@ -1,4 +1,8 @@
 package Helpers;
+import Auth.Beans.AuthUser;
 
-public class tokenVerifier {
+public interface tokenVerifier {
+
+    boolean verify(AuthUser au);
+
 }

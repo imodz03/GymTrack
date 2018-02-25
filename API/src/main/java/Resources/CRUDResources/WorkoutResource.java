@@ -1,12 +1,20 @@
 package Resources.CRUDResources;
 
+import Auth.Annotations.AuthRequired;
+import Auth.Beans.AuthUser;
+import Auth.Beans.ROLE;
 import DAO.WorkoutDAO;
 import Entity.Workout;
 import Helpers.UUID;
+import Helpers.tokenDecrypter;
+import Services.WorkoutService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
@@ -16,15 +24,43 @@ public class WorkoutResource implements ICRUDResource<Workout> {
     @Inject
     private WorkoutDAO dao;
 
+    @Inject
+    private WorkoutService service;
+
+    @Inject
+    private tokenDecrypter tokenDecrypter;
+
+
     @GET
     public Response getAll() {
-        return Response.ok(dao.getAll()).build();
+        List<Workout> get = dao.getAll();
+
+        for (Workout workout : get) {
+            service.populateExercise(workout);
+        }
+
+        return Response.ok(get).build();
+    }
+
+    @GET
+    @Path("/mine")
+    @AuthRequired(ROLE.MEMBER)
+    public Response getMine(@Context HttpHeaders httpHeaders) {
+        List<Workout> get = dao.getMine(tokenDecrypter.getId(httpHeaders));
+
+        for (Workout workout : get) {
+            service.populateExercise(workout);
+        }
+
+        return Response.ok(get).build();
     }
 
     @GET
     @Path("/{id}")
     public Response getByID(@PathParam("id") String id) {
-        return Response.ok(dao.getByID(id)).build();
+        Workout w = dao.getByID(id);
+        service.populateExercise(w);
+        return Response.ok().build();
     }
 
     @POST

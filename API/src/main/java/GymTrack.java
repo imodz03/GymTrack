@@ -6,7 +6,11 @@ import io.dropwizard.Application;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.EnumSet;
 import java.util.stream.Stream;
 
 
@@ -33,6 +37,15 @@ public class GymTrack extends Application<ApplicationConfig> {
 
     @Override
     public void run(ApplicationConfig configuration, Environment environment) throws Exception {
+
+        final FilterRegistration.Dynamic cors = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        cors.setInitParameter("allowedOrigins", "http://localhost:4200");
+        cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, userToken");
+        cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+
+        // Add URL mapping
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
         myModule.setupModule(environment, configuration);
 

@@ -1,7 +1,7 @@
 package Configuration;
 
 import DAO.*;
-import Helpers.Keystore;
+import Helpers.*;
 import Services.ExerciseListService;
 import Services.ExerciseService;
 import Services.Implementation.ExerciseListServiceImpl;
@@ -11,6 +11,7 @@ import Services.WorkoutService;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
@@ -56,6 +57,8 @@ public class GymTrackModule extends AbstractModule{
         bind(ExerciseService.class).to(ExerciseServiceImpl.class);
         bind(ExerciseListService.class).to(ExerciseListServiceImpl.class);
         bind(WorkoutService.class).to(WorkoutServiceImpl.class);
+        bind(tokenVerifier.class).to(tokenVerifierImpl.class);
+        bind(tokenDecrypter.class).to(tokenDecrypterImpl.class);
     }
 
     @Provides
@@ -101,6 +104,11 @@ public class GymTrackModule extends AbstractModule{
     @Provides
     LogDAO providesLogDAO(){
         return jdbi.onDemand(LogDAO.class);
+    }
+
+    @Provides
+    AuthDAO providesAuthDAO(){
+        return jdbi.onDemand(AuthDAO.class);
     }
 
 

@@ -1,11 +1,16 @@
 package Resources.CRUDResources;
 
+import Auth.Annotations.AuthRequired;
+import Auth.Beans.ROLE;
 import DAO.UserDAO;
 import Entity.User;
 import Helpers.UUID;
+import Helpers.tokenDecrypter;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
 @Produces("Application/JSON")
@@ -17,6 +22,9 @@ public class UserResource implements ICRUDResource<User> {
     
     @Inject
     private UserDAO dao;
+
+    @Inject
+    private tokenDecrypter decrypter;
 
     public UserResource(){}
 
@@ -51,6 +59,9 @@ public class UserResource implements ICRUDResource<User> {
     @Path("/{id}")
     @PUT
     public Response update(@PathParam("id") String id, User user) {
+
+        System.out.println(user.getWeight());
+
         int  update = dao.update(user);
 
         return Response.ok(update).build();
@@ -61,5 +72,14 @@ public class UserResource implements ICRUDResource<User> {
     public Response delete(@PathParam("id") String id) {
         int delete = dao.delete(id);
         return Response.ok(delete).build();
+    }
+
+    @Path("/mine")
+    @GET
+    @AuthRequired(ROLE.MEMBER)
+    public Response mine(@Context HttpHeaders httpHeaders){
+        User u = dao.getById(decrypter.getId(httpHeaders));
+
+        return Response.ok(u).build();
     }
 }

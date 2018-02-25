@@ -6,4 +6,6 @@ public interface WorkoutService {
 
     Workout populate(Workout workout);
 
+    void populateExercise(Workout workout);
+
 }

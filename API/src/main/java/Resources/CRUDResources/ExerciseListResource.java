@@ -1,7 +1,5 @@
 package Resources.CRUDResources;
 
-import Auth.Beans.AuthUser;
-import Auth.Beans.UserID;
 import DAO.ExerciseListDAO;
 import Entity.ExerciseList;
 import Helpers.OneToManyCombiner;
@@ -10,12 +8,8 @@ import Auth.Beans.ROLE;
 import Services.ExerciseListService;
 import Services.ExerciseService;
 import com.google.inject.Inject;
-import com.sun.xml.internal.ws.client.RequestContext;
-import org.glassfish.jersey.server.ContainerRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.util.List;
 

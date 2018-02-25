@@ -2,11 +2,13 @@ package Resources;
 
 import Auth.Beans.AuthUser;
 import Auth.Beans.ROLE;
+import DAO.AuthDAO;
+import Helpers.tokenVerifier;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 @Path("/auth")
@@ -15,21 +17,45 @@ public class UserAuth {
     @Inject
     private Algorithm algorithm;
 
-    @GET
+    @Inject
+    private tokenVerifier tf;
+
+    @Inject
+    private AuthDAO dao;
+
+    @POST
     @Path("/login")
-    public String login(){
+    public String login(AuthUser au){
 
-        AuthUser AU = new AuthUser("Brown27", "8e4a0e98-9089-420d-823b-662e878b850b");
-        AU.setRole(ROLE.ADMIN);
+        String userID = dao.login(au.getUsername(), au.getPass());
+        String token;
 
-        String token = JWT.create().withIssuer("ElliotB")
-                .withClaim("username", AU.getUsername())
-                .withClaim("userID", AU.getUserID())
-                .withClaim("role", AU.getRole().val)
-                .sign(algorithm);
 
-        return token;
+        if (userID != null){
 
+            AuthUser AU = new AuthUser(au.getUsername(), userID);
+            AU.setRole(ROLE.ADMIN); // TODO: 23/02/2018 set roles in db 
+
+            token = JWT.create().withIssuer("ElliotB")
+                    .withClaim("username", AU.getUsername())
+                    .withClaim("userID", AU.getUserID())
+                    .withClaim("role", AU.getRole().val)
+                    .sign(algorithm);
+
+        }else{
+
+            token = "invalid";
+
+        }
+
+        return "{\"token\": \"" + token + "\"}";
+
+    }
+
+    @POST
+    @Path("/verify")
+    public boolean valid(AuthUser au){
+        return tf.verify(au);
     }
 
 }
