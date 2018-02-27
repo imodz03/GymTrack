@@ -19,6 +19,8 @@ public class User {
     private int bmi;
     private int bodyfatPerc;
 
+    private String password;
+
     public User(){}
 
     public User(String userID){
@@ -128,6 +130,14 @@ public class User {
 
     public void setBodyfatPerc(int bodyfatPerc) {
         this.bodyfatPerc = bodyfatPerc;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

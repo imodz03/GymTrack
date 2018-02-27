@@ -1,11 +1,14 @@
 package Resources.CRUDResources;
 
 import Auth.Annotations.AuthRequired;
+import Auth.Beans.AuthUser;
 import Auth.Beans.ROLE;
 import DAO.UserDAO;
 import Entity.User;
 import Helpers.UUID;
 import Helpers.tokenDecrypter;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
@@ -26,6 +29,9 @@ public class UserResource implements ICRUDResource<User> {
     @Inject
     private tokenDecrypter decrypter;
 
+    @Inject
+    private Algorithm algorithm;
+
     public UserResource(){}
 
     @GET
@@ -36,6 +42,7 @@ public class UserResource implements ICRUDResource<User> {
 
 
     @POST
+    @AuthRequired(ROLE.ADMIN)
     public Response create(User user){
 
         if (user.getUserID().isEmpty()){
@@ -90,5 +97,39 @@ public class UserResource implements ICRUDResource<User> {
         String s= dao.getPrefs(decrypter.getId(httpHeaders));
 
         return Response.ok(s).build();
+    }
+
+    @Path("/register")
+    @POST
+    public String register(User user){
+
+        String available = dao.getUsernames(user.getUsername());
+        System.out.println(user.getPreferences());
+
+        if (available != null){
+            return "{\"status\": \"NA\"}";
+        }else{
+
+            String uuid = UUID.getUUID();
+            user.setUserID(uuid);
+            int res = dao.createUser(user);
+            if(res == 1){
+                AuthUser AU = new AuthUser(user.getUsername(), uuid);
+                AU.setRole(ROLE.ADMIN); // TODO: 23/02/2018 set roles in db
+
+                String token = JWT.create().withIssuer("ElliotB")
+                        .withClaim("username", AU.getUsername())
+                        .withClaim("userID", AU.getUserID())
+                        .withClaim("role", AU.getRole().val)
+                        .sign(algorithm);
+
+                return "{\"status\": \"" + token + "\"}";
+            }else{
+                return "{\"status\": \"error\"}";
+            }
+
+
+        }
+
     }
 }
