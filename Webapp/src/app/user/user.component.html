@@ -10,12 +10,13 @@
         </a>
       </div>
     </div>
-    <div class="container"><h4>Name: {{user.firstname}} {{user.surname}}</h4></div>
-    <div class="container"><h4>Email: {{user.email}}</h4></div>
-    <div class="container"><p>Bio: {{user.bio}}</p></div>
-    <div class="container"><p>Height: {{user.height}}cm</p></div>
-    <div class="container"><p>Weight: {{user.weight}}KG</p></div>
-    <div class="container"><p>BMI:    {{user.bmi}}</p></div>
+    <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
+    <div class="container"><h4>Email:  {{user.email}}</h4></div>
+    <div class="container"><p>Bio:     {{user.bio}}</p></div>
+    <div class="container"><p>Height:  {{user.height}}cm</p></div>
+    <div class="container"><p>Weight:  {{user.weight}}KG</p></div>
+    <div class="container"><p>BMI:     {{user.bmi}}</p></div>
+    <div class="container"><p>Bodyfat: {{user.bodyfatPerc}}%</p></div>
     <br>
     <br>
     <br>
@@ -36,15 +37,26 @@
         </a>
       </div>
     </div>
-    <div class="container"><h4>Name: {{user.firstname}} {{user.surname}}</h4></div>
-    <div class="container"><h4>Email: {{user.email}}</h4></div>
-    <div class="container"><p>Bio:    <input [(ngModel)]="user.bio" type="text"></p></div>
-    <div class="container"><p>Height: <input [(ngModel)]="user.height" type="number"> cm</p></div>
-    <div class="container"><p>Weight: <input [(ngModel)]="user.weight" type="number">KG</p></div>
+    <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
+    <div class="container"><h4>Email:  {{user.email}}</h4></div>
+    <div class="container"><p>Bio:     <input [(ngModel)]="user.bio" type="text"></p></div>
+    <div class="container"><p>Height:  <input [(ngModel)]="user.height" type="number"> cm</p></div>
+    <div class="container"><p>Weight:  <input [(ngModel)]="user.weight" type="number">KG</p></div>
+    <div class="container"><p>BMI:     {{user.bmi}}</p></div>
+    <div class="container"><p>Bodyfat: <input [(ngModel)]="user.bodyfatPerc" type="number">%</p></div>
     <br>
     <br>
     <br>
     <br>
-    <button class="btn btn-success" (click)="save()">Save updates</button>
+    <div *ngIf="editPrefs">
+      <h2>Preferences</h2>
+      <div class="container"><p>Units: {{getUnit()}}</p>
+        <button class="btn btn-default" (click)="setImp()">Imperial</button> <button class="btn btn-default" (click)="setMet()">Metric</button>
+      </div>
+      <br>
+      <br>
+      <br>
+    </div>
+    <button class="btn btn-success" (click)="save()">Save updates</button> <button class="btn btn-success" (click)="editPref()" >Update preferences</button>
   </div>
 </div>

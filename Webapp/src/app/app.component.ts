@@ -31,5 +31,13 @@ export class AppComponent implements OnInit{
       }
     );
 
+    if (this.userService.getUser() != null){
+      this.userService.getPrefs().subscribe(
+        prefs => {
+          localStorage.setItem('prefs', JSON.stringify(prefs));
+        }
+      );
+    }
+
   }
 }

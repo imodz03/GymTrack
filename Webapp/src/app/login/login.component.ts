@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { User } from './User';
 
 import { LoginService } from '../services/login.service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private location: Location) { }
+  constructor(private loginService: LoginService, private location: Location, private userService: UserService) { }
 
   loginFailed = false;
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
   login(user: User): void {
     this.loginService.login(user)
     .subscribe(user => {
+      console.log(user);
       if ( user.token === 'invalid') {
 
         // logic for fail
