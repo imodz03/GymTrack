@@ -77,6 +77,8 @@ public class AuthDynamicFeature implements DynamicFeature {
 
             }catch (SignatureVerificationException e){
                 throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+            }catch (Exception ex){
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         };
     }

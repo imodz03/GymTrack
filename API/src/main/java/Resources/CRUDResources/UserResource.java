@@ -82,4 +82,13 @@ public class UserResource implements ICRUDResource<User> {
 
         return Response.ok(u).build();
     }
+
+    @Path("/mine/pref")
+    @GET
+    @AuthRequired(ROLE.MEMBER)
+    public Response myPrefs(@Context HttpHeaders httpHeaders){
+        String s= dao.getPrefs(decrypter.getId(httpHeaders));
+
+        return Response.ok(s).build();
+    }
 }

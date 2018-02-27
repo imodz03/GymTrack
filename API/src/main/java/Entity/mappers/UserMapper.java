@@ -1,7 +1,10 @@
 package Entity.mappers;
 
 import Entity.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
@@ -22,7 +25,7 @@ public class UserMapper implements ResultSetMapper<User> {
         mapped.setUsername(r.getString(5));
         mapped.setBio(r.getString(6));
         mapped.setPhoto(r.getString(7));
-        //mapped.setPreferences(new JsonObject()); //fix this
+        mapped.setPreferences(r.getString(8)); //fix this
         mapped.setWeight(r.getInt(9));
         mapped.setHeight(r.getInt(10));
         mapped.setBmi(r.getInt(11));

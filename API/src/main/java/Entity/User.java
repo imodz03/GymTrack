@@ -8,7 +8,7 @@ public class User {
     private String firstname;
     private String surname;
     private String username;
-    private JsonObject preferences;
+    private String preferences;
 
     private String email;
     private String bio;
@@ -25,7 +25,7 @@ public class User {
         this.userID = userID;
     }
 
-    public User(String userID, String firstname, String surname, String username, JsonObject preferences) {
+    public User(String userID, String firstname, String surname, String username, String preferences) {
         this();
         this.userID = userID;
         this.firstname = firstname;
@@ -66,11 +66,11 @@ public class User {
         this.username = username;
     }
 
-    public JsonObject getPreferences() {
+    public String getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(JsonObject preferences) {
+    public void setPreferences(String preferences) {
         this.preferences = preferences;
     }
 
