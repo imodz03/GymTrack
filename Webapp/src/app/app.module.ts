@@ -18,6 +18,7 @@ import { UserService } from './services/user.service';
 import { UserComponent } from './user/user.component';
 import { HeaderService } from './services/header.service';
 import { MyworkoutComponent } from './myworkout/myworkout.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MyworkoutComponent } from './myworkout/myworkout.component';
     LoginComponent,
     WorkoutComponent,
     UserComponent,
-    MyworkoutComponent
+    MyworkoutComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
