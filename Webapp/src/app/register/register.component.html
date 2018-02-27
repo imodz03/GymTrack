@@ -1,3 +1,54 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <div class="panel">
+    <div class="panel-heading"><h3>Sign up</h3></div>
+    <div class="panel-body">
+      <div class="form-group col-sm-6 ">
+        <label for="inputfname">First Name</label>
+        <input type="text" class="form-control" id="inputfname" placeholder="First Name" [(ngModel)]="registerUser.firstname">
+      </div>
+      <div class="form-group col-sm-6">
+        <label for="inputsname">Surname</label>
+        <input type="text" class="form-control" id="inputsname" placeholder="Surname" [(ngModel)]="registerUser.surname">
+      </div>
+      <div class="form-group col-sm-6 ">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="registerUser.username">
+      </div>
+      <div class="form-group col-sm-6">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" [(ngModel)]="registerUser.email">
+      </div>
+      <div class="form-group col-sm-6">
+        <label for="passwordInput">Password</label>
+        <input type="password" class="form-control" id="passwordInput" placeholder="Password" (input)="validate()" (focus)="tried()" [(ngModel)]="registerUser.password">
+      </div>
+      <div class="form-group col-sm-6">
+        <label for="confPasswordInput">Confrim Password</label>
+        <input type="password" class="form-control" id="confPasswordInput" placeholder="Password" (input)="validate()" [(ngModel)]="confPass">
+        <p *ngIf="!passwordsMatch">*Passwords do not match*</p>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="form-group col-sm-3">
+            <label for="weightInput">Weight (KG)</label>
+            <input type="number" class="form-control" id="weightInput" placeholder="Weight" [(ngModel)]="registerUser.weight">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-3">
+            <label for="heightInput">Height (CM)</label>
+            <input type="number" class="form-control" id="heightInput" placeholder="Height" [(ngModel)]="registerUser.height">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-3">
+            <label for="BodyfatInput">Bodyfat perc (%)</label>
+            <input type="number" class="form-control" id="BodyfatInput" placeholder="Bodyfat" [(ngModel)]="registerUser.bodyfatPerc">
+          </div>
+        </div>
+        <br>
+        <button class="btn btn-success" (click)="signup()">Sign up</button>
+      </div>
+    </div>
+  </div>
+</div>
