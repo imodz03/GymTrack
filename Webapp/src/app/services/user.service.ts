@@ -67,6 +67,10 @@ export class UserService {
 
   }
 
+  register(user): Observable<string>{
+    return this.http.post<string>(this.url.register, user);
+  }
+
 
 
 }

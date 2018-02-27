@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
         this.user.token = user.token;
         localStorage.setItem('username', this.user.username);
         localStorage.setItem('token', this.user.token);
-        this.location.go('/workouts');
+        this.location.go('/account', '');
+        this.location.forward();
       }
     });
   }

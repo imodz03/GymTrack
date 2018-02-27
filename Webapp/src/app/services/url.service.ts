@@ -18,6 +18,7 @@ export class UrlService {
 
   account = this.resource + '/user/';
   myaccount = this.resource + '/user/mine';
+  register = this.account + 'register';
 
   constructor() { }
 

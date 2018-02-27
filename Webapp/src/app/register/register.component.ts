@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../services/user.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,8 @@ export class RegisterComponent implements OnInit {
     height: 0,
     weight: 0,
     bodyfatPerc: 0,
-    password: ''
+    password: '',
+    preferences: '{ \"metric\" : true }'
 
   };
 
@@ -24,13 +27,29 @@ export class RegisterComponent implements OnInit {
   triedConfPass = false;
   passwordsMatch = true;
 
-  constructor() { }
+  usernameTaken = false;
+  error = false;
+
+  constructor(private userService: UserService,
+              private location: Location) { }
 
   ngOnInit() {
   }
 
   signup(): void{
-    console.log(this.registerUser);
+    this.userService.register(this.registerUser).subscribe(
+      resp => {
+        if (resp.status === 'NA'){
+          this.usernameTaken = true;
+        }else if (resp.status === 'error'){
+          this.error = true;
+        } else {
+          localStorage.setItem('username', this.registerUser.username);
+          localStorage.setItem('token', resp.status);
+          this.goHome();
+        }
+      }
+    );
   }
 
   validate(): void{
@@ -47,6 +66,11 @@ export class RegisterComponent implements OnInit {
 
   tried(): void{
     this.triedConfPass = true;
+  }
+
+  goHome(): void{
+    this.location.back();
+    this.location.back();
   }
 
 }
