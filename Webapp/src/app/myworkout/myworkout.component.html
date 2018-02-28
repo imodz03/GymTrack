@@ -1,4 +1,45 @@
 <div class="container">
   <br>
-  <div id='calendar'></div>
+  <button (click)="reloadCalendar()">Calendar View</button>
+  <button (click)="calendar = false">List View</button>
+  <div *ngIf="calendar" id='calendar'></div>
+  <br>
+  <br>
+  <table *ngIf="!calendar" class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let workout of myworkouts; index as i">
+      <th scope="row">{{i}}</th>
+      <td>{{workout.workoutName}}</td>
+      <td>{{workout.date}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<ng-template #details let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{selectedWorkout.workoutName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5>Planned: {{selectedWorkout.date}}</h5>
+    <h5>Description: {{selectedWorkout.description}}</h5>
+    <h5>Exercises:</h5>
+    <ul>
+      <li *ngFor="let exercise of selectedWorkout.exerciseList.exercises">{{exercise.exerciseName}}</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <a href="/workouts/details/{{selectedWorkout.workoutID}}" ><button type="button" class="btn btn-outline-dark">Full View</button></a>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

@@ -1,7 +1,6 @@
 <div class="card"  *ngIf="user && !edit">
+  <h3 class="card-header">Your profile: {{user.username}}</h3>
   <div class="container">
-    <br>
-    <h3 class="card-title">Your profile: {{user.username}}</h3>
     <div class="card-body">
       <a href="#" class="">
         <img class="col-sm-4" src="../../assets/blank-profile.png" alt="...">
@@ -16,9 +15,6 @@
       <div class="container"><p>BMI:     {{user.bmi}}</p></div>
       <div class="container"><p>Bodyfat: {{user.bodyfatPerc}}%</p></div>
       <br>
-      <br>
-      <br>
-      <br>
       <button class="btn btn-success" (click)="update()">Update profile</button>
     </div>
 
@@ -26,9 +22,8 @@
 </div>
 
 <div class="card"  *ngIf="user && edit">
+  <h3 class="card-title">Your profile: {{user.username}}</h3>
   <div class="container">
-    <br>
-    <h3 class="card-title">Your profile: {{user.username}}</h3>
     <div class="card-body">
       <a href="#" class="">
         <img class="col-sm-4" src="../../assets/blank-profile.png" alt="...">
@@ -43,16 +38,11 @@
       <div class="container"><p>BMI:     {{user.bmi}}</p></div>
       <div class="container"><p>Bodyfat: <input [(ngModel)]="user.bodyfatPerc" type="number">%</p></div>
       <br>
-      <br>
-      <br>
-      <br>
       <div *ngIf="editPrefs">
         <h2>Preferences</h2>
         <div class="container"><p>Units: {{getUnit()}}</p>
           <button class="btn btn-default" (click)="setImp()">Imperial</button> <button class="btn btn-default" (click)="setMet()">Metric</button>
         </div>
-        <br>
-        <br>
         <br>
       </div>
       <button class="btn btn-success" (click)="save()">Save updates</button> <button class="btn btn-success" (click)="editPref()" >Update preferences</button>

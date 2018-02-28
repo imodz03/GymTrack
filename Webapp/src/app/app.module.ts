@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -20,6 +19,7 @@ import { HeaderService } from './services/header.service';
 import { MyworkoutComponent } from './myworkout/myworkout.component';
 import { RegisterComponent } from './register/register.component';
 import {NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +29,16 @@ import {NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
     WorkoutComponent,
     UserComponent,
     MyworkoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    WorkoutDetailsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    NgbModule.forRoot()
   ],
   providers: [
     LoginService,

@@ -22,4 +22,8 @@ export class WorkoutService {
       .get<Workout[]>(this.url.myworkouts);
   }
 
+  getWorkout(id: string): Observable<Workout>{
+    return this.http.get<Workout>(this.url.workouts + '/' + id);
+  }
+
 }

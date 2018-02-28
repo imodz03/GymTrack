@@ -22,6 +22,9 @@
       <li class="navbar-item">
         <a *ngIf="!userService.getUser()" href="/login" class="nav-link">Login</a>
       </li>
+      <li class="navbar-item">
+        <a *ngIf="!userService.getUser()" href="/register" class="nav-link">Register</a>
+      </li>
     </ul>
   </div>
 
