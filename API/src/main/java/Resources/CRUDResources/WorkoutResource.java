@@ -60,7 +60,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
     public Response getByID(@PathParam("id") String id) {
         Workout w = dao.getByID(id);
         service.populateExercise(w);
-        return Response.ok().build();
+        return Response.ok(w).build();
     }
 
     @POST
