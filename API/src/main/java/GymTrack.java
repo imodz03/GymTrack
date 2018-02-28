@@ -40,7 +40,7 @@ public class GymTrack extends Application<ApplicationConfig> {
 
         final FilterRegistration.Dynamic cors = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
-        cors.setInitParameter("allowedOrigins", "http://localhost:4200");
+        cors.setInitParameter("allowedOrigins", "*");
         cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin, userToken");
         cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
