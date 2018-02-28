@@ -4,6 +4,7 @@ import {UrlService} from './url.service';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Pref} from '../login/Pref';
+import {status} from '../register/status';
 
 @Injectable()
 export class UserService {
@@ -67,8 +68,8 @@ export class UserService {
 
   }
 
-  register(user): Observable<string>{
-    return this.http.post<string>(this.url.register, user);
+  register(user): Observable<status>{
+    return this.http.post<status>(this.url.register, user);
   }
 
 

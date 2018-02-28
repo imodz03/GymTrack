@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import {UrlService} from './url.service';
+import {Workout} from '../myworkout/workout';
 
 @Injectable()
 export class WorkoutService {
@@ -16,9 +17,9 @@ export class WorkoutService {
     .get<string>(this.url.workouts);
   }
 
-  getMine(): Observable<String>{
+  getMine(): Observable<Workout[]>{
     return this.http
-      .get<string>(this.url.myworkouts);
+      .get<Workout[]>(this.url.myworkouts);
   }
 
 }
