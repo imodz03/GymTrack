@@ -1,14 +1,19 @@
-<div class="alert alert-danger" role="alert-dissmissable" *ngIf="loginFailed"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Login Failed, username or password not recognized</div>
+<div *ngIf="loginFailed" class="alert alert-danger alert-dismissible fade show" role="alert">
+<strong>Login failed</strong> Username or password not recognised
+<button type="button" class="close"  aria-label="Close" (click)="loginFailed = false">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Login</h3>
-  </div>
-  <div class="panel-body">
-    <div class="p-3 mb-2 bg-secondary">
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      <h3 class="card-text">Login</h3>
+    </div>
+    <div class="">
       <label for="user">Username</label> <input [(ngModel)]="user.username" type="text" id="user" value=""> <br> <br>
       <label for="pass">Password</label> <input [(ngModel)]="user.pass" type="text" id="pass" value=""> <br> <br>
-      <button type="button" name="button" class="btn btn-default" (click)="login(user)">Login</button>
+      <button type="button" name="button" class="btn btn-success" (click)="login(user)">Login</button>
     </div>
   </div>
 </div>

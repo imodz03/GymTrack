@@ -19,6 +19,7 @@ import { UserComponent } from './user/user.component';
 import { HeaderService } from './services/header.service';
 import { MyworkoutComponent } from './myworkout/myworkout.component';
 import { RegisterComponent } from './register/register.component';
+import {NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbCollapseModule
   ],
   providers: [
     LoginService,

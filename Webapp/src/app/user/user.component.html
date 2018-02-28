@@ -1,62 +1,62 @@
-<div class="panel panel-default" *ngIf="user && !edit">
-  <div class="panel-heading">
-    <h3 class="panel-title">Your profile</h3>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-          <img src="../../assets/blank-profile.png" alt="...">
-        </a>
-      </div>
+<div class="card"  *ngIf="user && !edit">
+  <div class="container">
+    <br>
+    <h3 class="card-title">Your profile: {{user.username}}</h3>
+    <div class="card-body">
+      <a href="#" class="">
+        <img class="col-sm-4" src="../../assets/blank-profile.png" alt="...">
+      </a>
+      <br>
+      <br>
+      <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
+      <div class="container"><h4>Email:  {{user.email}}</h4></div>
+      <div class="container"><p>Bio:     {{user.bio}}</p></div>
+      <div class="container"><p>Height:  {{user.height}}cm</p></div>
+      <div class="container"><p>Weight:  {{user.weight}}KG</p></div>
+      <div class="container"><p>BMI:     {{user.bmi}}</p></div>
+      <div class="container"><p>Bodyfat: {{user.bodyfatPerc}}%</p></div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <button class="btn btn-success" (click)="update()">Update profile</button>
     </div>
-    <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
-    <div class="container"><h4>Email:  {{user.email}}</h4></div>
-    <div class="container"><p>Bio:     {{user.bio}}</p></div>
-    <div class="container"><p>Height:  {{user.height}}cm</p></div>
-    <div class="container"><p>Weight:  {{user.weight}}KG</p></div>
-    <div class="container"><p>BMI:     {{user.bmi}}</p></div>
-    <div class="container"><p>Bodyfat: {{user.bodyfatPerc}}%</p></div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <button class="btn btn-success" (click)="update()">Update profile</button>
+
   </div>
 </div>
 
-<div class="panel panel-default" *ngIf="user && edit">
-  <div class="panel-heading">
-    <h3 class="panel-title">Your profile</h3>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-xs-6 col-md-3">
-        <a href="#" class="thumbnail">
-          <img src="../../assets/blank-profile.png" alt="...">
-        </a>
+<div class="card"  *ngIf="user && edit">
+  <div class="container">
+    <br>
+    <h3 class="card-title">Your profile: {{user.username}}</h3>
+    <div class="card-body">
+      <a href="#" class="">
+        <img class="col-sm-4" src="../../assets/blank-profile.png" alt="...">
+      </a>
+      <br>
+      <br>
+      <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
+      <div class="container"><h4>Email:  {{user.email}}</h4></div>
+      <div class="container"><p>Bio:     <input [(ngModel)]="user.bio" type="text"></p></div>
+      <div class="container"><p>Height:  <input [(ngModel)]="user.height" type="number"> cm</p></div>
+      <div class="container"><p>Weight:  <input [(ngModel)]="user.weight" type="number">KG</p></div>
+      <div class="container"><p>BMI:     {{user.bmi}}</p></div>
+      <div class="container"><p>Bodyfat: <input [(ngModel)]="user.bodyfatPerc" type="number">%</p></div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div *ngIf="editPrefs">
+        <h2>Preferences</h2>
+        <div class="container"><p>Units: {{getUnit()}}</p>
+          <button class="btn btn-default" (click)="setImp()">Imperial</button> <button class="btn btn-default" (click)="setMet()">Metric</button>
+        </div>
+        <br>
+        <br>
+        <br>
       </div>
+      <button class="btn btn-success" (click)="save()">Save updates</button> <button class="btn btn-success" (click)="editPref()" >Update preferences</button>
     </div>
-    <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
-    <div class="container"><h4>Email:  {{user.email}}</h4></div>
-    <div class="container"><p>Bio:     <input [(ngModel)]="user.bio" type="text"></p></div>
-    <div class="container"><p>Height:  <input [(ngModel)]="user.height" type="number"> cm</p></div>
-    <div class="container"><p>Weight:  <input [(ngModel)]="user.weight" type="number">KG</p></div>
-    <div class="container"><p>BMI:     {{user.bmi}}</p></div>
-    <div class="container"><p>Bodyfat: <input [(ngModel)]="user.bodyfatPerc" type="number">%</p></div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div *ngIf="editPrefs">
-      <h2>Preferences</h2>
-      <div class="container"><p>Units: {{getUnit()}}</p>
-        <button class="btn btn-default" (click)="setImp()">Imperial</button> <button class="btn btn-default" (click)="setMet()">Metric</button>
-      </div>
-      <br>
-      <br>
-      <br>
-    </div>
-    <button class="btn btn-success" (click)="save()">Save updates</button> <button class="btn btn-success" (click)="editPref()" >Update preferences</button>
+
   </div>
 </div>
