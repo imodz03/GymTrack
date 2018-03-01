@@ -56,7 +56,7 @@ public class ExerciseListResource {
             }
         }
 
-        return Response.ok(list).build();
+        return Response.ok(list.get(0)).build();
 
     }
 
@@ -76,6 +76,13 @@ public class ExerciseListResource {
     @Path("/{id}")
     public Response delete(@PathParam("id")String id) {
         int result = dao.delete(id);
+        return Response.ok(result).build();
+    }
+
+    @DELETE
+    @Path("/{id}/{del}")
+    public Response deleteExercise(@PathParam("id") String id, @PathParam("del") String exerciseID){
+        int result = dao.deleteExercise(id, exerciseID);
         return Response.ok(result).build();
     }
 }

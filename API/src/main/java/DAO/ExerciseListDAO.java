@@ -30,4 +30,7 @@ public interface ExerciseListDAO {
     @SqlUpdate("delete from " + EXERCISELIST + " Where ExerciseListID = :id")
     int delete(@Bind("id")String id);
 
+    @SqlUpdate("delete from " + EXERCISELIST + " WHERE ExerciseListID = :id AND ExerciseID = :exId")
+    int deleteExercise(@Bind("id")String id, @Bind("exId")String exerciseID);
+
 }
