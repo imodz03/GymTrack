@@ -26,4 +26,10 @@ export class WorkoutService {
     return this.http.get<Workout>(this.url.workouts + '/' + id);
   }
 
+  updateWorkout(realWorkout: Workout): Observable<number>{
+
+    return this.http.put<number>(this.url.workouts +  '/' + realWorkout.workoutID, realWorkout);
+
+  }
+
 }

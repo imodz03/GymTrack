@@ -5,5 +5,6 @@ export class Workout{
   public: boolean;
   workoutID: string;
   workoutName: string;
+  exerciseList: any;
 
 }

@@ -20,6 +20,7 @@ import { MyworkoutComponent } from './myworkout/myworkout.component';
 import { RegisterComponent } from './register/register.component';
 import {NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
+import { ExerciselistService } from './services/exerciselist.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { WorkoutDetailsComponent } from './workout-details/workout-details.compo
     WorkoutService,
     UrlService,
     UserService,
+    ExerciselistService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderService,

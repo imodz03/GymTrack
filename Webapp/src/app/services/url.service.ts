@@ -20,6 +20,9 @@ export class UrlService {
   myaccount = this.resource + '/user/mine';
   register = this.account + 'register';
 
+  // exercise list
+  el = this.resource + '/el'
+
   constructor() { }
 
 }
