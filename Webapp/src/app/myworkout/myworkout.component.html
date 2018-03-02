@@ -1,26 +1,6 @@
 <div class="container">
   <br>
-  <button (click)="reloadCalendar()">Calendar View</button>
-  <button (click)="calendar = false">List View</button>
-  <div *ngIf="calendar" id='calendar'></div>
-  <br>
-  <br>
-  <table *ngIf="!calendar" class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let workout of myworkouts; index as i">
-      <th scope="row">{{i}}</th>
-      <td>{{workout.workoutName}}</td>
-      <td>{{workout.date}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div id='calendar'></div>
 </div>
 
 <ng-template #details let-c="close" let-d="dismiss">

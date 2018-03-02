@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {WorkoutService} from '../services/workout.service';
+import {WorkoutService} from '../workout/workout.service';
 import {Workout} from './workout';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -16,8 +16,6 @@ export class MyworkoutComponent implements OnInit {
 
   myworkouts = [];
   selectedWorkout: Workout;
-
-  calendar = true;
 
   @ViewChild('details')private content;
 
@@ -41,7 +39,6 @@ export class MyworkoutComponent implements OnInit {
   }
 
   loadCalender(): void{
-    this.calendar = true;
     $('#calendar').fullCalendar({
       events: this.myworkouts,
       eventClick: this.clicked
@@ -52,11 +49,6 @@ export class MyworkoutComponent implements OnInit {
     event.parent.selectedWorkout = event.workout;
     console.log(event.parent.selectedWorkout.workoutID);
     event.parent.open();
-  }
-
-  reloadCalendar(): void{
-    this.loadCalender();
-    setInterval(this.loadCalender, 500);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../services/user.service';
+import {UserService} from '../user/user.service';
 import {Location} from '@angular/common';
 
 @Component({
@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit {
 
   usernameTaken = false;
   error = false;
+  valid = false;
+  enterAll = false;
 
   constructor(private userService: UserService,
               private location: Location) { }
@@ -37,19 +39,24 @@ export class RegisterComponent implements OnInit {
   }
 
   signup(): void{
-    this.userService.register(this.registerUser).subscribe(
-      resp => {
-        if (resp.status === 'NA'){
-          this.usernameTaken = true;
-        }else if (resp.status === 'error'){
-          this.error = true;
-        } else {
-          localStorage.setItem('username', this.registerUser.username);
-          localStorage.setItem('token', resp.status);
-          this.goHome();
+    if (this.valid === true ){
+      this.userService.register(this.registerUser).subscribe(
+        resp => {
+          if (resp.status === 'NA'){
+            this.usernameTaken = true;
+          }else if (resp.status === 'error'){
+            this.error = true;
+          } else {
+            localStorage.setItem('username', this.registerUser.username);
+            localStorage.setItem('token', resp.status);
+            this.goHome();
+          }
         }
-      }
-    );
+      );
+    }else{
+      this.enterAll = true;
+    }
+
   }
 
   validate(): void{
@@ -71,6 +78,18 @@ export class RegisterComponent implements OnInit {
   goHome(): void{
     this.location.back();
     this.location.back();
+  }
+
+  statusChecking(): void{
+    this.validate();
+
+    if (this.registerUser.firstname !== '' && this.registerUser.username !== '' && this.registerUser.email !== '' &&
+      this.confPass === this.registerUser.password ){
+
+      this.valid = true;
+
+    }
+
   }
 
 }

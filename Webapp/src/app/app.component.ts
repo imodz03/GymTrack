@@ -1,7 +1,7 @@
 import {Component, NgModule, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {LoginService} from './services/login.service';
-import {UserService} from './services/user.service';
+import {LoginService} from './login/login.service';
+import {UserService} from './user/user.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({

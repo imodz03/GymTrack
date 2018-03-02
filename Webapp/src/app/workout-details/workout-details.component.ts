@@ -1,29 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, NgModule, OnInit, Output} from '@angular/core';
 
 import {ActivatedRoute} from '@angular/router';
-import {WorkoutService} from '../services/workout.service';
+import {WorkoutService} from '../workout/workout.service';
 import {Workout} from '../myworkout/workout';
 import {ExerciselistService} from '../services/exerciselist.service';
+import {ExerciseService} from '../exercise/exercise.service';
+import {Exercise} from '../exercise/exercise';
+
+import {MatFormField, MatInput, MatAutocomplete, MatAutocompleteModule} from '@angular/material';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-workout-details',
   templateUrl: './workout-details.component.html',
   styleUrls: ['./workout-details.component.css']
 })
+
 export class WorkoutDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private workoutService: WorkoutService,
-              private elService: ExerciselistService) { }
+              private elService: ExerciselistService,
+              private exerciseService: ExerciseService) { }
 
   workout: Workout;
-  ExerciseList;
   canEdit = false;
   titleUpdateFailed = false;
   addItem = false;
+  exercises: Exercise[];
+  exerciseNames = [];
+  currentInput = '';
+
+  myControl: FormControl = new FormControl();
+  filteredOptions: Observable<string[]>;
 
   ngOnInit() {
     this.getWorkout();
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.filter(value))
+      );
+  }
+
+  filter(val: string): string[]{
+    return this.exerciseNames.filter(option =>
+    option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
   getWorkout(): void{
@@ -86,6 +112,43 @@ export class WorkoutDetailsComponent implements OnInit {
 
     return temp;
 
+  }
+
+  enableAddItems(){
+    this.addItem = true;
+    this.exerciseService.getAll().subscribe(
+      resp => {
+        this.exercises = resp;
+        for (let i = 0; i < resp.length; i++){
+          this.exerciseNames.push(resp[i].exerciseName);
+        }
+      }
+    );
+  }
+
+  addExercise(): void{
+    let found = false;
+    for (let i = 0; i < this.exercises.length; i++){
+      if (this.exercises[i].exerciseName.toLowerCase() === this.currentInput.toLowerCase()){
+        found = true;
+        const exTemp = {exerciseID: this.exercises[i].exerciseID};
+        this.elService.addExercise(this.workout.exerciseList.elid, exTemp).subscribe(
+          resp => {
+            if (resp === 1){
+              this.getWorkout();
+              this.addItem = false;
+              this.currentInput = '';
+            }else{
+              console.log('Something went wrong');
+            }
+          }
+        );
+        break;
+      }
+    }
+    if (!found){
+      console.log('Exercise not found');
+    }
   }
 
 

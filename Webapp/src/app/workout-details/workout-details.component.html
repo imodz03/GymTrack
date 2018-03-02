@@ -17,8 +17,21 @@
         {{exercise.exerciseName}}
         <a (click)="delete(i)"><i class="fa fa-close"></i></a>
       </li>
-      <li *ngIf="addItem"><input type="text" placeholder="Exercise Search"></li>
+      <li *ngIf="addItem">
+        <!--Exercise search-->
+        <mat-form-field>
+          <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
+          <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
+          <button class="btn btn-outline-secondary" (click)="addItem = false">Cancel</button>
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
+            {{ exercise }}
+          </mat-option>
+        </mat-autocomplete>
+      </li>
     </ul>
-    <button class="btn btn-primary" (click)="addItem = true">Add exercises</button> <button class="btn btn-primary">Copy workout</button>
+    <button class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button class="btn btn-primary">Copy workout</button>
   </div>
 </div>

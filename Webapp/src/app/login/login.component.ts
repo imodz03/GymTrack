@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 
 import { User } from './User';
 
-import { LoginService } from '../services/login.service';
-import {UserService} from '../services/user.service';
+import { LoginService } from './login.service';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-login',
