@@ -1,6 +1,7 @@
 package Resources.CRUDResources;
 
 import DAO.ExerciseListDAO;
+import Entity.Exercise;
 import Entity.ExerciseList;
 import Helpers.OneToManyCombiner;
 import Auth.Annotations.AuthRequired;
@@ -84,5 +85,12 @@ public class ExerciseListResource {
     public Response deleteExercise(@PathParam("id") String id, @PathParam("del") String exerciseID){
         int result = dao.deleteExercise(id, exerciseID);
         return Response.ok(result).build();
+    }
+
+    @POST
+    @Path("/{id}/add")
+    public Response addExercise(@PathParam("id")String id, Exercise exercise){
+        int res = dao.add(id, exercise.getExerciseID());
+        return Response.ok(res).build();
     }
 }

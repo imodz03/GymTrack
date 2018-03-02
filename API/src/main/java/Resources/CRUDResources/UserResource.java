@@ -104,7 +104,8 @@ public class UserResource implements ICRUDResource<User> {
     public String register(User user){
 
         String available = dao.getUsernames(user.getUsername());
-        System.out.println(user.getPreferences());
+
+        System.out.println(available);
 
         if (available != null){
             return "{\"status\": \"NA\"}";
@@ -130,6 +131,5 @@ public class UserResource implements ICRUDResource<User> {
 
 
         }
-
     }
 }
