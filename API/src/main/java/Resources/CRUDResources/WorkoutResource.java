@@ -4,6 +4,7 @@ import Auth.Annotations.AuthRequired;
 import Auth.Beans.AuthUser;
 import Auth.Beans.ROLE;
 import DAO.WorkoutDAO;
+import Entity.ExerciseList;
 import Entity.Workout;
 import Helpers.UUID;
 import Helpers.tokenDecrypter;
@@ -64,11 +65,15 @@ public class WorkoutResource implements ICRUDResource<Workout> {
     }
 
     @POST
+    @AuthRequired(ROLE.MEMBER)
     public Response create(Workout workout) {
 
         if (workout.getWorkoutID().isEmpty()){
             workout.setWorkoutID(UUID.getUUID());
         }
+
+        ExerciseList el = new ExerciseList(UUID.getUUID());
+        workout.setExerciseList(el);
 
         int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
 
@@ -77,6 +82,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @PUT
     @Path("/{id}")
+    @AuthRequired(ROLE.MEMBER)
     public Response update(@PathParam("id") String id, Workout workout) {
 
         int res = dao.update(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID(), id);
@@ -86,6 +92,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @DELETE
     @Path("/{id}")
+    @AuthRequired(ROLE.MEMBER)
     public Response delete(@PathParam("id") String id) {
         return Response.ok(dao.delete(id)).build();
     }
