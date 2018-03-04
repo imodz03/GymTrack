@@ -1,4 +1,4 @@
-import {Component, EventEmitter, NgModule, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {ActivatedRoute} from '@angular/router';
 import {WorkoutService} from '../workout/workout.service';
@@ -7,7 +7,7 @@ import {ExerciselistService} from '../services/exerciselist.service';
 import {ExerciseService} from '../exercise/exercise.service';
 import {Exercise} from '../exercise/exercise';
 
-import {MatFormField, MatInput, MatAutocomplete, MatAutocompleteModule} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
@@ -24,15 +24,17 @@ export class WorkoutDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private workoutService: WorkoutService,
               private elService: ExerciselistService,
-              private exerciseService: ExerciseService) { }
+              private exerciseService: ExerciseService,
+              private snackBar: MatSnackBar) { }
 
   workout: Workout;
   canEdit = false;
-  titleUpdateFailed = false;
   addItem = false;
+  locked = true;
   exercises: Exercise[];
   exerciseNames = [];
   currentInput = '';
+  dateInput: Date;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -59,6 +61,7 @@ export class WorkoutDetailsComponent implements OnInit {
     this.workoutService.getWorkout(id).subscribe(
       workout => {
         this.workout = workout;
+        this.dateInput = new Date(workout.date);
       }
     );
 
@@ -69,14 +72,18 @@ export class WorkoutDetailsComponent implements OnInit {
       this.canEdit = true;
     }else{
       // copy the workout object to remove the blanks arrays that cause issues in back end
-      const temp = this.cleanClone(this.workout);
 
+      const temp = this.cleanClone(this.workout);
+      temp.date = this.dateInput.getUTCFullYear() + '-' + (this.dateInput.getUTCMonth() + 1 ) + '-' + this.dateInput.getDate();
       this.workoutService.updateWorkout(temp).subscribe(
         resp => {
           if (resp === 1){
             this.canEdit = false;
+            this.workout.date = temp.date;
           }else{
-            this.titleUpdateFailed = true;
+            this.snackBar.open('Something went wrong updating your workout', 'Dismiss', {
+              duration: 2000
+            });
           }
         }
       );
@@ -87,13 +94,19 @@ export class WorkoutDetailsComponent implements OnInit {
   delete(i: number): void{
     const exID = this.workout.exerciseList.exercises[i].exerciseID;
     const elID = this.workout.exerciseList.elid;
-    this.elService.deleteExercise(elID, exID).subscribe(
-      resp => {
-        if (resp === 1){
-          this.getWorkout();
+    if (this.workout.exerciseList.exercises.size > 1){
+      this.elService.deleteExercise(elID, exID).subscribe(
+        resp => {
+          if (resp === 1){
+            this.getWorkout();
+          }
         }
-      }
-    );
+      );
+    }else{
+      this.snackBar.open('Workouts must have one exercuse', 'Dismiss', {
+        duration: 2000
+      });
+    }
   }
 
   cleanClone(workout: Workout): Workout{
@@ -139,7 +152,9 @@ export class WorkoutDetailsComponent implements OnInit {
               this.addItem = false;
               this.currentInput = '';
             }else{
-              console.log('Something went wrong');
+              this.snackBar.open('Something went wrong adding your exercise', 'Dismiss', {
+                duration: 2000
+              });
             }
           }
         );

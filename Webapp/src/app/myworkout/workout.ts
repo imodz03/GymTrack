@@ -1,6 +1,6 @@
 export class Workout{
 
-  date: Date;
+  date: string;
   description: string;
   public: boolean;
   workoutID: string;

@@ -23,7 +23,8 @@ import { WorkoutDetailsComponent } from './workout-details/workout-details.compo
 import { ExerciselistService } from './services/exerciselist.service';
 import { ExerciseService } from './exercise/exercise.service';
 import { ExerciseComponent } from './exercise/exercise.component';
-import { MatAutocompleteModule} from '@angular/material';
+import {MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, MatSnackBarModule} from '@angular/material';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,11 @@ import { MatAutocompleteModule} from '@angular/material';
     NgbCollapseModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    NoopAnimationsModule
   ],
   providers: [
     LoginService,
