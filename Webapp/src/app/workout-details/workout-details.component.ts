@@ -94,7 +94,7 @@ export class WorkoutDetailsComponent implements OnInit {
   delete(i: number): void{
     const exID = this.workout.exerciseList.exercises[i].exerciseID;
     const elID = this.workout.exerciseList.elid;
-    if (this.workout.exerciseList.exercises.size > 1){
+    if (this.workout.exerciseList.exercises.length > 1){
       this.elService.deleteExercise(elID, exID).subscribe(
         resp => {
           if (resp === 1){
