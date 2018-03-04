@@ -16,15 +16,19 @@ import { UrlService } from './services/url.service';
 import { UserService } from './user/user.service';
 import { UserComponent } from './user/user.component';
 import { HeaderService } from './services/header.service';
-import { MyworkoutComponent } from './myworkout/myworkout.component';
+import {CreateNewDialog, MyworkoutComponent} from './myworkout/myworkout.component';
 import { RegisterComponent } from './register/register.component';
 import { NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
 import { ExerciselistService } from './services/exerciselist.service';
 import { ExerciseService } from './exercise/exercise.service';
 import { ExerciseComponent } from './exercise/exercise.component';
-import {MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, MatSnackBarModule} from '@angular/material';
+import {
+  MatAutocompleteModule, MatDatepickerModule, MatDialogModule, MatNativeDateModule, MatSlideToggleModule,
+  MatSnackBarModule
+} from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { CreateWorkoutComponent } from './create-workout/create-workout.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,12 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     MyworkoutComponent,
     RegisterComponent,
     WorkoutDetailsComponent,
-    ExerciseComponent
+    ExerciseComponent,
+    CreateWorkoutComponent,
+    CreateNewDialog
+  ],
+  entryComponents:[
+    CreateNewDialog
   ],
   imports: [
     BrowserModule,
@@ -50,7 +59,9 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   providers: [
     LoginService,
