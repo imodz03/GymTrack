@@ -8,6 +8,8 @@ import com.elliotb.Services.ExerciseService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     // TODO: 24/12/2017 proper response codes
     @POST
-    public Response create(Set set) {
+    public Response create(Set set, @Context HttpHeaders httpHeaders) {
 
         set.setSetID(UUID.getUUID());
 

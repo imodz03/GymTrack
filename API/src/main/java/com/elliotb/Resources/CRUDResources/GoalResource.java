@@ -6,6 +6,8 @@ import com.elliotb.Helpers.UUID;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
 
@@ -29,7 +31,7 @@ public class GoalResource implements ICRUDResource<Goal>{
     }
 
     @POST
-    public Response create(Goal goal) {
+    public Response create(Goal goal, @Context HttpHeaders httpHeaders) {
         if (goal.getGoalID().isEmpty()){
             goal.setGoalID(UUID.getUUID());
         }

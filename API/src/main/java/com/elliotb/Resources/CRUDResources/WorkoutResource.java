@@ -65,7 +65,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @POST
     @AuthRequired(ROLE.MEMBER)
-    public Response create(Workout workout) {
+    public Response create(Workout workout, @Context HttpHeaders httpHeaders) {
 
         if (workout.getWorkoutID().isEmpty()){
             workout.setWorkoutID(UUID.getUUID());
@@ -74,9 +74,9 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         ExerciseList el = new ExerciseList(UUID.getUUID());
         workout.setExerciseList(el);
 
-        int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
+        //int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
 
-        return Response.ok(result).build();
+        return Response.ok().build();
     }
 
     @PUT

@@ -6,6 +6,8 @@ import com.elliotb.Helpers.UUID;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
 @Produces("Application/JSON")
@@ -43,7 +45,7 @@ public class ExerciseResource implements ICRUDResource<Exercise> {
     }
 
     @POST
-    public Response create(Exercise exercise){
+    public Response create(Exercise exercise, @Context HttpHeaders httpHeaders){
 
         if (exercise.getExerciseID().isEmpty()){
             exercise.setExerciseID(UUID.getUUID());

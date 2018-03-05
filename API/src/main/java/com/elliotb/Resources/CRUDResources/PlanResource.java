@@ -6,6 +6,8 @@ import com.elliotb.Helpers.UUID;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
 @Produces("Application/JSON")
@@ -32,7 +34,7 @@ public class PlanResource implements ICRUDResource<Plan> {
     }
 
     @POST
-    public Response create(Plan plan) {
+    public Response create(Plan plan, @Context HttpHeaders httpHeaders) {
 
         if (plan.getPlanID().isEmpty()){
             plan.setPlanID(UUID.getUUID());

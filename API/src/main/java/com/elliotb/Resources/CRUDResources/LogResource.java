@@ -8,6 +8,8 @@ import com.elliotb.Services.WorkoutService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class LogResource implements ICRUDResource<Log> {
     }
 
     @POST
-    public Response create(Log log) {
+    public Response create(Log log, @Context HttpHeaders httpHeaders) {
 
         if (log.getLogID().isEmpty()){
             log.setLogID(UUID.getUUID());

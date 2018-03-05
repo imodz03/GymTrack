@@ -43,7 +43,7 @@ public class UserResource implements ICRUDResource<User> {
 
     @POST
     @AuthRequired(ROLE.ADMIN)
-    public Response create(User user){
+    public Response create(User user, @Context HttpHeaders httpHeaders){
 
         if (user.getUserID().isEmpty()){
             user.setUserID(UUID.getUUID());

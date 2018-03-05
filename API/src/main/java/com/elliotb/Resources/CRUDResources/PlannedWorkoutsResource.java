@@ -7,6 +7,8 @@ import com.elliotb.Services.WorkoutService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     }
 
     @POST
-    public Response create(PlannedWorkouts plannedWorkouts) {
+    public Response create(PlannedWorkouts plannedWorkouts, @Context HttpHeaders httpHeaders) {
 
         if (plannedWorkouts.getPwID().isEmpty()){
             plannedWorkouts.setPwID(UUID.getUUID());
