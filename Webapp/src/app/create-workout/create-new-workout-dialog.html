@@ -6,12 +6,7 @@
 </div>
 <div class="modal-body">
   Workout Name: <input type="text" [(ngModel)]="workout.workoutName">
-  Public: <mat-slide-toggle
-            [color]="primary"
-            [checked]="isPublic"
-            [change]="changeEmit">
-
-</mat-slide-toggle>
+  Public:
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-success" (click)="create(workout)">Create workout</button>

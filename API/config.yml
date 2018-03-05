@@ -1,4 +1,4 @@
-name: GymTrack
+name: com.elliotb.GymTrack
 password: Password123
 keyalias: mykey
 database:

@@ -2,8 +2,21 @@ group 'com.elliotb.gymtrack'
 version '0.0.1'
 
 apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = 'com.elliotb.GymTrack'
 
 sourceCompatibility = 1.8
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -32,4 +45,23 @@ dependencies {
     // https://mvnrepository.com/artifact/com.auth0/java-jwt
     compile group: 'com.auth0', name: 'java-jwt', version: '3.3.0'
 
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.elliotb.GymTrack"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.elliotb.GymTrack'
+    }
+    baseName = 'GymTrack'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
