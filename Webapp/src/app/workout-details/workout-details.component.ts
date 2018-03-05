@@ -103,7 +103,7 @@ export class WorkoutDetailsComponent implements OnInit {
         }
       );
     }else{
-      this.snackBar.open('Workouts must have one exercuse', 'Dismiss', {
+      this.snackBar.open('Workouts must have one exercise', 'Dismiss', {
         duration: 2000
       });
     }

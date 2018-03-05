@@ -3,11 +3,17 @@ import {WorkoutService} from '../workout/workout.service';
 import {Workout} from './workout';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSlideToggleChange} from '@angular/material';
+import {MAT_DIALOG_DATA, MatCheckboxChange, MatDialogRef, MatSlideToggleChange} from '@angular/material';
 
 import * as $ from 'jquery';
 import 'fullcalendar';
 import {MatDialog} from '@angular/material';
+import {Exercise} from '../exercise/exercise';
+import {ExerciseService} from '../exercise/exercise.service';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-myworkout',
@@ -35,7 +41,7 @@ export class MyworkoutComponent implements OnInit {
           this.myworkouts.push({title: list[i].workoutName, date: list[i].date, workout: list[i], parent: this});
         }
         if (list.length === 0){
-          // add fake event to get parent
+          this.myworkouts.push({parent: this});
         }
         this.loadCalender();
       }
@@ -81,25 +87,59 @@ export class MyworkoutComponent implements OnInit {
 
 }
 
+// class for dialog popup
 @Component({
   selector: 'app-create-dialog',
   templateUrl: '../create-workout/create-new-workout-dialog.html'
 })
 export class CreateNewDialog implements OnInit{
   workout: Workout;
-  isPublic = true;
+  exercises: Exercise[];
+  exerciseNames = [];
+  myControl: FormControl = new FormControl();
+  filteredOptions: Observable<string[]>;
+  currentInput = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA)public data: any){
+  constructor(@Inject(MAT_DIALOG_DATA)public data: any, private exerciseService: ExerciseService){
     this.workout = data.workout;
     this.workout.public = false;
   }
 
   ngOnInit(){
+    this.exerciseService.getAll().subscribe(
+      resp => {
+        this.exercises = resp;
+        for (let i = 0; i < resp.length; i++){
+          this.exerciseNames.push(resp[i].exerciseName);
+        }
+        console.log(this.exerciseNames);
+      }
+    );
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.filter(value))
+      );
+  }
+
+  create(workout: Workout): void{
+
+    const get = this.getExercise(this.currentInput)[0];
+    workout.exerciseList = {};
+    workout.exerciseList.exercises = [];
+    workout.exerciseList.exercises.push(get);
+    console.log(workout);
 
   }
 
-  create(): void{
-    console.log(this.isPublic);
+  getExercise(name: string): Exercise[]{
+    return this.exercises.filter(ex =>
+    ex.exerciseName.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  }
+
+  filter(val: string): string[]{
+    return this.exerciseNames.filter(option =>
+      option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
 }

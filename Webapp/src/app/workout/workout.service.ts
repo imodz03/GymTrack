@@ -32,4 +32,8 @@ export class WorkoutService {
 
   }
 
+  createWorkout(workout: Workout): Observable<string>{
+    return this.http.post<string>(this.url.workouts, workout);
+  }
+
 }
