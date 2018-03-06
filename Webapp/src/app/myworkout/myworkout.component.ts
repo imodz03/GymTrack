@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild, Inject, EventEmitter} from '@angular/core';
+import {Location} from '@angular/common';
 import {WorkoutService} from '../workout/workout.service';
 import {Workout} from './workout';
 
@@ -14,6 +15,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-myworkout',
@@ -100,7 +102,10 @@ export class CreateNewDialog implements OnInit{
   filteredOptions: Observable<string[]>;
   currentInput = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA)public data: any, private exerciseService: ExerciseService){
+  constructor(@Inject(MAT_DIALOG_DATA)public data: any,
+              private exerciseService: ExerciseService,
+              private workoutService: WorkoutService,
+              private router: Router){
     this.workout = data.workout;
     this.workout.public = false;
   }
@@ -127,8 +132,21 @@ export class CreateNewDialog implements OnInit{
     const get = this.getExercise(this.currentInput)[0];
     workout.exerciseList = {};
     workout.exerciseList.exercises = [];
-    workout.exerciseList.exercises.push(get);
+    workout.exerciseList.exercises[0] = {};
+    workout.exerciseList.exercises[0].exerciseName = get.exerciseName;
+    workout.exerciseList.exercises[0].exerciseID = get.exerciseID;
+    workout.date = this.data.date;
+    workout.workoutID = '';
     console.log(workout);
+    this.workoutService.createWorkout(this.workout).subscribe(
+      resp => {
+        if (resp.resp === 0){
+          //something went wrong
+        }else{
+          this.router.navigateByUrl('/workouts/details/' + resp.resp);
+        }
+      }
+    );
 
   }
 
