@@ -2,9 +2,12 @@ package com.elliotb.Resources.CRUDResources;
 
 import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.Auth.Beans.ROLE;
+import com.elliotb.DAO.ExerciseListDAO;
 import com.elliotb.DAO.WorkoutDAO;
 import com.elliotb.Entity.ExerciseList;
+import com.elliotb.Entity.User;
 import com.elliotb.Entity.Workout;
+import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
 import com.elliotb.Services.WorkoutService;
@@ -23,6 +26,9 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @Inject
     private WorkoutDAO dao;
+
+    @Inject
+    private ExerciseListDAO elDAO;
 
     @Inject
     private WorkoutService service;
@@ -71,12 +77,24 @@ public class WorkoutResource implements ICRUDResource<Workout> {
             workout.setWorkoutID(UUID.getUUID());
         }
 
-        ExerciseList el = new ExerciseList(UUID.getUUID());
-        workout.setExerciseList(el);
+        String uuid = UUID.getUUID();
+        workout.getExerciseList().setELID(uuid);
 
-        //int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
+        workout.setUser(new User(tokenDecrypter.getId(httpHeaders)));
 
-        return Response.ok().build();
+
+        int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
+
+        if (result == 1){
+            result = elDAO.create(uuid, workout.getExerciseList().getExercise(0).getExerciseID());
+        }
+
+        if(result == 1){
+            return Response.ok(EasyJSON.convert("resp", workout.getWorkoutID())).build();
+        }else{
+            return Response.ok(result).build();
+        }
+
     }
 
     @PUT

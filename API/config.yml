@@ -1,3 +1,12 @@
+server:
+  applicationConnectors:
+    - type: https
+      port: 8087
+      keyStorePath: ssl.jks
+      keyStorePassword: Poppy2911
+      enableCRLDP: true
+    - type: http
+      port: 8080
 name: com.elliotb.GymTrack
 password: Password123
 keyalias: mykey
