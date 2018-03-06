@@ -25,8 +25,7 @@ import { ExerciseService } from './exercise/exercise.service';
 import { ExerciseComponent } from './exercise/exercise.component';
 import {
   MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatNativeDateModule,
-  MatSlideToggleModule,
-  MatSnackBarModule
+  MatSlideToggleModule, MatSnackBarModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateWorkoutComponent } from './create-workout/create-workout.component';
@@ -65,7 +64,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NoopAnimationsModule,
     MatSlideToggleModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     LoginService,

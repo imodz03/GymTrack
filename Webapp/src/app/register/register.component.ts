@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../user/user.service';
-import {Location} from '@angular/common';
+import {Router} from '@angular/router';
+
+
+import {MatSpinner} from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -31,32 +34,42 @@ export class RegisterComponent implements OnInit {
   error = false;
   valid = false;
   enterAll = false;
+  loading = false;
 
   constructor(private userService: UserService,
-              private location: Location) { }
+              private router: Router) { }
 
   ngOnInit() {
   }
 
   signup(): void{
+    this.loading = true;
     if (this.valid === true ){
       this.userService.register(this.registerUser).subscribe(
         resp => {
           if (resp.status === 'NA'){
             this.usernameTaken = true;
+            this.loading = false;
           }else if (resp.status === 'error'){
             this.error = true;
+            this.loading = false;
           } else {
             localStorage.setItem('username', this.registerUser.username);
             localStorage.setItem('token', resp.status);
-            this.goHome();
+            setTimeout(this.gotTo, 2000, this.router);
           }
         }
       );
     }else{
       this.enterAll = true;
+      this.loading = false;
     }
 
+  }
+
+  gotTo(router: Router){
+    this.loading = false;
+    router.navigate(['']);
   }
 
   validate(): void{
@@ -71,13 +84,8 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  tried(): void{
+  tried(): void {
     this.triedConfPass = true;
-  }
-
-  goHome(): void{
-    this.location.back();
-    this.location.back();
   }
 
   statusChecking(): void{

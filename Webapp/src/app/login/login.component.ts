@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Location } from '@angular/common';
 
 import { User } from './User';
 
 import { LoginService } from './login.service';
 import {UserService} from '../user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,24 +13,23 @@ import {UserService} from '../user/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private location: Location, private userService: UserService) { }
+  constructor(private loginService: LoginService, private userService: UserService, private router: Router) { }
 
   loginFailed = false;
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
 
   user: User = {
-    username: 'Brown27',
-    pass: 'PasswordTest',
+    username: '',
+    pass: '',
     token: ''
   };
 
   ngOnInit() {
   }
 
-  login(user: User): void {
-    this.loginService.login(user)
+  login(tryuser: User): void {
+    this.loginService.login(tryuser)
     .subscribe(user => {
-      console.log(user);
       if ( user.token === 'invalid') {
 
         // logic for fail
@@ -44,8 +43,7 @@ export class LoginComponent implements OnInit {
         this.user.token = user.token;
         localStorage.setItem('username', this.user.username);
         localStorage.setItem('token', this.user.token);
-        this.location.go('/account', '');
-        this.location.forward();
+        this.router.navigate(['/']);
       }
     });
   }

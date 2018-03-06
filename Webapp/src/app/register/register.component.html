@@ -60,6 +60,8 @@
         </div>
         <br>
         <button class="btn btn-success" (click)="signup()">Sign up</button>
+        <div class="loading-indicator" *ngIf="loading"><mat-spinner style="margin:0 auto;"></mat-spinner></div>
+        <br>
       </div>
     </div>
   </div>
