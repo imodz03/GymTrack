@@ -8,7 +8,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LoginComponent } from './login/login.component';
 import { WorkoutComponent } from './workout/workout.component';
 
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { LoginService } from './login/login.service';
 import { WorkoutService } from './workout/workout.service';
@@ -30,6 +30,7 @@ import {
 } from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateWorkoutComponent } from './create-workout/create-workout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CreateWorkoutComponent } from './create-workout/create-workout.componen
     WorkoutDetailsComponent,
     ExerciseComponent,
     CreateWorkoutComponent,
-    CreateNewDialog
+    CreateNewDialog,
+    DashboardComponent
   ],
   entryComponents:[
     CreateNewDialog
