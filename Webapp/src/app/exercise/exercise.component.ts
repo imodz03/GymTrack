@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {ExerciseService} from './exercise.service';
+import {Exercise} from './exercise';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-exercise',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExerciseComponent implements OnInit {
 
-  constructor() { }
+  exercises: Exercise[];
+  datasource = new MatTableDataSource();
+  columns = ['exerciseName'];
+
+  constructor(private exerciseService: ExerciseService) { }
 
   ngOnInit() {
+    this.exerciseService.getAll().subscribe(
+      resp => {
+        this.exercises = resp;
+      }
+    );
   }
 
 }
