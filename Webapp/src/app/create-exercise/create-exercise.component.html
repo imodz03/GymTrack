@@ -2,9 +2,10 @@
   <h4 class="modal-title">Create Exercise</h4>
 </div>
 <div class="modal-body">
-  Exercise Name: <input type="text" [(ngModel)]="newExercise.exerciseName"><br>
+  Exercise Name:<br>
+  <input type="text" [(ngModel)]="newExercise.exerciseName"><br>
   Description:<br>
-  <textarea [(ngModel)]="newExercise.description" rows="4" cols="40"></textarea><br>
+  <textarea [(ngModel)]="newExercise.description" rows="4"></textarea><br>
   Bodypart:
   <mat-select [(ngModel)]="bodypart" placeholder="bodypart">
   <mat-option *ngFor="let bp of bodyParts" [value]="bp.value">

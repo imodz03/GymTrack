@@ -1,3 +1,7 @@
 mat-select{
-  width: 250px;
+  width: 75%;
+}
+
+textarea{
+  width: 80%;
 }
