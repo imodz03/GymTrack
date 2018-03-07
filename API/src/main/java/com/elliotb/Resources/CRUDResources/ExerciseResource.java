@@ -1,5 +1,7 @@
 package com.elliotb.Resources.CRUDResources;
 
+import com.elliotb.Auth.Annotations.AuthRequired;
+import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.ExerciseDAO;
 import com.elliotb.Entity.Exercise;
 import com.elliotb.Helpers.UUID;
@@ -19,7 +21,6 @@ public class ExerciseResource implements ICRUDResource<Exercise> {
     private ExerciseDAO dao;
 
     public ExerciseResource(){
-        //this.dao = dao;
     }
 
     @GET
@@ -29,15 +30,17 @@ public class ExerciseResource implements ICRUDResource<Exercise> {
 
     @GET
     @Path("/{id}")
+    @AuthRequired(ROLE.MEMBER)
     public Response getByID(@PathParam("id")String id){
         return Response.ok(dao.getById(id)).build();
     }
 
     @DELETE
     @Path("/{id}")
+    @AuthRequired(ROLE.MODERATOR)
     public Response delete(@PathParam("id")String id){
         int result = dao.delete(id);
-        if ((int)result == 1){
+        if (result == 1){
             return Response.ok().build();
         }else {
             return Response.status(400).build();
@@ -45,18 +48,20 @@ public class ExerciseResource implements ICRUDResource<Exercise> {
     }
 
     @POST
+    @AuthRequired(ROLE.MEMBER)
     public Response create(Exercise exercise, @Context HttpHeaders httpHeaders){
 
         if (exercise.getExerciseID().isEmpty()){
             exercise.setExerciseID(UUID.getUUID());
         }
 
-        int check = dao.create(exercise);
-        return Response.ok(check).build();
+        //int check = dao.create(exercise);
+        return Response.ok().build();
     }
 
     @PUT
     @Path("/{id}")
+    @AuthRequired(ROLE.MODERATOR)
     public Response update(@PathParam("id")String id, Exercise body){
         System.out.println(body);
 
