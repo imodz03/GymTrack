@@ -10,6 +10,7 @@ import {RegisterComponent} from './register/register.component';
 import {WorkoutDetailsComponent} from './workout-details/workout-details.component';
 import {ExerciseComponent} from './exercise/exercise.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {CreateExerciseComponent} from './create-exercise/create-exercise.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'workouts/details/:id', component: WorkoutDetailsComponent },
   { path: 'account', component: UserComponent },
   { path: 'myworkouts', component: MyworkoutComponent },
-  { path: 'exercises', component: ExerciseComponent }
+  { path: 'exercises', component: ExerciseComponent },
+  { path: 'ce', component: CreateExerciseComponent }
 ];
 
 @NgModule({

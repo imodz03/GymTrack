@@ -14,4 +14,8 @@ export class ExerciseService {
     return this.http.get<Exercise[]>(this.url.exercise);
   }
 
+  create(exercise: Exercise): Observable<string>{
+    return this.http.post<string>(this.url.exercise, exercise);
+  }
+
 }

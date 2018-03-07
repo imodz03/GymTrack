@@ -16,6 +16,7 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {Router} from '@angular/router';
+import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
 
 @Component({
   selector: 'app-myworkout',
@@ -96,31 +97,37 @@ export class CreateNewDialog implements OnInit{
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
   currentInput = '';
-  typedIn = false;
+  dialogRef;
 
   constructor(@Inject(MAT_DIALOG_DATA)public data: any,
               private exerciseService: ExerciseService,
               private workoutService: WorkoutService,
               private router: Router,
-              private snackbar: MatSnackBar){
+              private snackbar: MatSnackBar,
+              private modal: MatDialog){
     this.workout = data.workout;
     this.workout.public = false;
   }
 
   ngOnInit(){
-    this.exerciseService.getAll().subscribe(
-      resp => {
-        this.exercises = resp;
-        for (let i = 0; i < resp.length; i++){
-          this.exerciseNames.push(resp[i].exerciseName);
-        }
-      }
-    );
+    this.getExercises();
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this.filter(value))
       );
+  }
+
+  getExercises(): void{
+    this.exerciseService.getAll().subscribe(
+      resp => {
+        this.exercises = resp;
+        for (let i = 0; i < resp.length; i++){
+          this.exerciseNames.push(resp[i].exerciseName);
+
+        }
+      }
+    );
   }
 
   create(workout: Workout): void{
@@ -158,11 +165,13 @@ export class CreateNewDialog implements OnInit{
     return null;
   }
 
-
-
   filter(val: string): string[]{
     return this.exerciseNames.filter(option =>
       option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  createExercise(): void{
+    this.dialogRef = this.modal.open(CreateExerciseComponent, {data: {parent: this}});
   }
 
 }

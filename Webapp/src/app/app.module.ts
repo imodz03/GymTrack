@@ -25,11 +25,12 @@ import { ExerciseService } from './exercise/exercise.service';
 import { ExerciseComponent } from './exercise/exercise.component';
 import {
   MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatNativeDateModule,
-  MatSlideToggleModule, MatSnackBarModule, MatProgressSpinnerModule
+  MatSlideToggleModule, MatSnackBarModule, MatProgressSpinnerModule, MatSelectModule
 } from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateWorkoutComponent } from './create-workout/create-workout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ExerciseComponent,
     CreateWorkoutComponent,
     CreateNewDialog,
-    DashboardComponent
+    DashboardComponent,
+    CreateExerciseComponent
   ],
   entryComponents:[
     CreateNewDialog
@@ -65,7 +67,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatSlideToggleModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [
     LoginService,

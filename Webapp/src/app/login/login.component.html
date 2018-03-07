@@ -10,7 +10,7 @@
   <div class="card-body">
     <div class="">
       <label for="user">Username</label> <input [(ngModel)]="user.username" type="text" id="user" value=""> <br> <br>
-      <label for="pass">Password</label> <input [(ngModel)]="user.pass" type="password" id="pass" value="" > <br> <br>
+      <label for="pass">Password</label> <input [(ngModel)]="user.pass" type="password" id="pass" value="" (keyup.enter)="login(user)"> <br> <br>
       <button type="button" name="button" class="btn btn-success" (click)="login(user)">Login</button>
     </div>
   </div>

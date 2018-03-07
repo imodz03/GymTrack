@@ -1,5 +1,5 @@
 export class Exercise{
-  exerciseID: string;
+  exerciseID = '';
   exerciseName: string;
   exerciseCategory: string;
   bodypart: string;

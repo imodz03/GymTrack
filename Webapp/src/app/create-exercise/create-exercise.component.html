@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create Exercise</h4>
+</div>
+<div class="modal-body">
+  Exercise Name: <input type="text" [(ngModel)]="newExercise.exerciseName"><br>
+  Description:<br>
+  <textarea [(ngModel)]="newExercise.description" rows="4" cols="40"></textarea><br>
+  Bodypart:
+  <mat-select [(ngModel)]="bodypart" placeholder="bodypart">
+  <mat-option *ngFor="let bp of bodyParts" [value]="bp.value">
+  {{ bp.name }}
+  </mat-option>
+  </mat-select>
+  <br>
+  Category:
+  <mat-select [(ngModel)]="category" placeholder="Exercise Category">
+    <mat-option *ngFor="let cat of exerciseCategories" [value]="cat.value">
+      {{ cat.name }}
+    </mat-option>
+  </mat-select>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-success" (click)="createExercise(newExercise)">Add Exercise</button>
+  <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+</div>

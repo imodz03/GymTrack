@@ -4,6 +4,7 @@ import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.ExerciseDAO;
 import com.elliotb.Entity.Exercise;
+import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.google.inject.Inject;
 
@@ -55,8 +56,13 @@ public class ExerciseResource implements ICRUDResource<Exercise> {
             exercise.setExerciseID(UUID.getUUID());
         }
 
-        //int check = dao.create(exercise);
-        return Response.ok().build();
+        int check = dao.create(exercise);
+
+        if (check == 1){
+            return Response.ok(EasyJSON.convert("resp", exercise.getExerciseID())).build();
+        }else{
+            return Response.ok(check).build();
+        }
     }
 
     @PUT

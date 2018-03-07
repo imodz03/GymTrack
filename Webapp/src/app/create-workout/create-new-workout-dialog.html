@@ -8,15 +8,14 @@
   Workout Name: <input type="text" [(ngModel)]="workout.workoutName"> <br><br>
   Public: <mat-checkbox [(ngModel)]="this.workout.public"></mat-checkbox><br>
   Initial Exercise: <br>
-  <mat-form-field>
-    <input type="text" (input)="typedIn = true" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
-  </mat-form-field>
+  <input type="text" (input)="typedIn = true" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
   <!-- Autocomplete suggestions for the searchbar -->
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
       {{ exercise }}
     </mat-option>
   </mat-autocomplete>
+  <button class="btn btn-success" (click)="createExercise()"><i class="fa fa-plus"></i></button>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-success" (click)="create(workout)">Create workout</button>
