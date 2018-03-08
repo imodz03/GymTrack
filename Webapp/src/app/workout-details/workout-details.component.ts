@@ -7,11 +7,12 @@ import {ExerciselistService} from '../services/exerciselist.service';
 import {ExerciseService} from '../exercise/exercise.service';
 import {Exercise} from '../exercise/exercise';
 
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
 
 @Component({
   selector: 'app-workout-details',
@@ -25,7 +26,8 @@ export class WorkoutDetailsComponent implements OnInit {
               private workoutService: WorkoutService,
               private elService: ExerciselistService,
               private exerciseService: ExerciseService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog) { }
 
   workout: Workout;
   canEdit = false;
@@ -35,6 +37,7 @@ export class WorkoutDetailsComponent implements OnInit {
   exerciseNames = [];
   currentInput = '';
   dateInput: Date;
+  dialogRef;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -129,6 +132,10 @@ export class WorkoutDetailsComponent implements OnInit {
 
   enableAddItems(){
     this.addItem = true;
+    this.getExercises();
+  }
+
+  getExercises(): void{
     this.exerciseService.getAll().subscribe(
       resp => {
         this.exercises = resp;
@@ -164,6 +171,10 @@ export class WorkoutDetailsComponent implements OnInit {
     if (!found){
       console.log('Exercise not found');
     }
+  }
+
+  createExercise(): void{
+    this.dialogRef = this.dialog.open(CreateExerciseComponent, {data: {parent: this}});
   }
 
 

@@ -16,11 +16,9 @@
     </p>
     <p *ngIf="canEdit">
       Scheduled:
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
       <br><br>
       Description: <br><textarea [(ngModel)]="workout.description" rows="4" cols="40"></textarea><br><br>
       Exercises:
@@ -32,11 +30,9 @@
       </li>
       <li *ngIf="addItem">
         <!--Exercise search-->
-        <mat-form-field>
-          <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
-          <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
-          <button class="btn btn-outline-secondary" (click)="addItem = false">Cancel</button>
-        </mat-form-field>
+        <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
+        <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
+        <button class="btn btn-outline-secondary" (click)="addItem = false">Cancel</button>
         <!-- Autocomplete suggestions for the searchbar -->
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
@@ -45,6 +41,6 @@
         </mat-autocomplete>
       </li>
     </ul>
-    <button class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button> <!--<button class="btn btn-primary">Copy workout</button>-->
+    <button class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
   </div>
 </div>
