@@ -1,5 +1,7 @@
 package com.elliotb.Resources.CRUDResources;
 
+import com.elliotb.Auth.Annotations.AuthRequired;
+import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.LogDAO;
 import com.elliotb.Entity.Log;
 import com.elliotb.Entity.Workout;
@@ -25,6 +27,7 @@ public class LogResource implements ICRUDResource<Log> {
     WorkoutService workoutService;
 
     @GET
+    @AuthRequired(ROLE.MODERATOR)
     public Response getAll() {
 
         List<Log> resp = dao.getAll();
@@ -41,6 +44,7 @@ public class LogResource implements ICRUDResource<Log> {
 
     @GET
     @Path("/{id}")
+    @AuthRequired
     public Response getByID(@PathParam("id") String id) {
 
         Log resp = dao.getById(id);
@@ -51,6 +55,7 @@ public class LogResource implements ICRUDResource<Log> {
     }
 
     @POST
+    @AuthRequired
     public Response create(Log log, @Context HttpHeaders httpHeaders) {
 
         if (log.getLogID().isEmpty()){
@@ -65,6 +70,7 @@ public class LogResource implements ICRUDResource<Log> {
 
     @PUT
     @Path("/{id}")
+    @AuthRequired
     public Response update(@PathParam("id") String id, Log log) {
 
         int result = dao.update(id, log.getSetID(), log.getWorkout().getWorkoutID(),
@@ -75,6 +81,7 @@ public class LogResource implements ICRUDResource<Log> {
 
     @DELETE
     @Path("/{id}")
+    @AuthRequired
     public Response delete(@PathParam("id") String id) {
 
         int res = dao.delete(id);

@@ -46,6 +46,7 @@ public class ExerciseListResource {
 
     @Path("/{id}")
     @GET
+    @AuthRequired(ROLE.MEMBER)
     public Response getByID(@PathParam("id") String id) {
 
         List<ExerciseList> list = dao.getById(id);
@@ -61,8 +62,8 @@ public class ExerciseListResource {
 
     }
 
-    //when posting to this method it has issues reading the JSON for
     @POST
+    @AuthRequired
     public Response create(ExerciseList exerciseList) {
         boolean result = exerciseListService.createELEntry(exerciseList);
         return Response.ok(result).build();
@@ -75,6 +76,7 @@ public class ExerciseListResource {
 
     @DELETE
     @Path("/{id}")
+    @AuthRequired(ROLE.MODERATOR)
     public Response delete(@PathParam("id")String id) {
         int result = dao.delete(id);
         return Response.ok(result).build();
@@ -82,6 +84,7 @@ public class ExerciseListResource {
 
     @DELETE
     @Path("/{id}/{del}")
+    @AuthRequired
     public Response deleteExercise(@PathParam("id") String id, @PathParam("del") String exerciseID){
         int result = dao.deleteExercise(id, exerciseID);
         return Response.ok(result).build();
@@ -89,6 +92,7 @@ public class ExerciseListResource {
 
     @POST
     @Path("/{id}/add")
+    @AuthRequired
     public Response addExercise(@PathParam("id")String id, Exercise exercise){
         int res = dao.add(id, exercise.getExerciseID());
         return Response.ok(res).build();
