@@ -15,7 +15,7 @@ import static com.elliotb.Helpers.Constants.EXERCISE;
 public interface ExerciseDAO {
 
     @Mapper(ExerciseMapper.class)
-    @SqlQuery("select * from " + EXERCISE + ";")
+    @SqlQuery("select * from " + EXERCISE + " order by exerciseName ASC;")
     List<Exercise> getAll();
 
     @Mapper(ExerciseMapper.class)
