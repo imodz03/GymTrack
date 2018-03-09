@@ -32,6 +32,8 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateWorkoutComponent } from './create-workout/create-workout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
+import { PlanComponent } from './plan/plan.component';
+import {PlanService} from './plan/plan.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
     CreateWorkoutComponent,
     CreateNewDialog,
     DashboardComponent,
-    CreateExerciseComponent
+    CreateExerciseComponent,
+    PlanComponent
   ],
   entryComponents:[
     CreateNewDialog
@@ -85,7 +88,8 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
       useClass: HeaderService,
       multi: true
     },
-    ExerciseService
+    ExerciseService,
+    PlanService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

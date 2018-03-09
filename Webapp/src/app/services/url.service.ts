@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UrlService {
 
-  base = 'http://172.17.42.46:8080';
+  base = 'http://172.17.56.225:8080';
 
   // auth
   auth = this.base + '/auth';
@@ -25,6 +25,11 @@ export class UrlService {
 
   // exercises
   exercise = this.resource + '/exercise';
+
+  // plan
+  plan = this.resource + '/plan';
+  plannedWorkouts = this.resource + '/pw';
+  myPlan = this.plan + '/mine';
 
   constructor() { }
 

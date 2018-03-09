@@ -19,6 +19,10 @@ public interface PlanDAO {
     List<Plan> getAll();
 
     @Mapper(PlanMapper.class)
+    @SqlQuery("SELECT * FROM " + PLAN + " WHERE UserID = :id;")
+    List<Plan> getMine(@Bind("id")String uid);
+
+    @Mapper(PlanMapper.class)
     @SqlQuery("SELECT * FROM " + PLAN + " WHERE PlanID = :id")
     Plan getById(@Bind("id")String id);
 

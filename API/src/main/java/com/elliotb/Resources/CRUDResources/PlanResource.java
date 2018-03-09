@@ -1,8 +1,11 @@
 package com.elliotb.Resources.CRUDResources;
 
+import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.DAO.PlanDAO;
+import com.elliotb.DAO.PlannedWorkoutsDAO;
 import com.elliotb.Entity.Plan;
 import com.elliotb.Helpers.UUID;
+import com.elliotb.Helpers.tokenDecrypter;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
@@ -18,10 +21,23 @@ public class PlanResource implements ICRUDResource<Plan> {
     @Inject
     private PlanDAO dao;
 
+    @Inject
+    PlannedWorkoutsDAO pwDAO;
+
+    @Inject
+    tokenDecrypter decrypter;
+
     @GET
     public Response getAll() {
         //doesn't return all associated workouts
         return Response.ok(dao.getAll()).build();
+    }
+
+    @GET
+    @AuthRequired
+    @Path("/mine")
+    public Response getMine(@Context HttpHeaders httpHeaders){
+        return Response.ok(dao.getMine(decrypter.getId(httpHeaders))).build();
     }
 
     @GET

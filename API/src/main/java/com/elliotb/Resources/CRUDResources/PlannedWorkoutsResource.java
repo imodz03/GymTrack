@@ -38,6 +38,21 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     }
 
     @GET
+    @Path("/pid/{id}")
+    public Response getPlan(@PathParam("id")String id) {
+
+        List<PlannedWorkouts> res = dao.getAll();
+
+        if (res.size() > 0){
+            for (PlannedWorkouts re : res) {
+                re.setWorkout(workoutService.populate(re.getWorkout()));
+            }
+        }
+
+        return Response.ok(res).build();
+    }
+
+    @GET
     @Path("/{id}")
     public Response getByID(@PathParam("id") String id) {
 
