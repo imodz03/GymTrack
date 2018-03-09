@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Create workout for: {{data.date}}</h4>
-  <button type="button" class="close" aria-label="Close" tabIndex="-1" mat-dialog-close (click)="date=null">
+  <button type="button" class="close" aria-label="Close" tabIndex="-1" mat-dialog-close>
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -8,7 +8,7 @@
   Workout Name: <input type="text" [(ngModel)]="workout.workoutName"> <br><br>
   Public: <mat-checkbox [(ngModel)]="this.workout.public"></mat-checkbox><br>
   Initial Exercise: <br>
-  <input type="text" (input)="typedIn = true" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
+  <input type="text"  matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
   <!-- Autocomplete suggestions for the searchbar -->
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">

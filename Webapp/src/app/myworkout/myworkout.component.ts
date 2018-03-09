@@ -96,7 +96,7 @@ export class CreateNewDialog implements OnInit{
   exerciseNames = [];
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
-  currentInput = '';
+  currentInput: string;
   dialogRef;
 
   constructor(@Inject(MAT_DIALOG_DATA)public data: any,

@@ -8,7 +8,8 @@ import {UserService} from '../user/user.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(public userService: UserService) { }
+  toggleNavbar;
 
   ngOnInit() {
   }
