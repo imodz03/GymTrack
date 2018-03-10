@@ -1,3 +1,37 @@
-<p>
-  plan works!
-</p>
+<div>
+  Plan Name: <input type="text"><br>
+  Description:<br>
+  <textarea></textarea><br>
+  Public: <mat-checkbox></mat-checkbox><br>
+  Repetitions: <input type="number"><br>
+  <mat-tab-group>
+
+    <mat-tab label="Days Of The Week">
+      <br>
+      <mat-grid-list cols="5" rowHeight="100px" *ngIf="!isWeekend">
+        <mat-grid-tile
+          *ngFor="let tile of weekdays; index as i"
+          [colspan]="1"
+          [rowspan]="1"
+          [style.background]="tileColour"
+          (click)="addWorkout(i)"
+          gutterSize="5px">
+          <mat-grid-tile-header>
+            {{tile.text}}
+          </mat-grid-tile-header>
+          <mat-grid-tile-footer>
+            <p *ngIf="!tile.workout">Add workout</p>
+            <p *ngIf="tile.workout">{{tile.workout.workoutName}}</p>
+          </mat-grid-tile-footer>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <br>
+      <button (click)="isWeekend = !isWeekend" class="btn btn-success">Toggle weekends</button>
+    </mat-tab>
+
+    <mat-tab label="Numeric Days">
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
