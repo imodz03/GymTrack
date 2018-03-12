@@ -194,9 +194,15 @@ export class CreateNewDialog implements OnInit{
 
     }else if (input != null && this.initExercise != null){
 
-      this.workout.exerciseList.exercises.push(input);
-      this.myExercises.push(input);
-      this.currentInput = '';
+      for( let i = 0; i < this.workout.exerciseList.exercises.length; i++){
+        if  (input === this.workout.exerciseList.exercises[i]){
+          this.snackbar.open('Exercise already in list', 'Dismiss', {duration: 1000});
+        }else{
+          this.workout.exerciseList.exercises.push(input);
+          this.myExercises.push(input);
+          this.currentInput = '';
+        }
+      }
 
     }else if (input == null){
 

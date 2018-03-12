@@ -4,6 +4,7 @@ import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.ExerciseListDAO;
 import com.elliotb.DAO.WorkoutDAO;
+import com.elliotb.Entity.Exercise;
 import com.elliotb.Entity.ExerciseList;
 import com.elliotb.Entity.User;
 import com.elliotb.Entity.Workout;
@@ -86,7 +87,9 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
 
         if (result == 1){
-            result = elDAO.create(uuid, workout.getExerciseList().getExercise(0).getExerciseID());
+            for (Exercise exercise : workout.getExerciseList().getExercises()) {
+                result = elDAO.create(uuid, exercise.getExerciseID());
+            }
         }
 
         if(result == 1){
