@@ -3,25 +3,44 @@
   Description:<br>
   <textarea></textarea><br>
   Public: <mat-checkbox></mat-checkbox><br>
-  Repetitions: <input type="number"><br>
+  Start date:
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker><br>
+  Repetitions: <input type="number"><br><br>
   <mat-tab-group>
 
     <mat-tab label="Days Of The Week">
       <br>
-      <mat-grid-list cols="5" rowHeight="100px" *ngIf="!isWeekend">
+      <mat-grid-list cols="4" rows="2" rowHeight="100px" *ngIf="!isWeekend">
         <mat-grid-tile
           *ngFor="let tile of weekdays; index as i"
           [colspan]="1"
           [rowspan]="1"
           [style.background]="tileColour"
+          gutterSize="5px"
           (click)="addWorkout(i)">
-          <mat-grid-tile-header>
-            {{tile.text}}
-          </mat-grid-tile-header>
-          <mat-grid-tile-footer>
-            <p *ngIf="!tile.workout">Add workout</p>
-            <p *ngIf="tile.workout">{{tile.workout.workoutName}}</p>
-          </mat-grid-tile-footer>
+          <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+          <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+          <div *ngIf="tile.workout" class="workoutname">
+            {{tile.workout.workoutName}}
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-grid-list cols="4" rows="2" rowHeight="100px" *ngIf="isWeekend">
+        <mat-grid-tile
+          *ngFor="let tile of weekends; index as i"
+          [colspan]="1"
+          [rowspan]="1"
+          [style.background]="tileColour"
+          gutterSize="5px"
+          (click)="addWorkout(i)">
+          <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+          <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+          <div *ngIf="tile.workout" class="workoutname">
+            {{tile.workout.workoutName}}
+          </div>
         </mat-grid-tile>
       </mat-grid-list>
 

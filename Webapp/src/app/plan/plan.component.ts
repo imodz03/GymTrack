@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {PlanService} from './plan.service';
 import {Plan} from './plan';
 import {Workout} from '../myworkout/workout';
+import {MatDialog} from '@angular/material';
+import {WorkoutService} from '../workout/workout.service';
 
 @Component({
   selector: 'app-plan',
@@ -22,26 +24,29 @@ export class PlanComponent implements OnInit {
     {text: 'Friday', workout: null}
   ];
   weekends = [
-    {text: 'Sunday', workout: null},
     {text: 'Monday', workout: null},
     {text: 'Tuesday', workout: null},
     {text: 'Wednesday', workout: null},
     {text: 'Thursday', workout: null},
     {text: 'Friday', workout: null},
-    {text: 'Saturday', workout: null}
+    {text: 'Saturday', workout: null},
+    {text: 'Sunday', workout: null}
   ];
 
-  constructor(private planService: PlanService) { }
+  workouts = new Array<Workout>();
+
+  constructor(private planService: PlanService,
+              private workoutService: WorkoutService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.getMine();
+    this.getWorkouts();
   }
 
-  getMine(): void{
-    this.planService.getMine().subscribe(
+  getWorkouts(): void{
+    this.workoutService.getMine().subscribe(
       resp => {
-        this.myPlans = resp;
-        console.log(this.myPlans);
+        this.workouts = resp;
       }
     );
   }
