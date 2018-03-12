@@ -93,11 +93,15 @@ export class MyworkoutComponent implements OnInit {
 export class CreateNewDialog implements OnInit{
   workout: Workout;
   exercises: Exercise[];
+  myExercises = new Array<Exercise>();
   exerciseNames = [];
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
   currentInput: string;
   dialogRef;
+  initExercise;
+
+  @ViewChild('MatInput') text;
 
   constructor(@Inject(MAT_DIALOG_DATA)public data: any,
               private exerciseService: ExerciseService,
@@ -116,6 +120,8 @@ export class CreateNewDialog implements OnInit{
         startWith(''),
         map(value => this.filter(value))
       );
+    this.workout.exerciseList = {};
+    this.workout.exerciseList.exercises = [];
   }
 
   getExercises(): void{
@@ -131,16 +137,20 @@ export class CreateNewDialog implements OnInit{
   }
 
   create(workout: Workout): void{
-    const ex = this.getExercise(this.currentInput);
 
-    if (ex !== null && workout.workoutName !== ''){
-      workout.exerciseList = {};
-      workout.exerciseList.exercises = [];
-      workout.exerciseList.exercises[0] = {};
-      workout.exerciseList.exercises[0].exerciseName = ex.exerciseName;
-      workout.exerciseList.exercises[0].exerciseID = ex.exerciseID;
+    if (workout.workoutName !== ''){
+
       workout.date = this.data.date;
       workout.workoutID = '';
+
+      for (let i = 0; i < workout.exerciseList.exercises.length; i++){
+        const id = workout.exerciseList.exercises[i].exerciseID;
+        workout.exerciseList.exercises[i] = {};
+        workout.exerciseList.exercises[i].exerciseID = id;
+      }
+
+      console.log(workout);
+
       this.workoutService.createWorkout(workout).subscribe(resp => {
         if (resp.resp === 0){
           this.snackbar.open('Something went wrong creating your workout', 'Dismiss', {duration: 10000});
@@ -172,6 +182,27 @@ export class CreateNewDialog implements OnInit{
 
   createExercise(): void{
     this.dialogRef = this.modal.open(CreateExerciseComponent, {data: {parent: this}});
+  }
+
+  addEx(): void{
+    const input = this.getExercise(this.currentInput);
+    if (input != null && this.initExercise == null){
+
+      this.initExercise = input.exerciseName;
+      this.workout.exerciseList.exercises.push(input);
+      this.currentInput = '';
+
+    }else if (input != null && this.initExercise != null){
+
+      this.workout.exerciseList.exercises.push(input);
+      this.myExercises.push(input);
+      this.currentInput = '';
+
+    }else if (input == null){
+
+      this.snackbar.open('Exercise doesn\'t exist', 'Dissmiss', {duration: 10000});
+
+    }
   }
 
 }

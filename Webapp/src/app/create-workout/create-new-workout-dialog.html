@@ -7,14 +7,24 @@
 <div class="modal-body">
   Workout Name: <input type="text" [(ngModel)]="workout.workoutName"> <br><br>
   Public: <mat-checkbox [(ngModel)]="this.workout.public"></mat-checkbox><br>
-  Initial Exercise: <br>
-  <input type="text"  matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
+  Initial Exercise: <div *ngIf="initExercise">{{initExercise}}</div>
+  <div *ngIf="myExercises[0]">
+    <br>
+    Exercises:
+    <ul>
+      <li *ngFor="let exercise of myExercises">
+        {{exercise.exerciseName}}
+      </li>
+    </ul>
+  </div>
+  <input type="text"  matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="addEx()">
   <!-- Autocomplete suggestions for the searchbar -->
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
       {{ exercise }}
     </mat-option>
   </mat-autocomplete><br>
+
   <button class="btn btn-outline-dark" (click)="createExercise()">Create Exercise</button>
 </div>
 <div class="modal-footer">
