@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add workout for {{dialogData.day}}</h4>
+</div>
+<div class="modal-body">
+Select existing:
+  <mat-form-field>
+    <mat-select placeholder="Workouts" [(ngModel)]="selected">
+      <mat-option *ngFor="let workout of workouts" [value]="workout">
+        {{ workout.workoutName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" (click)="addWorkout()">Add workout</button>
+</div>

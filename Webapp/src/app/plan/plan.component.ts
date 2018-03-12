@@ -4,6 +4,7 @@ import {Plan} from './plan';
 import {Workout} from '../myworkout/workout';
 import {MatDialog} from '@angular/material';
 import {WorkoutService} from '../workout/workout.service';
+import {AddworkoutComponent} from '../addworkout/addworkout.component';
 
 @Component({
   selector: 'app-plan',
@@ -12,9 +13,9 @@ import {WorkoutService} from '../workout/workout.service';
 })
 export class PlanComponent implements OnInit {
 
-  myPlans: Plan[];
   tileColour = 'lightgray';
   isWeekend = false;
+  dialogRef;
 
   weekdays = [
     {text: 'Monday', workout: null},
@@ -52,9 +53,14 @@ export class PlanComponent implements OnInit {
   }
 
   addWorkout(i): void{
+    this.dialogRef = this.dialog.open(AddworkoutComponent,
+      {data: {day: this.weekdays[i].text, index: i, parent: this}});
+  }
+
+  callback(index, workout): void{
     if (!this.isWeekend){
-      this.weekdays[i].workout = {};
-      this.weekdays[i].workout.workoutName = 'test';
+      this.weekdays[index].workout = workout;
+      this.dialogRef.close();
     }
   }
 

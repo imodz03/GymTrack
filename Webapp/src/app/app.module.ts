@@ -34,6 +34,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreateExerciseComponent } from './create-exercise/create-exercise.component';
 import { PlanComponent } from './plan/plan.component';
 import {PlanService} from './plan/plan.service';
+import { AddworkoutComponent } from './addworkout/addworkout.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {PlanService} from './plan/plan.service';
     CreateNewDialog,
     DashboardComponent,
     CreateExerciseComponent,
-    PlanComponent
+    PlanComponent,
+    AddworkoutComponent
   ],
   entryComponents:[
     CreateNewDialog
