@@ -54,7 +54,11 @@ public class PlannedWorkouts {
     }
 
     public String getDayOfWeek() {
-        return dayOfWeek.getVal();
+        if (dayOfWeek == null){
+            return null;
+        }else{
+            return dayOfWeek.getVal();
+        }
     }
 
     public DoW getRawDOW(){

@@ -33,7 +33,6 @@ public class PlanServiceImpl implements PlanService {
         DateTime dt;
         int res1 = 0;
         int res2 = 0;
-        int res3 = 0;
 
         if (pws.get(0).getDayOfWeek() != null){
             for (int i = 0; i < repeats * 7; i++){
@@ -54,6 +53,20 @@ public class PlanServiceImpl implements PlanService {
 
                         res1 = workoutDAO.create(temp, temp.getUser().getUserID(), temp.getExerciseList().getELID());
                         res2 = pwDAO.create(pw, uuid1);
+
+                    }
+
+                }
+
+            }
+        }else{
+            dateTime = dateTime.minusDays(1);
+            int daysTotal = pws.get(pws.size()-1).getWorkoutDay();
+            for (int i = 0; i < repeats; i++){
+
+                for (PlannedWorkouts pw : pws) {
+
+                    if (!pw.getWorkout().getWorkoutName().equals("rest")){
 
                     }
 

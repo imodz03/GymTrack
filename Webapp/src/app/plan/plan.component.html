@@ -8,11 +8,11 @@
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker><br>
   Repetitions: <input type="number" [(ngModel)]="plan.repeats"><br><br>
-  <mat-tab-group>
+  <mat-tab-group (selectedTabChange)="indexChange.emit($event)">
 
     <mat-tab label="Days Of The Week">
       <br>
-      <mat-grid-list cols="4" rows="2" rowHeight="100px">
+      <mat-grid-list cols="4" rowHeight="100px">
         <mat-grid-tile
           *ngFor="let tile of days; index as i"
           [colspan]="1"
@@ -33,6 +33,31 @@
     </mat-tab>
 
     <mat-tab label="Numeric Days">
+      <br>
+      <mat-grid-list cols="4" rowHeight="100px">
+        <mat-grid-tile
+          *ngFor="let tile of daysn; index as i"
+          [colspan]="1"
+          [rowspan]="1"
+          [style.background]="tileColour"
+          gutterSize="5px"
+          (click)="addWorkout(i)">
+          <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+          <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+          <div *ngIf="tile.workout" class="workoutname">
+            {{tile.workout.workoutName}}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile
+          [colspan]="1"
+          [rowspan]="1"
+          [style.background]="tileColour"
+          gutterSize="5px"
+          (click)="addDay()">
+          <mat-grid-tile-header>Add Day</mat-grid-tile-header>
+          <i class="fa fa-plus"></i>
+        </mat-grid-tile>
+      </mat-grid-list>
     </mat-tab>
 
   </mat-tab-group>

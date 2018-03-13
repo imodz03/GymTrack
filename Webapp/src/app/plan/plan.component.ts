@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {PlanService} from './plan.service';
 import {Plan} from './plan';
 import {Workout} from '../myworkout/workout';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar, MatTabChangeEvent} from '@angular/material';
 import {WorkoutService} from '../workout/workout.service';
 import {AddworkoutComponent} from '../addworkout/addworkout.component';
 import {PlannedWorkout} from './PW';
@@ -21,6 +21,8 @@ export class PlanComponent implements OnInit {
   dialogRef;
   loading = false;
   dateInput;
+  indexChange = new EventEmitter<MatTabChangeEvent>();
+  index = 0;
 
   days = [
     {text: 'Monday', workout: null, val: 'MONDAY'},
@@ -28,6 +30,10 @@ export class PlanComponent implements OnInit {
     {text: 'Wednesday', workout: null, val: 'WEDNESDAY'},
     {text: 'Thursday', workout: null, val: 'THURSDAY'},
     {text: 'Friday', workout: null, val: 'FRIDAY'}
+  ];
+
+  daysn = [
+    {text: 'Day 1', workout: {workoutName: 'rest', workoutID: ''}, val: 1}
   ];
 
   workouts = new Array<Workout>();
@@ -43,6 +49,13 @@ export class PlanComponent implements OnInit {
     this.getWorkouts();
     this.plan.planID = '';
     this.plan.repeats = 1;
+
+    this.indexChange.subscribe(
+      out => {
+        this.index = out.index;
+      }
+    );
+
   }
 
   getWorkouts(): void{
@@ -54,12 +67,23 @@ export class PlanComponent implements OnInit {
   }
 
   addWorkout(i): void{
-    this.dialogRef = this.dialog.open(AddworkoutComponent,
-      {data: {day: this.days[i].text, index: i, parent: this, selected: this.days[i].workout}});
+    if (this.index === 0){
+      this.dialogRef = this.dialog.open(AddworkoutComponent,
+        {data: {day: this.days[i].text, index: i, parent: this, selected: this.days[i].workout}});
+    }else{
+      this.dialogRef = this.dialog.open(AddworkoutComponent,
+        {data: {day: this.daysn[i].text, index: i, parent: this, selected: this.daysn[i].workout}});
+    }
   }
 
   callback(index, workout): void{
-    this.days[index].workout = workout;
+
+    if (this.index === 0){
+      this.days[index].workout = workout;
+    }else{
+      this.daysn[index].workout = workout;
+    }
+
     this.dialogRef.close();
     this.workoutAdded = true;
   }
@@ -94,19 +118,38 @@ export class PlanComponent implements OnInit {
   postExercises(id: string): void{
     const toPost = new Array<PlannedWorkout>();
 
-    for (let i = 0; i < this.days.length; i++){
-      if  (this.days[i].workout != null){
+    if (this.index === 0){
+      for (let i = 0; i < this.days.length; i++){
+        if  (this.days[i].workout != null){
 
-        const temp = new PlannedWorkout();
-        temp.pwID = '';
-        temp.planID = id;
-        temp.dayOfWeek = this.days[i].val;
-        temp.workout = {};
-        temp.workout.workoutID = this.days[i].workout.workoutID;
-        toPost.push(temp);
+          const temp = new PlannedWorkout();
+          temp.pwID = '';
+          temp.planID = id;
+          temp.dayOfWeek = this.days[i].val;
+          temp.workout = {};
+          temp.workout.workoutID = this.days[i].workout.workoutID;
+          toPost.push(temp);
 
+        }
+      }
+    }else if (this.index === 1){
+      for (let i = 0; i < this.daysn.length; i++){
+        if  (this.daysn[i].workout != null){
+
+          const temp = new PlannedWorkout();
+          temp.pwID = '';
+          temp.planID = id;
+          temp.workoutDay = i + 1;
+          temp.workout = {};
+          temp.workout.workoutID = this.daysn[i].workout.workoutID;
+          temp.workout.workoutName = this.daysn[i].workout.workoutName;
+          toPost.push(temp);
+
+        }
       }
     }
+
+    console.log(toPost);
     this.planService.addWorkouts(toPost).subscribe(
       resp => {
         if (resp === 1){
@@ -117,6 +160,10 @@ export class PlanComponent implements OnInit {
       }
     );
 
+  }
+
+  addDay(): void{
+    this.daysn.push({text: 'Day ' + (this.daysn.length + 1), workout: {workoutName: 'rest', workoutID: ''}, val: (this.daysn.length + 1)});
   }
 
 }

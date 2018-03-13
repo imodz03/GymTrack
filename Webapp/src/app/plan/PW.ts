@@ -3,4 +3,5 @@ export class PlannedWorkout{
   planID: string;
   workout: any;
   dayOfWeek: string;
+  workoutDay: number;
 }
