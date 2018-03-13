@@ -12,7 +12,6 @@ Alter table Logs add foreign key(UserID) references User(UserID);
 /*Workout foreign keys*/
 Alter table Workout add foreign key(SetsID) references Sets(SetsID);
 Alter table Workout add foreign key(UserID) references User(UserID);
-Alter table Workout add foreign key(Exercises) references ExerciseList(ExerciseListID);
 
 /*Goal foreign keys*/
 Alter table Goal add foreign key(SetID) references Sets(SetsID);

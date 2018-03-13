@@ -26,7 +26,7 @@ public interface PlanDAO {
     @SqlQuery("SELECT * FROM " + PLAN + " WHERE PlanID = :id")
     Plan getById(@Bind("id")String id);
 
-    @SqlUpdate("INSERT INTO " + PLAN + " (PlanID, PlanName, Description, UserID, Public, Repeats) VALUES (:plan.planID, :plan.planName, :plan.description, :userID, :plan.public, :plan.repeats)")
+    @SqlUpdate("INSERT INTO " + PLAN + " (PlanID, PlanName, Description, UserID, Public, Repeats, startDate) VALUES (:plan.planID, :plan.planName, :plan.description, :userID, :plan.public, :plan.repeats, :plan.startDate)")
     int create(@BindBean("plan") Plan plan, @Bind("userID") String userID);
 
     @SqlUpdate("UPDATE " + PLAN + " SET PlanName = :plan.planName, Description = :plan.description, UserID = :userID, Public = :plan.public, Repeats = :plan.repeats WHERE PlanID = :id")

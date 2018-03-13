@@ -1,5 +1,7 @@
 package com.elliotb.Entity;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class Plan {
     private User user;
     private boolean isPublic;
     private int repeats = 0;
+    private DateTime startDate;
 
     private List<PlannedWorkouts> workouts;
 
@@ -70,5 +73,13 @@ public class Plan {
 
     public void setRepeats(int repeats) {
         this.repeats = repeats;
+    }
+
+    public String getStartDate() {
+        return startDate.toString("yyyy-MM-dd");
+    }
+
+    public void setStartDate(DateTime startDate) {
+        this.startDate = startDate;
     }
 }

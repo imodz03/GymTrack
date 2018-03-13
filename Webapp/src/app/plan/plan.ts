@@ -5,5 +5,6 @@ export class Plan {
   public: boolean;
   repeats: number;
   description: string;
+  startDate: string;
 
 }

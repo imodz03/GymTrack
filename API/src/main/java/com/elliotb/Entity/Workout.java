@@ -88,7 +88,11 @@ public class Workout {
     }
 
     public String getDate() {
-        return date.toString("yyyy-MM-dd");
+        if (date != null){
+            return date.toString("yyyy-MM-dd");
+        }else{
+            return null;
+        }
     }
 
     public void setDate(DateTime date) {

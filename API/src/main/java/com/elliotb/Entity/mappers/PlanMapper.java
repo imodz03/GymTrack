@@ -2,6 +2,7 @@ package com.elliotb.Entity.mappers;
 
 import com.elliotb.Entity.Plan;
 import com.elliotb.Entity.User;
+import org.joda.time.DateTime;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
@@ -20,6 +21,7 @@ public class PlanMapper implements ResultSetMapper<Plan> {
         mappable.setUser(mappableUser);
         mappable.setPublic(r.getBoolean(5));
         mappable.setRepeats(r.getInt(6));
+        mappable.setStartDate(new DateTime(r.getDate(7)));
 
         return mappable;
     }

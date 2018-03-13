@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {WorkoutService} from '../workout/workout.service';
 import {Workout} from '../myworkout/workout';
+import {CreateWorkoutComponent} from '../create-workout/create-workout.component';
 
 @Component({
   selector: 'app-addworkout',
@@ -11,15 +12,26 @@ import {Workout} from '../myworkout/workout';
 export class AddworkoutComponent implements OnInit {
 
   dialogData;
+  dialogRef;
   workouts = [];
-  selected: Workout;
+  selected = new Workout;
+  exercises;
 
   constructor(@Inject(MAT_DIALOG_DATA)public data: any,
-              private workoutService: WorkoutService) {
+              private workoutService: WorkoutService,
+              private dialog: MatDialog) {
     this.dialogData = data;
+    if (data.selected != null){
+      console.log(data.selected);
+      this.selected = data.selected;
+    }
   }
 
   ngOnInit() {
+    this.getWorkouts();
+  }
+
+  getWorkouts(){
     this.workoutService.getMine().subscribe(
       resp => {
         this.workouts = resp;
@@ -29,6 +41,19 @@ export class AddworkoutComponent implements OnInit {
 
   addWorkout(): void{
     this.dialogData.parent.callback(this.dialogData.index, this.selected);
+  }
+
+  createWorkout(): void{
+    this.dialogRef = this.dialog.open(CreateWorkoutComponent, {data: {workout: this.selected, parent: this}});
+  }
+
+  callback(resp, workout): void{
+    this.dialogRef.close();
+    this.getWorkouts();
+  }
+
+  selectionChanged(): void{
+    this.exercises = this.selected.exerciseList.exercises;
   }
 
 }

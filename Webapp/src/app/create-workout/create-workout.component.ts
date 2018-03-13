@@ -76,14 +76,11 @@ export class CreateWorkoutComponent implements OnInit {
         workout.exerciseList.exercises[i].exerciseID = id;
       }
 
-      console.log(workout);
-
       this.workoutService.createWorkout(workout).subscribe(resp => {
         if (resp.resp === 0){
           this.snackbar.open('Something went wrong creating your workout', 'Dismiss', {duration: 10000});
         }else{
-          this.router.navigate(['/workouts/details/' + resp.resp]);
-          this.data.parent.dialogRef.close();
+          this.data.parent.callback(resp, workout);
         }
       });
     }else{
@@ -128,6 +125,7 @@ export class CreateWorkoutComponent implements OnInit {
           this.workout.exerciseList.exercises.push(input);
           this.myExercises.push(input);
           this.currentInput = '';
+          break;
         }
       }
 

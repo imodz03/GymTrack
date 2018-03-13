@@ -4,13 +4,22 @@
 <div class="modal-body">
 Select existing:
   <mat-form-field>
-    <mat-select placeholder="Workouts" [(ngModel)]="selected">
+    <mat-select placeholder="Workout" [(ngModel)]="selected" (selectionChange)="selectionChanged()">
       <mat-option *ngFor="let workout of workouts" [value]="workout">
         {{ workout.workoutName }}
       </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
+<div *ngIf="exercises">
+  <h4>Exercises:</h4>
+  <ul>
+    <li *ngFor="let exercise of exercises">
+      {{exercise.exerciseName}}
+    </li>
+  </ul>
+</div>
 <div class="modal-footer">
+  <button class="btn btn-success" (click)="createWorkout()">Create workout</button>
   <button class="btn btn-primary" (click)="addWorkout()">Add workout</button>
 </div>

@@ -3,6 +3,7 @@ package com.elliotb.Resources.CRUDResources;
 import com.elliotb.DAO.PlannedWorkoutsDAO;
 import com.elliotb.Entity.PlannedWorkouts;
 import com.elliotb.Helpers.UUID;
+import com.elliotb.Services.PlanService;
 import com.elliotb.Services.WorkoutService;
 import com.google.inject.Inject;
 
@@ -22,6 +23,9 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
 
     @Inject
     private WorkoutService workoutService;
+
+    @Inject
+    private PlanService planService;
 
     @GET
     public Response getAll() {
@@ -74,7 +78,7 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
 
         int resp = dao.create(plannedWorkouts, plannedWorkouts.getWorkout().getWorkoutID());
 
-        return Response.ok(1).build();
+        return Response.ok(resp).build();
     }
 
     @PUT
@@ -93,4 +97,13 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     public Response delete(@PathParam("id") String id) {
         return Response.ok(dao.delete(id)).build();
     }
+
+    @POST
+    @Path("/plan")
+    public Response addWorkouts(List<PlannedWorkouts> workouts){
+
+        int res = planService.addWorkouts(workouts, workouts.get(0).getPlanID());
+        return Response.ok(res).build();
+    }
+
 }

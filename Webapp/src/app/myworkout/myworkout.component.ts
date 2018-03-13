@@ -8,6 +8,7 @@ import * as $ from 'jquery';
 import 'fullcalendar';
 import {MatDialog} from '@angular/material';
 import {CreateWorkoutComponent} from '../create-workout/create-workout.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-myworkout',
@@ -26,7 +27,8 @@ export class MyworkoutComponent implements OnInit {
 
   constructor(private workoutService: WorkoutService,
               private modalService: NgbModal,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
     this.workoutService.getMine().subscribe(
@@ -72,6 +74,11 @@ export class MyworkoutComponent implements OnInit {
       parent.newWorkout = new Workout();
     });
 
+  }
+
+  callback(resp): void{
+    this.router.navigate(['/workouts/details/' + resp.resp ]);
+    this.dialogRef.close();
   }
 
 }

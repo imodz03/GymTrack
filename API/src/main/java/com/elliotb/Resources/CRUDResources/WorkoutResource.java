@@ -56,7 +56,9 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         List<Workout> get = dao.getMine(tokenDecrypter.getId(httpHeaders));
 
         for (Workout workout : get) {
-            service.populateExercise(workout);
+            if (workout != null){
+                service.populateExercise(workout);
+            }
         }
 
         return Response.ok(get).build();

@@ -1,36 +1,20 @@
 <div>
-  Plan Name: <input type="text"><br>
+  Plan Name: <input type="text" [(ngModel)]="plan.planName"><br>
   Description:<br>
-  <textarea></textarea><br>
-  Public: <mat-checkbox></mat-checkbox><br>
+  <textarea [(ngModel)]="plan.description"></textarea><br>
+  Public: <mat-checkbox [(ngModel)]="plan.public"></mat-checkbox><br>
   Start date:
   <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker><br>
-  Repetitions: <input type="number"><br><br>
+  Repetitions: <input type="number" [(ngModel)]="plan.repeats"><br><br>
   <mat-tab-group>
 
     <mat-tab label="Days Of The Week">
       <br>
-      <mat-grid-list cols="4" rows="2" rowHeight="100px" *ngIf="!isWeekend">
+      <mat-grid-list cols="4" rows="2" rowHeight="100px">
         <mat-grid-tile
-          *ngFor="let tile of weekdays; index as i"
-          [colspan]="1"
-          [rowspan]="1"
-          [style.background]="tileColour"
-          gutterSize="5px"
-          (click)="addWorkout(i)">
-          <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
-          <i *ngIf="!tile.workout" class="fa fa-plus"></i>
-          <div *ngIf="tile.workout" class="workoutname">
-            {{tile.workout.workoutName}}
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
-
-      <mat-grid-list cols="4" rows="2" rowHeight="100px" *ngIf="isWeekend">
-        <mat-grid-tile
-          *ngFor="let tile of weekends; index as i"
+          *ngFor="let tile of days; index as i"
           [colspan]="1"
           [rowspan]="1"
           [style.background]="tileColour"
@@ -45,11 +29,13 @@
       </mat-grid-list>
 
       <br>
-      <button (click)="isWeekend = !isWeekend" class="btn btn-success">Toggle weekends</button>
+      <button (click)="toggleWeekend()" class="btn btn-success">Toggle weekends</button>
     </mat-tab>
 
     <mat-tab label="Numeric Days">
     </mat-tab>
 
   </mat-tab-group>
+  <br>
+  <button class="btn btn-primary" (click)="createPlan()">Create Plan</button>
 </div>

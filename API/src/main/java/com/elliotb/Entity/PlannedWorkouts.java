@@ -1,6 +1,7 @@
 package com.elliotb.Entity;
 
 import com.elliotb.Entity.enums.DoW;
+import org.joda.time.DateTime;
 
 public class PlannedWorkouts {
 
@@ -54,6 +55,10 @@ public class PlannedWorkouts {
 
     public String getDayOfWeek() {
         return dayOfWeek.getVal();
+    }
+
+    public DoW getRawDOW(){
+        return dayOfWeek;
     }
 
     public void setDayOfWeek(DoW dayOfWeek) {

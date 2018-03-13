@@ -4,6 +4,7 @@ import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.DAO.PlanDAO;
 import com.elliotb.DAO.PlannedWorkoutsDAO;
 import com.elliotb.Entity.Plan;
+import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
 import com.google.inject.Inject;
@@ -56,9 +57,15 @@ public class PlanResource implements ICRUDResource<Plan> {
             plan.setPlanID(UUID.getUUID());
         }
 
-        int res = dao.create(plan, plan.getUser().getUserID());
+        int res = dao.create(plan, decrypter.getId(httpHeaders));
 
-        return Response.ok(res).build();
+        System.out.println();
+
+        if (res == 1){
+            return Response.ok(EasyJSON.convert("id", plan.getPlanID())).build();
+        }else{
+            return Response.ok(res).build();
+        }
     }
 
     @PUT

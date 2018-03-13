@@ -4,5 +4,6 @@ create table Plan(
   Description text,
   UserID varchar(36),
   Public boolean,
-  Repeats tinyint unsigned
+  Repeats tinyint unsigned,
+  startDate date
 )
