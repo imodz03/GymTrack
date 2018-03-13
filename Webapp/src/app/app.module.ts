@@ -16,7 +16,7 @@ import { UrlService } from './services/url.service';
 import { UserService } from './user/user.service';
 import { UserComponent } from './user/user.component';
 import { HeaderService } from './services/header.service';
-import {CreateNewDialog, MyworkoutComponent} from './myworkout/myworkout.component';
+import { MyworkoutComponent} from './myworkout/myworkout.component';
 import { RegisterComponent } from './register/register.component';
 import { NgbCollapseModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { WorkoutDetailsComponent } from './workout-details/workout-details.component';
@@ -48,14 +48,13 @@ import { AddworkoutComponent } from './addworkout/addworkout.component';
     WorkoutDetailsComponent,
     ExerciseComponent,
     CreateWorkoutComponent,
-    CreateNewDialog,
     DashboardComponent,
     CreateExerciseComponent,
     PlanComponent,
     AddworkoutComponent
   ],
   entryComponents:[
-    CreateNewDialog
+    CreateWorkoutComponent
   ],
   imports: [
     BrowserModule,
