@@ -6,31 +6,31 @@
   <div class="collapse navbar-collapse" [ngbCollapse]="!toggleNavbar">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/workouts">Workout</a>
+        <a class="nav-link" (click)="navigate('/workouts')">Workout</a>
       </li>
       <li class="nav-item">
-        <a *ngIf="userService.getUser()" class="nav-link" href="/myworkouts">My Workouts</a>
+        <a *ngIf="userService.getUser()" class="nav-link" (click)="navigate('/myworkouts')">My Workouts</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/exercises">Exercise Library</a>
+        <a class="nav-link" (click)="navigate('/exercises')">Exercise Library</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="userService.getUser()">
-        <button mat-button class="bg-dark" id="options" [matMenuTriggerFor]="options"><a class="nav-link">{{userService.getUser().username}} <i class="fa fa-caret-down"></i></a></button>
+        <div mat-button class="bg-dark" id="options" [matMenuTriggerFor]="options"><a class="nav-link">{{userService.getUser().username}} <i class="fa fa-caret-down"></i></a></div>
         <mat-menu class="bg-dark" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
-          <div mat-menu-item><a href="/account">My Account</a></div>
-          <div mat-menu-item>Plans</div>
+          <div mat-menu-item class="menu-item" (click)="navigate('/account')">My Account</div>
+          <div mat-menu-item class="menu-item" (click)="navigate('/plan')">Plans</div>
         </mat-menu>
       </li>
       <li class="navbar-item">
         <a *ngIf="userService.getUser()" (click)="userService.logout()" href="/login" class="nav-link">Logout</a>
       </li>
       <li class="navbar-item">
-        <a *ngIf="!userService.getUser()" href="/login" class="nav-link">Login</a>
+        <a *ngIf="!userService.getUser()" (click)="navigate('/login')" class="nav-link">Login</a>
       </li>
       <li class="navbar-item">
-        <a *ngIf="!userService.getUser()" href="/register" class="nav-link">Register</a>
+        <a *ngIf="!userService.getUser()" (click)="navigate('/register')" class="nav-link">Register</a>
       </li>
     </ul>
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -8,10 +9,17 @@ import {UserService} from '../user/user.service';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService,
+              private router: Router) { }
   toggleNavbar;
 
   ngOnInit() {
+  }
+
+  navigate(navTo): void{
+
+    this.router.navigate([navTo]);
+
   }
 
 }

@@ -6,7 +6,7 @@ import {MatDialog, MatSnackBar, MatTabChangeEvent} from '@angular/material';
 import {WorkoutService} from '../workout/workout.service';
 import {AddworkoutComponent} from '../addworkout/addworkout.component';
 import {PlannedWorkout} from './PW';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-plan',
@@ -23,6 +23,7 @@ export class PlanComponent implements OnInit {
   dateInput;
   indexChange = new EventEmitter<MatTabChangeEvent>();
   index = 0;
+  tab = 0;
 
   days = [
     {text: 'Monday', workout: null, val: 'MONDAY'},
