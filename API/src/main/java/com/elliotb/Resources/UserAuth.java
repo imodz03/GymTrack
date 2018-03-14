@@ -10,6 +10,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import java.util.Collection;
+import java.util.Scanner;
 
 @Path("/auth")
 public class UserAuth {
@@ -56,6 +61,18 @@ public class UserAuth {
     @Path("/verify")
     public boolean valid(AuthUser au){
         return tf.verify(au);
+    }
+
+    @POST
+    @Path("/test")
+    public Response testing(@Context ContainerRequestContext crc) {
+        Scanner s = new Scanner(crc.getEntityStream()).useDelimiter("\\A");
+
+        Collection<String> testing = crc.getPropertyNames();
+
+        String result = s.hasNext() ? s.next() : "";
+        System.out.println(result);
+        return Response.ok().build();
     }
 
 }

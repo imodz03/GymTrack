@@ -60,17 +60,33 @@ public class PlanServiceImpl implements PlanService {
 
             }
         }else{
-            dateTime = dateTime.minusDays(1);
             int daysTotal = pws.get(pws.size()-1).getWorkoutDay();
-            for (int i = 0; i < repeats; i++){
+            int index = 0;
+            dt = dateTime.plusDays(0);
+            for (int i = 1; i <= repeats*daysTotal; i++){
 
-                for (PlannedWorkouts pw : pws) {
-
-                    if (!pw.getWorkout().getWorkoutName().equals("rest")){
-
-                    }
-
+                if (index == daysTotal){
+                    index = 0;
                 }
+
+                if (!pws.get(index).getWorkout().getWorkoutName().equals("rest")){
+                    PlannedWorkouts pw = pws.get(index);
+
+                    String uuid1 = UUID.getUUID();
+                    String uuid2 = UUID.getUUID();
+                    Workout temp = workoutDAO.getByID(pw.getWorkout().getWorkoutID());
+
+                    temp.setWorkoutID(uuid1);
+                    temp.setDate(dt);
+
+                    pw.setPwID(uuid2);
+
+                    res1 = workoutDAO.create(temp, temp.getUser().getUserID(), temp.getExerciseList().getELID());
+                    res2 = pwDAO.create(pw, uuid1);
+                }
+
+                index++;
+                dt = dateTime.plusDays(i);
 
             }
         }
