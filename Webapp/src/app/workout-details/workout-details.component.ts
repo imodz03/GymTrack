@@ -13,6 +13,8 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
+import {SetService} from '../services/set.service';
+import {Sets} from '../sets/sets';
 
 @Component({
   selector: 'app-workout-details',
@@ -27,7 +29,8 @@ export class WorkoutDetailsComponent implements OnInit {
               private elService: ExerciselistService,
               private exerciseService: ExerciseService,
               private snackBar: MatSnackBar,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private setService: SetService) { }
 
   workout: Workout;
   canEdit = false;
@@ -38,6 +41,7 @@ export class WorkoutDetailsComponent implements OnInit {
   currentInput = '';
   dateInput: Date;
   dialogRef;
+  sets = false;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -63,8 +67,11 @@ export class WorkoutDetailsComponent implements OnInit {
 
     this.workoutService.getWorkout(id).subscribe(
       workout => {
+
         this.workout = workout;
         this.dateInput = new Date(workout.date);
+
+        this.workout.setsID = workout.sets[0].setID;
       }
     );
 
@@ -176,6 +183,5 @@ export class WorkoutDetailsComponent implements OnInit {
   createExercise(): void{
     this.dialogRef = this.dialog.open(CreateExerciseComponent, {data: {parent: this}});
   }
-
 
 }

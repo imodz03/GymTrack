@@ -27,6 +27,7 @@
       <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
         {{exercise.exerciseName}}
         <a *ngIf="!locked" (click)="delete(i)"><i class="fa fa-close"></i></a>
+        <app-sets [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
       </li>
       <li *ngIf="addItem">
         <!--Exercise search-->

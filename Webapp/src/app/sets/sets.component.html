@@ -1,0 +1,8 @@
+<div *ngIf="sets.length > 0">
+  <mat-chip-list>
+    <mat-chip *ngFor="let set of sets" (mouseleave)="reps = true" (mouseover)="reps = false">
+      <div *ngIf="set.reps && reps">{{set.reps}} Reps</div>
+      <div *ngIf="set.weight != 0.0 && !reps"> {{set.weight}} KG</div>
+    </mat-chip>
+  </mat-chip-list>
+</div>

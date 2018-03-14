@@ -44,13 +44,32 @@ public class SetResource implements ICRUDResource<Set> {
     @Path("/{id}")
     public Response getByID(@PathParam("id")String id) {
 
-        Set resp = dao.getById(id);
+        List<Set> dbres = dao.getById(id);
 
-        Exercise exer = exerciseService.populateExercise(resp.getExercise());
+        if (dbres.size() > 0){
+            for (Set dbre : dbres) {
+                Exercise populated = exerciseService.populateExercise(dbre.getExercise());
+                dbre.setExercise(populated);
+            }
+        }
 
-        resp.setExercise(exer);
+        return Response.ok(dbres).build();
+    }
 
-        return Response.ok(resp).build();
+    @GET
+    @Path("/{id}/{exID}")
+    public Response getByIDandEx(@PathParam("id")String id, @PathParam("exID")String exid) {
+
+        List<Set> dbres = dao.getByIdAndEx(id, exid);
+
+        if (dbres.size() > 0){
+            for (Set dbre : dbres) {
+                Exercise populated = exerciseService.populateExercise(dbre.getExercise());
+                dbre.setExercise(populated);
+            }
+        }
+
+        return Response.ok(dbres).build();
     }
 
     // TODO: 24/12/2017 proper response codes

@@ -26,7 +26,7 @@ import { ExerciseComponent } from './exercise/exercise.component';
 import {
   MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatNativeDateModule,
   MatSlideToggleModule, MatSnackBarModule, MatProgressSpinnerModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSortModule, MatTabsModule, MatGridListModule, MatMenuModule
+  MatPaginatorModule, MatSortModule, MatTabsModule, MatGridListModule, MatMenuModule, MatChipsModule
 } from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateWorkoutComponent } from './create-workout/create-workout.component';
@@ -35,6 +35,8 @@ import { CreateExerciseComponent } from './create-exercise/create-exercise.compo
 import { PlanComponent } from './plan/plan.component';
 import {PlanService} from './plan/plan.service';
 import { AddworkoutComponent } from './addworkout/addworkout.component';
+import { SetService } from './services/set.service';
+import { SetsComponent } from './sets/sets.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { AddworkoutComponent } from './addworkout/addworkout.component';
     DashboardComponent,
     CreateExerciseComponent,
     PlanComponent,
-    AddworkoutComponent
+    AddworkoutComponent,
+    SetsComponent
   ],
   entryComponents:[
     CreateWorkoutComponent
@@ -79,7 +82,8 @@ import { AddworkoutComponent } from './addworkout/addworkout.component';
     MatSortModule,
     MatTabsModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatChipsModule
   ],
   providers: [
     LoginService,
@@ -93,7 +97,8 @@ import { AddworkoutComponent } from './addworkout/addworkout.component';
       multi: true
     },
     ExerciseService,
-    PlanService
+    PlanService,
+    SetService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

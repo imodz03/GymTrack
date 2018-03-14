@@ -19,8 +19,12 @@ public interface SetDAO {
 
     // TODO: 10/02/2018 get by id needs to return a list ordered by position
     @Mapper(SetsMapper.class)
-    @SqlQuery("select * from " + SET + " where SetsID = :id")
-    Set getById(@Bind("id")String id);
+    @SqlQuery("select * from " + SET + " where SetsID = :id ORDER BY SetsID, ExerciseID, `position` ASC")
+    List<Set> getById(@Bind("id")String id);
+
+    @Mapper(SetsMapper.class)
+    @SqlQuery("select * from " + SET + " where SetsID = :id and ExerciseID = :exID ORDER BY SetsID, ExerciseID, `position` ASC")
+    List<Set> getByIdAndEx(@Bind("id")String id, @Bind("exID")String exID);
 
     @SqlUpdate("INSERT into " + SET + " (SetsID, ExerciseID, position, reps, weight) values(:set.setID, :exerciseID, :set.position, :set.reps, :set.weight)")
     int create(@BindBean("set")Set set, @Bind("exerciseID")String exID);

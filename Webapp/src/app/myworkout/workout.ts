@@ -6,5 +6,7 @@ export class Workout{
   workoutID: string;
   workoutName: string;
   exerciseList: any;
+  setsID: any;
+  sets: any;
 
 }

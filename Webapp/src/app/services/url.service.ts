@@ -27,6 +27,9 @@ export class UrlService {
   // exercises
   exercise = this.resource + '/exercise';
 
+  // sets
+  sets = this.resource + '/set';
+
   // plan
   plan = this.resource + '/plan';
   plannedWorkouts = this.resource + '/pw';
