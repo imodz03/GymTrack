@@ -16,8 +16,12 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a *ngIf="userService.getUser()" class="nav-link" href="/account">{{userService.getUser().username}}</a>
+      <li class="nav-item" *ngIf="userService.getUser()">
+        <button mat-button class="bg-dark" id="options" [matMenuTriggerFor]="options"><a class="nav-link">{{userService.getUser().username}} <i class="fa fa-caret-down"></i></a></button>
+        <mat-menu class="bg-dark" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
+          <div mat-menu-item><a href="/account">My Account</a></div>
+          <div mat-menu-item>Plans</div>
+        </mat-menu>
       </li>
       <li class="navbar-item">
         <a *ngIf="userService.getUser()" (click)="userService.logout()" href="/login" class="nav-link">Logout</a>
@@ -32,4 +36,3 @@
   </div>
 
 </nav>
-
