@@ -37,6 +37,7 @@ import {PlanService} from './plan/plan.service';
 import { AddworkoutComponent } from './addworkout/addworkout.component';
 import { SetService } from './services/set.service';
 import { SetsComponent } from './sets/sets.component';
+import { SetDisplayComponent } from './set-display/set-display.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { SetsComponent } from './sets/sets.component';
     CreateExerciseComponent,
     PlanComponent,
     AddworkoutComponent,
-    SetsComponent
+    SetsComponent,
+    SetDisplayComponent
   ],
   entryComponents:[
     CreateWorkoutComponent

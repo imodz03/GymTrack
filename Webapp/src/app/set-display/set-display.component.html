@@ -1,0 +1,4 @@
+<mat-chip (mouseenter)="toggleDisplayOn()" (mouseleave)="toggleDisplayOff()">
+  <div *ngIf="!displayAlt">{{display}}</div>
+  <div *ngIf="displayAlt">{{altDisplay}}</div>
+</mat-chip>

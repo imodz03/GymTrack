@@ -16,8 +16,9 @@ export class SetsComponent implements OnInit {
   @Input()
   setsID: string;
 
+  display = true;
+
   sets = new Array<Sets>();
-  reps = true;
 
   constructor(private setService: SetService) { }
 
