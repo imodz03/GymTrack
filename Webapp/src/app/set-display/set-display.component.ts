@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {Sets} from '../sets/sets';
 
 @Component({
@@ -10,6 +10,12 @@ export class SetDisplayComponent implements OnInit {
 
   @Input()
   Set: Sets;
+
+  @Input()
+  delete: boolean;
+
+  @Input()
+  em: Function;
 
   displayAlt = false;
 
@@ -72,6 +78,10 @@ export class SetDisplayComponent implements OnInit {
     }else if (this.time){
       this.display = this.Set.timeTaken + ' Minutes';
     }
+  }
+
+  deleteRecord(): void{
+    this.em('test');
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 import {Sets} from './sets';
 import {Exercise} from '../exercise/exercise';
 import {SetService} from '../services/set.service';
@@ -15,6 +15,9 @@ export class SetsComponent implements OnInit {
 
   @Input()
   setsID: string;
+
+  @Input()
+  delete: boolean;
 
   display = true;
 
@@ -34,6 +37,10 @@ export class SetsComponent implements OnInit {
         }
       }
     );
+  }
+
+  deleteSet(test): void{
+    console.log(test);
   }
 
 }

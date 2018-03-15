@@ -1,5 +1,5 @@
 <div *ngIf="sets.length > 0 && display">
   <mat-chip-list >
-    <app-set-display *ngFor="let set of sets" [Set]="set"></app-set-display>
+    <app-set-display *ngFor="let set of sets" [Set]="set" [delete]="delete" [callback]="deleteSet"></app-set-display>
   </mat-chip-list>
 </div>
