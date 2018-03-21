@@ -14,25 +14,28 @@ import static com.elliotb.Helpers.Constants.SET;
 public interface SetDAO {
 
     @Mapper(SetsMapper.class)
-    @SqlQuery("select * from " + SET)
+    @SqlQuery("select SetsID, ExerciseID, position, reps, weight, timeTaken, distance, SUID from " + SET)
     List<Set> getAll();
 
-    // TODO: 10/02/2018 get by id needs to return a list ordered by position
     @Mapper(SetsMapper.class)
-    @SqlQuery("select * from " + SET + " where SetsID = :id ORDER BY SetsID, ExerciseID, `position` ASC")
+    @SqlQuery("select SetsID, ExerciseID, position, reps, weight, timeTaken, distance, SUID from " + SET + " where SetsID = :id ORDER BY SetsID, ExerciseID, `position` ASC")
     List<Set> getById(@Bind("id")String id);
 
     @Mapper(SetsMapper.class)
-    @SqlQuery("select * from " + SET + " where SetsID = :id and ExerciseID = :exID ORDER BY SetsID, ExerciseID, `position` ASC")
+    @SqlQuery("select SetsID, ExerciseID, position, reps, weight, timeTaken, distance, SUID from " + SET + " where SUID = :id ORDER BY SetsID, ExerciseID, `position` ASC")
+    Set getBySUID(@Bind("id")String id);
+
+    @Mapper(SetsMapper.class)
+    @SqlQuery("select SetsID, ExerciseID, position, reps, weight, timeTaken, distance, SUID from " + SET + " where SetsID = :id and ExerciseID = :exID ORDER BY SetsID, ExerciseID, `position` ASC")
     List<Set> getByIdAndEx(@Bind("id")String id, @Bind("exID")String exID);
 
     @SqlUpdate("INSERT into " + SET + " (SetsID, ExerciseID, position, reps, weight) values(:set.setID, :exerciseID, :set.position, :set.reps, :set.weight)")
     int create(@BindBean("set")Set set, @Bind("exerciseID")String exID);
 
-    @SqlUpdate("UPDATE " + SET + " set ExerciseID = :exID, position = :set.position, reps = :set.reps, weight = :set.weight where SetsID = :id")
+    @SqlUpdate("UPDATE " + SET + " set ExerciseID = :exID, position = :set.position, reps = :set.reps, weight = :set.weight where SUID = :id")
     int update(@Bind("id")String id,@Bind("exID")String exID, @BindBean("set")Set set);
 
-    @SqlUpdate("DELETE from " + SET + " where SetsID = :id")
+    @SqlUpdate("DELETE from " + SET + " where SUID = :id")
     int delete(@Bind("id")String id);
 
 }

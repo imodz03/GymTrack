@@ -5,6 +5,7 @@ import com.elliotb.Entity.Exercise;
 import com.elliotb.Entity.Set;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Services.ExerciseService;
+import com.elliotb.Services.SetService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
@@ -23,6 +24,9 @@ public class SetResource implements ICRUDResource<Set> {
 
     @Inject
     ExerciseService exerciseService;
+
+    @Inject
+    SetService setService;
 
     @Override
     @GET
@@ -76,8 +80,6 @@ public class SetResource implements ICRUDResource<Set> {
     @POST
     public Response create(Set set, @Context HttpHeaders httpHeaders) {
 
-        set.setSetID(UUID.getUUID());
-
         int res = dao.create(set, set.getExercise().getExerciseID());
 
         return Response.ok(res).build();
@@ -86,7 +88,6 @@ public class SetResource implements ICRUDResource<Set> {
     @PUT
     @Path("/{id}")
     public Response update(@PathParam("id")String id, Set set) {
-        System.out.println(set);
         int res = dao.update(id, set.getExercise().getExerciseID(), set);
         return Response.ok(res).build();
     }
@@ -94,6 +95,9 @@ public class SetResource implements ICRUDResource<Set> {
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id")String id) {
-        return Response.ok(dao.delete(id)).build();
+        int res = setService.deleteSet(id);
+        return Response.ok(res).build();
     }
+
+
 }

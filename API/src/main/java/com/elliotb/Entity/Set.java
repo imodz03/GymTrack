@@ -3,6 +3,7 @@ package com.elliotb.Entity;
 public class Set {
 
     //this id will be shared accross multiple entities
+    private String SUID;
     private String SetID;
     private Exercise exercise;
     private int position;
@@ -85,15 +86,23 @@ public class Set {
 
     @Override
     public String toString() {
-        return "Set{" +
+        return "Set{\n" +
                 "SetID='" + SetID + '\'' +
-                ", exercise=" + exercise +
-                ", position=" + position +
-                ", reps=" + reps +
-                ", weight=" + weight +
-                ", time=" + time +
-                ", speed=" + speed +
-                ", distance=" + distance +
+                "\n, exercise=" + exercise.getExerciseID() +
+                "\n, position=" + position +
+                "\n, reps=" + reps +
+                "\n, weight=" + weight +
+                "\n, time=" + time +
+                "\n, speed=" + speed +
+                "\n, distance=" + distance +
                 '}';
+    }
+
+    public String getSUID() {
+        return SUID;
+    }
+
+    public void setSUID(String SUID) {
+        this.SUID = SUID;
     }
 }

@@ -2,14 +2,8 @@ package com.elliotb.Configuration;
 
 import com.elliotb.DAO.*;
 import com.elliotb.Helpers.*;
-import com.elliotb.Services.ExerciseListService;
-import com.elliotb.Services.ExerciseService;
-import com.elliotb.Services.Implementation.ExerciseListServiceImpl;
-import com.elliotb.Services.Implementation.ExerciseServiceImpl;
-import com.elliotb.Services.Implementation.PlanServiceImpl;
-import com.elliotb.Services.Implementation.WorkoutServiceImpl;
-import com.elliotb.Services.PlanService;
-import com.elliotb.Services.WorkoutService;
+import com.elliotb.Services.*;
+import com.elliotb.Services.Implementation.*;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -61,6 +55,7 @@ public class GymTrackModule extends AbstractModule{
         bind(tokenVerifier.class).to(tokenVerifierImpl.class);
         bind(tokenDecrypter.class).to(tokenDecrypterImpl.class);
         bind(PlanService.class).to(PlanServiceImpl.class);
+        bind(SetService.class).to(SetServiceImpl.class);
     }
 
     @Provides

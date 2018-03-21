@@ -22,6 +22,7 @@ public class SetsMapper implements ResultSetMapper<Set> {
         mappable.setWeight(r.getDouble(5));
         mappable.setTime(r.getDouble(6));
         mappable.setDistance(r.getDouble(7));
+        mappable.setSUID(r.getString(8));
 
         //System.out.println(mappable.toString());
 
