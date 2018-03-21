@@ -80,7 +80,9 @@ public class SetResource implements ICRUDResource<Set> {
     @POST
     public Response create(Set set, @Context HttpHeaders httpHeaders) {
 
-        int res = dao.create(set, set.getExercise().getExerciseID());
+        set.setSUID(UUID.getUUID());
+
+        int res = dao.create(set, set.getExercise().getExerciseID(), set.getSUID());
 
         return Response.ok(res).build();
     }
@@ -96,6 +98,14 @@ public class SetResource implements ICRUDResource<Set> {
     @Path("/{id}")
     public Response delete(@PathParam("id")String id) {
         int res = setService.deleteSet(id);
+        return Response.ok(res).build();
+    }
+
+    @POST
+    @Path("/{id}")
+    public Response addSet(@PathParam("id")String id, Set set){
+        set.setSUID(UUID.getUUID());
+        int res = dao.create(set, set.getExercise().getExerciseID(), set.getSUID());
         return Response.ok(res).build();
     }
 

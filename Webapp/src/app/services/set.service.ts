@@ -18,4 +18,8 @@ export class SetService {
     return this.http.delete<number>(this.url.sets + '/' + id);
   }
 
+  addSet(id, set): Observable<number>{
+    return this.http.post<number>(this.url.sets + '/' + id, set);
+  }
+
 }

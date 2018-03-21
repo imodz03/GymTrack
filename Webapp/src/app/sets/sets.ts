@@ -6,7 +6,7 @@ export class Sets {
   position: number;
   reps: number;
   weight: number;
-  timeTaken: number;
+  time: number;
   speed: number;
   distance: number;
 }

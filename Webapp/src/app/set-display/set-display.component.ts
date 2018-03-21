@@ -41,7 +41,7 @@ export class SetDisplayComponent implements OnInit {
     if (Number(temp.distance) !== 0){
       this.distance = true;
     }
-    if (Number(temp.timeTaken) !== 0){
+    if (Number(temp.time) !== 0){
       this.time = true;
     }
 
@@ -68,12 +68,12 @@ export class SetDisplayComponent implements OnInit {
     }else if (this.distance){
       this.display = this.Set.distance + ' M';
       if (this.time){
-        this.altDisplay = this.Set.timeTaken + ' Minutes';
+        this.altDisplay = this.Set.time + ' Minutes';
       }else if (this.speed){
         this.altDisplay = this.Set.speed + ' KM/H';
       }
     }else if (this.time){
-      this.display = this.Set.timeTaken + ' Minutes';
+      this.display = this.Set.time + ' Minutes';
     }
   }
 

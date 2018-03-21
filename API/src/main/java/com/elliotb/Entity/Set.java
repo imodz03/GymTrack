@@ -95,6 +95,7 @@ public class Set {
                 "\n, time=" + time +
                 "\n, speed=" + speed +
                 "\n, distance=" + distance +
+                "\n, SUID=" + SUID +
                 '}';
     }
 

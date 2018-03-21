@@ -1,5 +1,6 @@
-<div *ngIf="sets.length > 0 && display">
-  <mat-chip-list >
+<div>
+  <mat-chip-list>
     <app-set-display *ngFor="let set of sets" [Set]="set" [delete]="delete" [callback]="deleteSet" (update)="deleteSet($event)"></app-set-display>
+    <mat-chip (click)="addSet()" ><i class="fa fa-plus"> Add set info</i></mat-chip>
   </mat-chip-list>
 </div>
