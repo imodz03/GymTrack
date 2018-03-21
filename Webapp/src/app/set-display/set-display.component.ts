@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Sets} from '../sets/sets';
 
 @Component({
@@ -8,14 +8,11 @@ import {Sets} from '../sets/sets';
 })
 export class SetDisplayComponent implements OnInit {
 
-  @Input()
-  Set: Sets;
+  @Input() Set: Sets;
 
-  @Input()
-  delete: boolean;
+  @Input() delete: boolean;
 
-  @Input()
-  em: Function;
+  @Output() update: EventEmitter<Sets> = new EventEmitter<Sets>();
 
   displayAlt = false;
 
@@ -81,7 +78,7 @@ export class SetDisplayComponent implements OnInit {
   }
 
   deleteRecord(): void{
-    this.em('test');
+    this.update.emit(this.Set);
   }
 
 }

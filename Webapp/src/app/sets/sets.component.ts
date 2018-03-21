@@ -32,15 +32,20 @@ export class SetsComponent implements OnInit {
   getSets(): void{
     this.setService.getSet(this.setsID, this.exercise.exerciseID).subscribe(
       resp => {
-        for (let i = 0; i < resp.length; i++){
-          this.sets.push(resp[i]);
-        }
+        this.sets = resp;
       }
     );
   }
 
-  deleteSet(test): void{
-    console.log(test);
+  deleteSet(event): void{
+    console.log(event);
+    this.setService.deleteSet(event.suid).subscribe(
+      resp => {
+        if (resp === 1){
+          this.getSets();
+        }
+      }
+    );
   }
 
 }

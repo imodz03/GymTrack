@@ -14,4 +14,8 @@ export class SetService {
     return this.http.get<Sets[]>(this.url.sets + '/' + id + '/' + exid);
   }
 
+  deleteSet(id): Observable<number>{
+    return this.http.delete<number>(this.url.sets + '/' + id);
+  }
+
 }
