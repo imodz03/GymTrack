@@ -11,6 +11,7 @@ import com.elliotb.Entity.Workout;
 import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
+import com.elliotb.Services.PlanService;
 import com.elliotb.Services.WorkoutService;
 import com.google.inject.Inject;
 
@@ -33,6 +34,9 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @Inject
     private WorkoutService service;
+
+    @Inject
+    private PlanService planService;
 
     @Inject
     private tokenDecrypter tokenDecrypter;
@@ -116,6 +120,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
     @Path("/{id}")
     @AuthRequired(ROLE.MEMBER)
     public Response delete(@PathParam("id") String id) {
-        return Response.ok(dao.delete(id)).build();
+        int res = planService.deleteWorkout(id);
+        return Response.ok(res).build();
     }
 }

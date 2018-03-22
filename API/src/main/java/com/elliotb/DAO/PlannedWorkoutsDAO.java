@@ -23,6 +23,10 @@ public interface PlannedWorkoutsDAO {
     PlannedWorkouts getById(@Bind("id")String id);
 
     @Mapper(PlannedWorkoutsMapper.class)
+    @SqlQuery("SELECT * FROM " + PLWORKOUTS + " WHERE WorkoutID = :id")
+    PlannedWorkouts getByWorkout(@Bind("id")String id);
+
+    @Mapper(PlannedWorkoutsMapper.class)
     @SqlQuery("SELECT * FROM " + PLWORKOUTS + " WHERE PlanID = :id")
     List<PlannedWorkouts> getPlan(@Bind("id")String id);
 

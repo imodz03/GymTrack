@@ -36,4 +36,8 @@ export class WorkoutService {
     return this.http.post<any>(this.url.workouts, workout);
   }
 
+  deleteWorkout(id): Observable<number>{
+    return this.http.delete<number>(this.url.workouts + '/' + id);
+  }
+
 }

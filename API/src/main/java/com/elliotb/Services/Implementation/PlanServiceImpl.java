@@ -99,4 +99,18 @@ public class PlanServiceImpl implements PlanService {
             return 0;
         }
     }
+
+    @Override
+    public int deleteWorkout(String id){
+        int res;
+        PlannedWorkouts pw = pwDAO.getByWorkout(id);
+        if (pw != null){
+            res = pwDAO.delete(pw.getPwID());
+            if (res == 1)
+                res = workoutDAO.delete(id);
+        }else{
+            res = workoutDAO.delete(id);
+        }
+        return res;
+    }
 }

@@ -22,6 +22,7 @@ export class MyworkoutComponent implements OnInit {
   selectedDate: string;
   dialogRef;
   newWorkout = new Workout();
+  selectedEvent;
 
   @ViewChild('details')private content;
 
@@ -31,6 +32,11 @@ export class MyworkoutComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.getWorkouts();
+  }
+
+  getWorkouts(): void{
+    this.myworkouts = new Array<Workout>();
     this.workoutService.getMine().subscribe(
       list => {
         for (let i = 0; i < list.length; i++){
@@ -45,7 +51,7 @@ export class MyworkoutComponent implements OnInit {
   }
 
   openQuickView(): void {
-    this.modalService.open(this.content);
+    this.dialogRef = this.modalService.open(this.content);
   }
 
   loadCalender(): void{
@@ -57,6 +63,7 @@ export class MyworkoutComponent implements OnInit {
   }
 
   clicked(event): void{
+    event.parent.selectedEvent = event;
     event.parent.selectedWorkout = event.workout;
     event.parent.openQuickView();
   }
@@ -76,9 +83,16 @@ export class MyworkoutComponent implements OnInit {
 
   }
 
-  callback(resp): void{
-    this.router.navigate(['/workouts/details/' + resp.resp ]);
-    this.dialogRef.close();
+  delete(): void{
+    this.workoutService.deleteWorkout(this.selectedWorkout.workoutID).subscribe(
+      resp => {
+        if (resp === 1){
+          this.dialogRef.close();
+          this.getWorkouts();
+          $('#calendar').fullCalendar('removeEvents', [this.selectedEvent._id]);
+        }
+      }
+    );
   }
 
 }
