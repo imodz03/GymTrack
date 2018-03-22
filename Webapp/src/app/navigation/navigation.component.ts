@@ -19,6 +19,7 @@ export class NavigationComponent implements OnInit {
   navigate(navTo): void{
 
     this.router.navigate([navTo]);
+    this.toggleNavbar = false;
 
   }
 

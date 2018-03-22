@@ -18,6 +18,7 @@ export class AddSetComponent implements OnInit {
   parent;
 
   sets: Array<Sets> = new Array();
+  callbackCount = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any,
               private setService: SetService) {
@@ -34,18 +35,16 @@ export class AddSetComponent implements OnInit {
 
   create(): void{
     console.log(this.sets);
-    let respVal = 0;
     for (let i = 0; i < this.sets.length; i++){
       const temp = this.sets[i].exercise.exerciseID;
       this.sets[i].exercise = {};
       this.sets[i].exercise.exerciseID = temp;
       this.setService.addSet(this.setsID, this.sets[i]).subscribe(
         resp => {
-          respVal = resp;
+          this.callback(resp);
         }
       );
     }
-    console.log(respVal);
   }
 
   addSet(): void{
@@ -60,6 +59,18 @@ export class AddSetComponent implements OnInit {
   tabChange(event): void{
     this.index = event.index;
     console.log(this.index);
+  }
+
+  callback(result): void{
+    if (result === 1){
+      this.callbackCount++;
+    }
+    if (this.callbackCount === this.sets.length){
+      this.parent.getSets();
+      this.parent.dialogRef.close();
+    }
+    console.log('Callback count: ' + this.callbackCount);
+    console.log('sets count: ' + this.sets.length);
   }
 
 }
