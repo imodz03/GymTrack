@@ -34,7 +34,6 @@ export class AddSetComponent implements OnInit {
   }
 
   create(): void{
-    console.log(this.sets);
     for (let i = 0; i < this.sets.length; i++){
       const temp = this.sets[i].exercise.exerciseID;
       this.sets[i].exercise = {};
@@ -58,7 +57,6 @@ export class AddSetComponent implements OnInit {
 
   tabChange(event): void{
     this.index = event.index;
-    console.log(this.index);
   }
 
   callback(result): void{
@@ -69,8 +67,6 @@ export class AddSetComponent implements OnInit {
       this.parent.getSets();
       this.parent.dialogRef.close();
     }
-    console.log('Callback count: ' + this.callbackCount);
-    console.log('sets count: ' + this.sets.length);
   }
 
 }

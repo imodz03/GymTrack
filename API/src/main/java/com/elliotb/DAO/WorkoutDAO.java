@@ -26,8 +26,8 @@ public interface WorkoutDAO {
     @SqlQuery("SELECT * FROM " + WORKOUT + " WHERE WorkoutID = :id")
     Workout getByID(@Bind("id")String id);
 
-    @SqlUpdate("INSERT INTO " + WORKOUT + "(WorkoutID, workoutName, description, public, dateOfWorkout, UserID, Exercises) values(:workout.workoutID, :workout.workoutName, :workout.description, :workout.public, :workout.date, :userID, :elID)")
-    int create(@BindBean("workout")Workout workout, @Bind("userID")String userID, @Bind("elID")String elID);
+    @SqlUpdate("INSERT INTO " + WORKOUT + "(WorkoutID, workoutName, description, public, dateOfWorkout, UserID, Exercises, SetsID) values(:workout.workoutID, :workout.workoutName, :workout.description, :workout.public, :workout.date, :userID, :elID, :SetsID)")
+    int create(@BindBean("workout")Workout workout, @Bind("userID")String userID, @Bind("elID")String elID, @Bind("SetsID")String setsid);
 
     @SqlUpdate("UPDATE " + WORKOUT + " SET workoutName = :workout.workoutName, description = :workout.description, public = :workout.public, dateOfWorkout = :workout.date, UserID = :userID, Exercises = :elID WHERE WorkoutID = :id")
     int update(@BindBean("workout")Workout workout, @Bind("userID")String userID, @Bind("elID")String elID, @Bind("id")String workoutID);

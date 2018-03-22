@@ -44,6 +44,7 @@ public class PlanServiceImpl implements PlanService {
                     if (pw.getRawDOW().getNum() == dt.getDayOfWeek()){
                         String uuid1 = UUID.getUUID();
                         String uuid2 = UUID.getUUID();
+                        String uuid3 = UUID.getUUID();
                         Workout temp = workoutDAO.getByID(pw.getWorkout().getWorkoutID());
 
                         temp.setWorkoutID(uuid1);
@@ -51,7 +52,7 @@ public class PlanServiceImpl implements PlanService {
 
                         pw.setPwID(uuid2);
 
-                        res1 = workoutDAO.create(temp, temp.getUser().getUserID(), temp.getExerciseList().getELID());
+                        res1 = workoutDAO.create(temp, temp.getUser().getUserID(), temp.getExerciseList().getELID(), uuid3);
                         res2 = pwDAO.create(pw, uuid1);
 
                     }
@@ -74,6 +75,7 @@ public class PlanServiceImpl implements PlanService {
 
                     String uuid1 = UUID.getUUID();
                     String uuid2 = UUID.getUUID();
+                    String uuid3 = UUID.getUUID();
                     Workout temp = workoutDAO.getByID(pw.getWorkout().getWorkoutID());
 
                     temp.setWorkoutID(uuid1);
@@ -81,7 +83,7 @@ public class PlanServiceImpl implements PlanService {
 
                     pw.setPwID(uuid2);
 
-                    res1 = workoutDAO.create(temp, temp.getUser().getUserID(), temp.getExerciseList().getELID());
+                    res1 = workoutDAO.create(temp, temp.getUser().getUserID(), temp.getExerciseList().getELID(), uuid3);
                     res2 = pwDAO.create(pw, uuid1);
                 }
 

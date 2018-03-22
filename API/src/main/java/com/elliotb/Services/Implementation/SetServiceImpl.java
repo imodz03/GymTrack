@@ -33,9 +33,6 @@ public class SetServiceImpl implements SetService {
                 }
             }
         }
-
-        System.out.println(inList);
-
         return res;
 
     }

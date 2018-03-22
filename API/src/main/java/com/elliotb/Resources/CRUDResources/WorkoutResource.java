@@ -83,10 +83,11 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         String uuid = UUID.getUUID();
         workout.getExerciseList().setELID(uuid);
 
+        String uuid2 = UUID.getUUID();
+
         workout.setUser(new User(tokenDecrypter.getId(httpHeaders)));
 
-
-        int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID());
+        int result = dao.create(workout, workout.getUser().getUserID(), workout.getExerciseList().getELID(), uuid2);
 
         if (result == 1){
             for (Exercise exercise : workout.getExerciseList().getExercises()) {
@@ -99,7 +100,6 @@ public class WorkoutResource implements ICRUDResource<Workout> {
         }else{
             return Response.ok(result).build();
         }
-
     }
 
     @PUT
