@@ -19,11 +19,10 @@ export class PlanComponent implements OnInit {
   isWeekend = false;
   workoutAdded = false;
   dialogRef;
-  loading = false;
+  loading = false; // add loading spinner
   dateInput;
   indexChange = new EventEmitter<MatTabChangeEvent>();
   index = 0;
-  tab = 0;
 
   days = [
     {text: 'Monday', workout: null, val: 'MONDAY'},
@@ -38,6 +37,7 @@ export class PlanComponent implements OnInit {
   ];
 
   workouts = new Array<Workout>();
+  plans = new Array<Plan>();
   plan = new Plan();
 
   constructor(private planService: PlanService,
@@ -48,6 +48,7 @@ export class PlanComponent implements OnInit {
 
   ngOnInit() {
     this.getWorkouts();
+    this.getPlans();
     this.plan.planID = '';
     this.plan.repeats = 1;
 
@@ -57,6 +58,15 @@ export class PlanComponent implements OnInit {
       }
     );
 
+  }
+
+  getPlans(){
+    this.planService.getMine().subscribe(
+      resp => {
+        this.plans = resp;
+        console.log(this.plans);
+      }
+    );
   }
 
   getWorkouts(): void{

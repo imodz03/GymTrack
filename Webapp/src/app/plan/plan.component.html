@@ -1,67 +1,91 @@
-<div>
-  <br>
-  Plan Name: <input type="text" [(ngModel)]="plan.planName"><br>
-  Description:<br>
-  <textarea [(ngModel)]="plan.description"></textarea><br>
-  Public: <mat-checkbox [(ngModel)]="plan.public"></mat-checkbox><br>
-  Start date:
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker><br>
-  Repetitions: <input type="number" [(ngModel)]="plan.repeats"><br><br>
-  <mat-tab-group (selectedTabChange)="indexChange.emit($event)">
-
-    <mat-tab label="Days Of The Week">
+<mat-tab-group>
+  <mat-tab label="My Plans">
+    <br>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let plan of plans">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{plan.planName}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Start Date: {{plan.startDate}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          Description: {{plan.description}}
+        </p>
+        Repeats: {{plan.repeats}}
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+  <mat-tab label="Create Plan">
+    <div>
       <br>
-      <mat-grid-list cols="4" rowHeight="100px">
-        <mat-grid-tile
-          *ngFor="let tile of days; index as i"
-          [colspan]="1"
-          [rowspan]="1"
-          [style.background]="tileColour"
-          gutterSize="5px"
-          (click)="addWorkout(i)">
-          <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
-          <i *ngIf="!tile.workout" class="fa fa-plus"></i>
-          <div *ngIf="tile.workout" class="workoutname">
-            {{tile.workout.workoutName}}
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+      Plan Name: <input type="text" [(ngModel)]="plan.planName"><br>
+      Description:<br>
+      <textarea [(ngModel)]="plan.description"></textarea><br>
+      Public: <mat-checkbox [(ngModel)]="plan.public"></mat-checkbox><br>
+      Start date:
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker><br>
+      Repetitions: <input type="number" [(ngModel)]="plan.repeats"><br><br>
+      <mat-tab-group (selectedTabChange)="indexChange.emit($event)">
 
+        <mat-tab label="Days Of The Week">
+          <br>
+          <mat-grid-list cols="4" rowHeight="100px">
+            <mat-grid-tile
+              *ngFor="let tile of days; index as i"
+              [colspan]="1"
+              [rowspan]="1"
+              [style.background]="tileColour"
+              gutterSize="5px"
+              (click)="addWorkout(i)">
+              <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+              <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+              <div *ngIf="tile.workout" class="workoutname">
+                {{tile.workout.workoutName}}
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+
+          <br>
+          <button (click)="toggleWeekend()" class="btn btn-success">Toggle weekends</button>
+        </mat-tab>
+
+        <mat-tab label="Numeric Days">
+          <br>
+          <mat-grid-list cols="4" rowHeight="100px">
+            <mat-grid-tile
+              *ngFor="let tile of daysn; index as i"
+              [colspan]="1"
+              [rowspan]="1"
+              [style.background]="tileColour"
+              gutterSize="5px"
+              (click)="addWorkout(i)">
+              <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+              <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+              <div *ngIf="tile.workout" class="workoutname">
+                {{tile.workout.workoutName}}
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile
+              [colspan]="1"
+              [rowspan]="1"
+              [style.background]="tileColour"
+              gutterSize="5px"
+              (click)="addDay()">
+              <mat-grid-tile-header>Add Day</mat-grid-tile-header>
+              <i class="fa fa-plus"></i>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-tab>
+
+      </mat-tab-group>
       <br>
-      <button (click)="toggleWeekend()" class="btn btn-success">Toggle weekends</button>
-    </mat-tab>
+      <button class="btn btn-primary" (click)="createPlan()">Create Plan</button>
+    </div>
 
-    <mat-tab label="Numeric Days">
-      <br>
-      <mat-grid-list cols="4" rowHeight="100px">
-        <mat-grid-tile
-          *ngFor="let tile of daysn; index as i"
-          [colspan]="1"
-          [rowspan]="1"
-          [style.background]="tileColour"
-          gutterSize="5px"
-          (click)="addWorkout(i)">
-          <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
-          <i *ngIf="!tile.workout" class="fa fa-plus"></i>
-          <div *ngIf="tile.workout" class="workoutname">
-            {{tile.workout.workoutName}}
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile
-          [colspan]="1"
-          [rowspan]="1"
-          [style.background]="tileColour"
-          gutterSize="5px"
-          (click)="addDay()">
-          <mat-grid-tile-header>Add Day</mat-grid-tile-header>
-          <i class="fa fa-plus"></i>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-tab>
-
-  </mat-tab-group>
-  <br>
-  <button class="btn btn-primary" (click)="createPlan()">Create Plan</button>
-</div>
+  </mat-tab>
+</mat-tab-group>
