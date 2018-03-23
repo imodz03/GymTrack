@@ -66,19 +66,78 @@ export class SetDisplayComponent implements OnInit {
         this.altDisplay = this.Set.weight + 'KG';
       }
     }else if (this.distance){
-      this.display = this.Set.distance + ' M';
+      this.display = this.reduceDistance(this.Set.distance);
       if (this.time){
-        this.altDisplay = this.Set.time + ' Minutes';
+        this.altDisplay = this.reduceHours(this.Set.time);
       }else if (this.speed){
         this.altDisplay = this.Set.speed + ' KM/H';
       }
     }else if (this.time){
-      this.display = this.Set.time + ' Minutes';
+      this.display = this.reduceHours(this.Set.time);
     }
   }
 
   deleteRecord(): void{
     this.update.emit(this.Set);
+  }
+
+  reduceDistance(total: number): string{
+    let ret = '';
+    if (total >= 1000){
+
+      const mRem = total % 1000;
+      if (mRem < 100 && mRem > 0){
+        ret = Math.floor(total / 1000) + ' KM ' + mRem + ' M';
+      }else{
+        ret = (total / 1000) + ' KM';
+      }
+
+    }else{
+      ret = total + ' M';
+    }
+    return ret;
+  }
+
+  reduceHours(total: number): string{
+    let ret = '';
+
+    // reduce to hours
+    if (total >= 3600){
+
+      const Hours = Math.floor(total / 3600);
+      const minsRem = total % 3600;
+
+      ret += Hours + ' Hour';
+
+      if (minsRem > 0){
+        const mins = Math.floor(minsRem / 60);
+        const secs = minsRem % 60;
+        ret += ' ' + mins + ' Min';
+
+        if (secs > 0){
+          ret += ' ' + secs + ' Secs';
+        }
+
+      }
+
+    // reduce to minutes
+    } else if (total > 60){
+
+      const minsRem = total % 3600;
+      const mins = Math.floor(minsRem / 60);
+      const secs = minsRem % 60;
+      ret += ' ' + mins + ' Min';
+
+      if (secs > 0){
+        ret += ' ' + secs + ' Secs';
+      }
+
+    // reduces to seconds
+    }else{
+      ret = total + ' Seconds';
+    }
+
+    return ret;
   }
 
 }

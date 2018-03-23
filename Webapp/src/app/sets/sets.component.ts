@@ -40,7 +40,6 @@ export class SetsComponent implements OnInit {
   }
 
   deleteSet(event): void{
-    console.log(event);
     this.setService.deleteSet(event.suid).subscribe(
       resp => {
         if (resp === 1){

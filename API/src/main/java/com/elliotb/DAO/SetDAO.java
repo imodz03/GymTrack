@@ -29,7 +29,7 @@ public interface SetDAO {
     @SqlQuery("select SetsID, ExerciseID, position, reps, weight, timeTaken, distance, SUID from " + SET + " where SetsID = :id and ExerciseID = :exID ORDER BY SetsID, ExerciseID, `position` ASC")
     List<Set> getByIdAndEx(@Bind("id")String id, @Bind("exID")String exID);
 
-    @SqlUpdate("INSERT into " + SET + " (SetsID, ExerciseID, position, reps, weight, SUID) values(:set.setID, :exerciseID, :set.position, :set.reps, :set.weight, :SUID)")
+    @SqlUpdate("INSERT into " + SET + " (SetsID, ExerciseID, position, reps, weight, SUID, distance, timeTaken) values(:set.setID, :exerciseID, :set.position, :set.reps, :set.weight, :SUID, :set.distance, :set.time)")
     int create(@BindBean("set")Set set, @Bind("exerciseID")String exID, @Bind("SUID")String suid);
 
     @SqlUpdate("UPDATE " + SET + " set ExerciseID = :exID, position = :set.position, reps = :set.reps, weight = :set.weight where SUID = :id")

@@ -17,6 +17,15 @@ export class AddSetComponent implements OnInit {
   startPos = 0;
   parent;
 
+  // distance variables
+  KM: Array<number> = new Array();
+  M: Array<number> = new Array();
+
+  // time variables
+  hours: Array<number> = new Array();
+  minutes: Array<number> = new Array();
+  seconds: Array<number> = new Array();
+
   sets: Array<Sets> = new Array();
   callbackCount = 0;
 
@@ -30,11 +39,55 @@ export class AddSetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.addSet();
+    this.addExtra();
   }
 
   create(): void{
+
     for (let i = 0; i < this.sets.length; i++){
+
+      // distance tab
+      if (this.index === 2){
+
+        // convert hours and mins to seconds
+        let sTemp = this.seconds[i];
+        let mTemp = this.minutes[i];
+        const hTemp = this.hours[i];
+
+        mTemp = mTemp + (hTemp * 60);
+        sTemp = sTemp + (mTemp * 60);
+
+        // convert distance to metre
+        let metTemp = this.M[i];
+        const kmTemp = this.KM[i];
+
+        metTemp = metTemp + (kmTemp * 1000);
+
+        if (metTemp > 0){
+          this.sets[i].distance = metTemp;
+        }
+
+        if (sTemp > 0){
+          this.sets[i].time = sTemp;
+        }
+      }
+
+      // timed tab
+      if (this.index === 1){
+
+        // convert hours and mins to seconds
+        let sTemp = this.seconds[i];
+        let mTemp = this.minutes[i];
+        const hTemp = this.hours[i];
+
+        mTemp = mTemp + (hTemp * 60);
+        sTemp = sTemp + (mTemp * 60);
+
+        if (sTemp > 0){
+          this.sets[i].time = sTemp;
+        }
+      }
+
       const temp = this.sets[i].exercise.exerciseID;
       this.sets[i].exercise = {};
       this.sets[i].exercise.exerciseID = temp;
@@ -46,6 +99,11 @@ export class AddSetComponent implements OnInit {
     }
   }
 
+  addExtra(): void{
+    this.addSet();
+    this.addDistance();
+  }
+
   addSet(): void{
     const temp = new Sets;
     temp.setID = this.setsID;
@@ -53,6 +111,15 @@ export class AddSetComponent implements OnInit {
     temp.position = this.startPos;
     this.startPos++;
     this.sets.push(temp);
+  }
+
+  addDistance(): void{
+    this.seconds.push(0);
+    this.minutes.push(0);
+    this.hours.push(0);
+
+    this.KM.push(0);
+    this.M.push(0);
   }
 
   tabChange(event): void{
@@ -67,6 +134,14 @@ export class AddSetComponent implements OnInit {
       this.parent.getSets();
       this.parent.dialogRef.close();
     }
+  }
+
+  removeSet(index: number): void{
+    for (let i = index; i < this.sets.length; i++){
+      this.sets[i].position--;
+    }
+    this.sets.splice(index, 1);
+    console.log(this.sets);
   }
 
 }

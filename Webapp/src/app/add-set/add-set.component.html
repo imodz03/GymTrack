@@ -8,16 +8,42 @@
     <mat-dialog-content>
       <mat-tab-group (selectedTabChange)="tabChange($event)">
         <mat-tab label="Reps">
-          <div *ngFor="let set of sets">
+          <div *ngFor="let set of sets; index as i">
+            <button *ngIf="sets.length > 1" (click)="removeSet(i)" type="button" class="close" aria-label="Close" tabIndex="-1">
+              <span aria-hidden="true">&times;</span>
+            </button>
             <br>
             Reps:   <input type="number" placeholder="reps" [(ngModel)]="set.reps"><br>
             Weight: <input type="number" placeholder="Weight" [(ngModel)]="set.weight"> KG
           </div>
           <br>
-          <button (click)="addSet()" class="btn btn-success"><i class="fa fa-plus"></i> Add extra sets</button>
+          <button (click)="addExtra()" class="btn btn-success"><i class="fa fa-plus"></i> Add extra sets</button>
         </mat-tab>
         <mat-tab label="Timed">
-
+          <div *ngFor="let set of seconds; index as i">
+            <button *ngIf="sets.length > 1" (click)="removeSet(i)" type="button" class="close" aria-label="Close" tabIndex="-1">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            Time goal: <br>
+            <input type="number" class="set-input" [(ngModel)]="hours[i]"> Hours <input type="number" class="set-input" [(ngModel)]="minutes[i]"> Minute <input type="number" class="set-input" [(ngModel)]="seconds[i]"> Seconds
+          </div>
+          <br><br>
+          <button (click)="addExtra()" class="btn btn-success"><i class="fa fa-plus"></i> Add extra sets</button>
+        </mat-tab>
+        <mat-tab label="Distance">
+          <div *ngFor="let set of seconds; index as i">
+            <button *ngIf="sets.length > 1" (click)="removeSet(i)" type="button" class="close" aria-label="Close" tabIndex="-1">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <br>
+            Distance: <br>
+            <input class="set-input" type="number" [(ngModel)]="KM[i]"> KM <input class="set-input" type="number" [(ngModel)]="M[i]"> M <br>
+            Time goal<br>
+            <input type="number" class="set-input" [(ngModel)]="hours[i]"> Hours <input type="number" class="set-input" [(ngModel)]="minutes[i]"> Minute <input type="number" class="set-input" [(ngModel)]="seconds[i]"> Seconds
+          </div>
+          <br><br>
+          <button (click)="addExtra()" class="btn btn-success"><i class="fa fa-plus"></i> Add extra sets</button>
         </mat-tab>
       </mat-tab-group>
     </mat-dialog-content>
