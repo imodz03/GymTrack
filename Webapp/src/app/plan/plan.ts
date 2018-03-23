@@ -1,3 +1,5 @@
+import {Workout} from '../myworkout/workout';
+
 export class Plan {
 
   planID: string;
@@ -6,5 +8,6 @@ export class Plan {
   repeats: number;
   description: string;
   startDate: string;
+  workout: Array<Workout>;
 
 }

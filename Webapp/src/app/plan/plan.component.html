@@ -2,7 +2,7 @@
   <mat-tab label="My Plans">
     <br>
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let plan of plans">
+      <mat-expansion-panel *ngFor="let plan of plans; index as planI">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{plan.planName}}
@@ -14,7 +14,10 @@
         <p>
           Description: {{plan.description}}
         </p>
-        Repeats: {{plan.repeats}}
+        <div *ngIf="plan.workout">Workouts:<br></div>
+        <mat-table>
+
+        </mat-table>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>

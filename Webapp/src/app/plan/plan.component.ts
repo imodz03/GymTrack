@@ -64,9 +64,21 @@ export class PlanComponent implements OnInit {
     this.planService.getMine().subscribe(
       resp => {
         this.plans = resp;
-        console.log(this.plans);
+        this.getPlanWorkouts();
       }
     );
+  }
+
+  getPlanWorkouts(): void{
+    for (let i = 0; i < this.plans.length; i++){
+      this.planService.getPlanWorkouts(this.plans[i].planID).subscribe(
+        resp => {
+          if (resp !== null){
+            this.plans[i].workout = resp;
+          }
+        }
+      );
+    }
   }
 
   getWorkouts(): void{
@@ -175,6 +187,10 @@ export class PlanComponent implements OnInit {
 
   addDay(): void{
     this.daysn.push({text: 'Day ' + (this.daysn.length + 1), workout: {workoutName: 'rest', workoutID: ''}, val: (this.daysn.length + 1)});
+  }
+
+  details(planIndex, workoutIndex): void{
+    this.router.navigate(['/workouts/details/' + this.plans[planIndex].workout[workoutIndex].workoutID]);
   }
 
 }

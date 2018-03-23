@@ -3,7 +3,9 @@ package com.elliotb.Resources.CRUDResources;
 import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.DAO.PlanDAO;
 import com.elliotb.DAO.PlannedWorkoutsDAO;
+import com.elliotb.DAO.WorkoutDAO;
 import com.elliotb.Entity.Plan;
+import com.elliotb.Entity.Workout;
 import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
@@ -13,6 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
@@ -24,6 +27,9 @@ public class PlanResource implements ICRUDResource<Plan> {
 
     @Inject
     PlannedWorkoutsDAO pwDAO;
+
+    @Inject
+    WorkoutDAO workoutDAO;
 
     @Inject
     tokenDecrypter decrypter;
@@ -78,5 +84,17 @@ public class PlanResource implements ICRUDResource<Plan> {
     @Path("{id}")
     public Response delete(@PathParam("id") String id) {
         return Response.ok(dao.delete(id)).build();
+    }
+
+    @GET
+    @Path("/workouts/{id}")
+    public Response getPlanWorkouts(@PathParam("id")String id){
+        List<String> ids = pwDAO.getWorkoutIds(id);
+        if(ids.size() > 0){
+            List<Workout> workouts = workoutDAO.getFromIdList(ids);
+            return Response.ok(workouts).build();
+        }else{
+            return Response.ok().build();
+        }
     }
 }

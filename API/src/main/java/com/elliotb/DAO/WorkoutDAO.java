@@ -7,11 +7,14 @@ import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
+import org.skife.jdbi.v2.sqlobject.stringtemplate.UseStringTemplate3StatementLocator;
+import org.skife.jdbi.v2.unstable.BindIn;
 
 import java.util.List;
 
 import static com.elliotb.Helpers.Constants.WORKOUT;
 
+@UseStringTemplate3StatementLocator
 public interface WorkoutDAO {
 
     @Mapper(WorkoutMapper.class)
@@ -34,5 +37,9 @@ public interface WorkoutDAO {
 
     @SqlUpdate("DELETE FROM " + WORKOUT + " WHERE WorkoutID = :id")
     int delete(@Bind("id")String id);
+
+    @SqlQuery("SELECT * FROM " + WORKOUT + " WHERE WorkoutID in (<idList>) ORDER BY dateOfWorkout;")
+    @Mapper(WorkoutMapper.class)
+    List<Workout> getFromIdList(@BindIn("idList")List<String> ids);
 
 }

@@ -35,6 +35,7 @@ export class UrlService {
   plannedWorkouts = this.resource + '/pw';
   myPlan = this.plan + '/mine';
   addWorkouts = this.plannedWorkouts + '/plan';
+  getPlanWorkouts = this.plan + '/workouts';
 
   constructor() { }
 

@@ -39,4 +39,7 @@ public interface PlannedWorkoutsDAO {
     @SqlUpdate("DELETE FROM " + PLWORKOUTS + " WHERE PWID = :id")
     int delete(@Bind("id")String id);
 
+    @SqlQuery("SELECT WorkoutID from " + PLWORKOUTS + " WHERE PlanID = :id")
+    List<String> getWorkoutIds(@Bind("id")String id);
+
 }
