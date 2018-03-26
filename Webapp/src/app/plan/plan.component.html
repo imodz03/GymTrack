@@ -2,7 +2,7 @@
   <mat-tab label="My Plans">
     <br>
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let plan of plans; index as planI">
+      <mat-expansion-panel *ngFor="let plan of plans; index as i">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{plan.planName}}
@@ -14,10 +14,33 @@
         <p>
           Description: {{plan.description}}
         </p>
-        <div *ngIf="plan.workout">Workouts:<br></div>
-        <mat-table>
+        <div *ngIf="datasource[i].data.length > 0">Workouts:<br>
+          <mat-table #table [dataSource]="datasource[i]">
 
-        </mat-table>
+            <ng-container matColumnDef="workoutName">
+              <mat-header-cell *matHeaderCellDef >Workout</mat-header-cell>
+              <mat-cell *matCellDef="let workout">{{workout.workoutName}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+              <mat-cell *matCellDef="let workout">{{workout.date}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="goto">
+              <mat-header-cell *matHeaderCellDef>Goto</mat-header-cell>
+              <mat-cell *matCellDef="let workout"><button (click)="details(workout.workoutID)">Go to Workout</button></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+            <mat-row *matRowDef="let workout; columns: columns;"></mat-row>
+
+          </mat-table>
+        </div>
+        <div *ngIf="datasource[i].data.length === 0">
+          No Workouts<br>
+        </div>
+
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>

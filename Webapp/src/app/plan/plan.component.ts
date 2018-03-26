@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit} from '@angular/core';
 import {PlanService} from './plan.service';
 import {Plan} from './plan';
 import {Workout} from '../myworkout/workout';
-import {MatDialog, MatSnackBar, MatTabChangeEvent} from '@angular/material';
+import {MatDialog, MatSnackBar, MatTabChangeEvent, MatTableDataSource} from '@angular/material';
 import {WorkoutService} from '../workout/workout.service';
 import {AddworkoutComponent} from '../addworkout/addworkout.component';
 import {PlannedWorkout} from './PW';
@@ -23,6 +23,9 @@ export class PlanComponent implements OnInit {
   dateInput;
   indexChange = new EventEmitter<MatTabChangeEvent>();
   index = 0;
+
+  columns = ['workoutName', 'date', 'goto'];
+  datasource = new Array();
 
   days = [
     {text: 'Monday', workout: null, val: 'MONDAY'},
@@ -71,10 +74,12 @@ export class PlanComponent implements OnInit {
 
   getPlanWorkouts(): void{
     for (let i = 0; i < this.plans.length; i++){
+      this.datasource.push(new MatTableDataSource());
       this.planService.getPlanWorkouts(this.plans[i].planID).subscribe(
         resp => {
           if (resp !== null){
             this.plans[i].workout = resp;
+            this.datasource[i].data = resp;
           }
         }
       );
@@ -189,8 +194,8 @@ export class PlanComponent implements OnInit {
     this.daysn.push({text: 'Day ' + (this.daysn.length + 1), workout: {workoutName: 'rest', workoutID: ''}, val: (this.daysn.length + 1)});
   }
 
-  details(planIndex, workoutIndex): void{
-    this.router.navigate(['/workouts/details/' + this.plans[planIndex].workout[workoutIndex].workoutID]);
+  details(workoutid): void{
+    this.router.navigate(['/workouts/details/' + workoutid]);
   }
 
 }
