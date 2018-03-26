@@ -40,9 +40,11 @@
         <div *ngIf="datasource[i].data.length === 0">
           No Workouts<br>
         </div>
-
+        <br>
+        <button (click)="deletePlan(i)" class="btn btn-danger">Delete Plan</button>
       </mat-expansion-panel>
     </mat-accordion>
+    <h1 *ngIf="plans.length === 0">No Plans created</h1>
   </mat-tab>
   <mat-tab label="Create Plan">
     <div>

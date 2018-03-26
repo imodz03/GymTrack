@@ -7,6 +7,7 @@ import {WorkoutService} from '../workout/workout.service';
 import {AddworkoutComponent} from '../addworkout/addworkout.component';
 import {PlannedWorkout} from './PW';
 import {ActivatedRoute, Router} from '@angular/router';
+import {SimpleDialogComponent} from '../simple-dialog/simple-dialog.component';
 
 @Component({
   selector: 'app-plan',
@@ -19,6 +20,7 @@ export class PlanComponent implements OnInit {
   isWeekend = false;
   workoutAdded = false;
   dialogRef;
+  delDialogRef;
   loading = false; // add loading spinner
   dateInput;
   indexChange = new EventEmitter<MatTabChangeEvent>();
@@ -177,7 +179,6 @@ export class PlanComponent implements OnInit {
       }
     }
 
-    console.log(toPost);
     this.planService.addWorkouts(toPost).subscribe(
       resp => {
         if (resp === 1){
@@ -196,6 +197,29 @@ export class PlanComponent implements OnInit {
 
   details(workoutid): void{
     this.router.navigate(['/workouts/details/' + workoutid]);
+  }
+
+  deletePlan(index: number): void{
+
+    this.delDialogRef = this.dialog.open(SimpleDialogComponent,
+      { data: {msg: 'Are you sure you want to delete this workout',
+                options: ['Confirm', 'Cancel']}});
+
+    this.delDialogRef.afterClosed().subscribe(
+      output => {
+        if (output === 'Confirm'){
+          this.planService.deletePlan(this.plans[index].planID).subscribe(
+            resp => {
+              if (resp === 1){
+                this.getPlans();
+              }
+            }
+          );
+        }
+      }
+    );
+
+
   }
 
 }

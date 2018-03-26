@@ -28,4 +28,8 @@ export class PlanService {
     return this.http.get<Array<Workout>>(this.url.getPlanWorkouts + '/' + planId);
   }
 
+  deletePlan(planId): Observable<number>{
+    return this.http.delete<number>(this.url.plan + '/' + planId);
+  }
+
 }

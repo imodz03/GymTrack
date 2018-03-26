@@ -9,6 +9,7 @@ import com.elliotb.Entity.Workout;
 import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
+import com.elliotb.Services.PlanService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
@@ -30,6 +31,9 @@ public class PlanResource implements ICRUDResource<Plan> {
 
     @Inject
     WorkoutDAO workoutDAO;
+
+    @Inject
+    PlanService planService;
 
     @Inject
     tokenDecrypter decrypter;
@@ -83,7 +87,8 @@ public class PlanResource implements ICRUDResource<Plan> {
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") String id) {
-        return Response.ok(dao.delete(id)).build();
+        int res = planService.deletePlan(id);
+        return Response.ok(res).build();
     }
 
     @GET

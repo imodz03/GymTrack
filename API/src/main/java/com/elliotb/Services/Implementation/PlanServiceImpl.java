@@ -113,4 +113,24 @@ public class PlanServiceImpl implements PlanService {
         }
         return res;
     }
+
+    @Override
+    public int deletePlan(String id) {
+        int res = 0;
+
+        System.out.println(id);
+
+        List<PlannedWorkouts> pws = pwDAO.getPlan(id);
+
+        if (pws.size() > 0){
+            for (PlannedWorkouts pw : pws) {
+                this.deleteWorkout(pw.getWorkout().getWorkoutID());
+            }
+        }
+
+        res = planDAO.delete(id);
+
+        return res;
+
+    }
 }

@@ -39,6 +39,9 @@ import { SetService } from './services/set.service';
 import { SetsComponent } from './sets/sets.component';
 import { SetDisplayComponent } from './set-display/set-display.component';
 import { AddSetComponent } from './add-set/add-set.component';
+import { LogService } from './log/log.service';
+import { LogComponent } from './log/log.component';
+import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,11 +61,15 @@ import { AddSetComponent } from './add-set/add-set.component';
     AddworkoutComponent,
     SetsComponent,
     SetDisplayComponent,
-    AddSetComponent
+    AddSetComponent,
+    LogComponent,
+    SimpleDialogComponent
   ],
   entryComponents:[
     CreateWorkoutComponent,
-    AddSetComponent
+    AddSetComponent,
+    LogComponent,
+    SimpleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +111,8 @@ import { AddSetComponent } from './add-set/add-set.component';
     },
     ExerciseService,
     PlanService,
-    SetService
+    SetService,
+    LogService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
