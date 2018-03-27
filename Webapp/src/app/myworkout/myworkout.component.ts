@@ -16,7 +16,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./myworkout.component.css']
 })
 export class MyworkoutComponent implements OnInit {
-
+  // todo  convert workout popup to mat dialog as component
   myworkouts = [];
   selectedWorkout: Workout;
   selectedDate: string;

@@ -85,6 +85,8 @@ export class WorkoutDetailsComponent implements OnInit {
 
       const temp = this.cleanClone(this.workout);
       temp.date = this.dateInput.getUTCFullYear() + '-' + (this.dateInput.getUTCMonth() + 1 ) + '-' + this.dateInput.getDate();
+      delete temp.sets; // not part of the java object so breaks json parsing
+      delete temp.setsID; // same as previous field
       this.workoutService.updateWorkout(temp).subscribe(
         resp => {
           if (resp === 1){
