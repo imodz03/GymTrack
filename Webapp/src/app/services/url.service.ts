@@ -39,6 +39,7 @@ export class UrlService {
 
   log = this.resource + '/log';
   quickLog = this.log + '/quick';
+  createLog = this.log + '/create';
 
   constructor() { }
 

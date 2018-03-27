@@ -27,6 +27,8 @@ import {LogService} from '../log/log.service';
 
 export class WorkoutDetailsComponent implements OnInit {
 
+  // todo add view for planned vs logged
+
   constructor(private route: ActivatedRoute,
               private workoutService: WorkoutService,
               private elService: ExerciselistService,

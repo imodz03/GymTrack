@@ -4,6 +4,7 @@ import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.LogDAO;
 import com.elliotb.Entity.Log;
+import com.elliotb.Entity.Set;
 import com.elliotb.Entity.Workout;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
@@ -113,5 +114,12 @@ public class LogResource implements ICRUDResource<Log> {
     @AuthRequired
     public Response getForWorkout(@PathParam("id")String id){
         return Response.ok(dao.getByWorkoutID(id)).build();
+    }
+
+    @POST
+    @Path("/create/{id}")
+    public Response test(@PathParam("id")String workoutID, List<Set> sets){
+
+        return Response.ok().build();
     }
 }

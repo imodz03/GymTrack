@@ -42,6 +42,7 @@ import { AddSetComponent } from './sets-components/add-set/add-set.component';
 import { LogService } from './workout-components/log/log.service';
 import { LogComponent } from './workout-components/log/log.component';
 import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
+import { LogsetComponent } from './workout-components/logset/logset.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
     SetDisplayComponent,
     AddSetComponent,
     LogComponent,
-    SimpleDialogComponent
+    SimpleDialogComponent,
+    LogsetComponent
   ],
   entryComponents:[
     CreateWorkoutComponent,
