@@ -21,6 +21,9 @@ export class SetsComponent implements OnInit {
   @Input()
   delete: boolean;
 
+  @Input()
+  add: boolean = true;
+
   sets = new Array<Sets>();
   dialogRef;
 
@@ -32,11 +35,13 @@ export class SetsComponent implements OnInit {
   }
 
   getSets(): void{
-    this.setService.getSet(this.setsID, this.exercise.exerciseID).subscribe(
-      resp => {
-        this.sets = resp;
-      }
-    );
+    if (this.setsID !== ''){
+      this.setService.getSet(this.setsID, this.exercise.exerciseID).subscribe(
+        resp => {
+          this.sets = resp;
+        }
+      );
+    }
   }
 
   deleteSet(event): void{
@@ -58,10 +63,5 @@ export class SetsComponent implements OnInit {
     this.dialogRef = this.dialog.open(AddSetComponent,
       {data: {setsID: this.setsID, exercise: this.exercise, startPos: startPos, parent: this }});
   }
-
-  addSetToList(set): void{
-
-  }
-
 
 }

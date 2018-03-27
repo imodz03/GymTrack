@@ -107,4 +107,11 @@ public class LogResource implements ICRUDResource<Log> {
         int res = logService.quickLog(id, workoutID, userID);
         return Response.ok(res).build();
     }
+
+    @GET
+    @Path("/workout/{id}")
+    @AuthRequired
+    public Response getForWorkout(@PathParam("id")String id){
+        return Response.ok(dao.getByWorkoutID(id)).build();
+    }
 }

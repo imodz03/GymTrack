@@ -45,6 +45,7 @@ export class WorkoutDetailsComponent implements OnInit {
   dateInput: Date;
   dialogRef;
   sets = false;
+  logged = false;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -73,8 +74,8 @@ export class WorkoutDetailsComponent implements OnInit {
 
         this.workout = workout;
         this.dateInput = new Date(workout.date);
-
         this.workout.setsID = workout.sets[0].setID;
+        this.checkLogged();
       }
     );
 
@@ -210,6 +211,17 @@ export class WorkoutDetailsComponent implements OnInit {
       }
     );
 
+  }
+
+  checkLogged(): void{
+    const id = this.route.snapshot.paramMap.get('id');
+    this.logService.getLog(id).subscribe(
+      resp => {
+        if (resp !== null){
+          this.logged = true;
+        }
+      }
+    );
   }
 
 }

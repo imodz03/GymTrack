@@ -1,5 +1,6 @@
 <div class="card" *ngIf="workout">
-  <h3 class="card-header" *ngIf="!canEdit">{{workout.workoutName}} <div class="float-right"><i (click)="edit()" class="fa fa-edit"></i></div> </h3>
+  <h3 class="card-header" *ngIf="!canEdit && !logged">{{workout.workoutName}} <div class="float-right"><i (click)="edit()" class="fa fa-edit"></i></div> </h3>
+  <h3 class="card-header" *ngIf="logged">{{workout.workoutName}} - Log </h3>
   <h3 class="card-header" *ngIf="canEdit"><input type="text" [(ngModel)]="workout.workoutName">
     <div class="float-right" *ngIf="!canEdit">
       <i (click)="edit()" class="fa fa-edit"></i>
@@ -23,7 +24,7 @@
       Description: <br><textarea [(ngModel)]="workout.description" rows="4" cols="40"></textarea><br><br>
       Exercises:
     </p>
-    <ul>
+    <ul *ngIf="!logged">
       <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
         {{exercise.exerciseName}}
         <a *ngIf="!locked" (click)="delete(i)"><i class="fa fa-close"></i></a>
@@ -42,8 +43,14 @@
         </mat-autocomplete>
       </li>
     </ul>
-    <button class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
-    <button mat-button class="btn btn-success" id="options" [matMenuTriggerFor]="options">Log Workout</button>
+    <ul *ngIf="logged">
+      <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
+        {{exercise.exerciseName}}
+        <app-sets [delete]="false" [add]="flase" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+      </li>
+    </ul>
+    <button *ngIf="!logged" class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button *ngIf="!logged" class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button *ngIf="!logged" (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
+    <button *ngIf="!logged" mat-button class="btn btn-success" id="options" [matMenuTriggerFor]="options">Log Workout</button>
     <mat-menu class="bg-light" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
       <div mat-menu-item class="menu-item" (click)="log()">Log Workout</div>
       <div mat-menu-item class="menu-item" (click)="quickLog()">Quick Log</div>

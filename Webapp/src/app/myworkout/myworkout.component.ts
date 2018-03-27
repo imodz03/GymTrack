@@ -95,4 +95,9 @@ export class MyworkoutComponent implements OnInit {
     );
   }
 
+  callback(resp): void {
+    this.router.navigate(['/workouts/details/' + resp.resp]);
+    this.dialogRef.close();
+  }
+
 }

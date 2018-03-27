@@ -30,4 +30,8 @@ public interface LogDAO {
     @SqlUpdate("DELETE FROM " + LOG + " WHERE LogID = :LogID")
     int delete(@Bind("LogID")String logID);
 
+    @Mapper(LogMapper.class)
+    @SqlQuery("SELECT * FROM " + LOG + " WHERE WorkoutID = :id")
+    Log getByWorkoutID(@Bind("id")String id);
+
 }
