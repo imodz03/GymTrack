@@ -15,6 +15,9 @@ import {map} from 'rxjs/operators/map';
 import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
 import {SetService} from '../services/set.service';
 import {Sets} from '../sets/sets';
+import {LogComponent} from '../log/log.component';
+import {SimpleDialogComponent} from '../simple-dialog/simple-dialog.component';
+import {LogService} from '../log/log.service';
 
 @Component({
   selector: 'app-workout-details',
@@ -30,7 +33,7 @@ export class WorkoutDetailsComponent implements OnInit {
               private exerciseService: ExerciseService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog,
-              private setService: SetService) { }
+              private logService: LogService) { }
 
   workout: Workout;
   canEdit = false;
@@ -184,6 +187,29 @@ export class WorkoutDetailsComponent implements OnInit {
 
   createExercise(): void{
     this.dialogRef = this.dialog.open(CreateExerciseComponent, {data: {parent: this}});
+  }
+
+  log(): void{
+    this.dialogRef = this.dialog.open(LogComponent, { data: {workout: this.workout }});
+  }
+
+  quickLog(): void{
+    const opts = ['Confirm', 'Cancel'];
+    this.dialogRef = this.dialog.open(SimpleDialogComponent, {data: {msg: 'Log Workouts as Planned', options: opts}});
+
+    this.dialogRef.afterClosed().subscribe(
+      reason => {
+        if (reason === opts[0]){
+          this.logService.quickLog(this.workout.setsID, this.workout.workoutID).subscribe(
+            resp => {
+              console.log(resp);
+            }
+          );
+
+        }
+      }
+    );
+
   }
 
 }

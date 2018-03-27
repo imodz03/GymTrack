@@ -56,6 +56,7 @@ public class GymTrackModule extends AbstractModule{
         bind(tokenDecrypter.class).to(tokenDecrypterImpl.class);
         bind(PlanService.class).to(PlanServiceImpl.class);
         bind(SetService.class).to(SetServiceImpl.class);
+        bind(LogService.class).to(LogServiceImpl.class);
     }
 
     @Provides

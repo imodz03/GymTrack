@@ -6,18 +6,21 @@ import com.elliotb.DAO.LogDAO;
 import com.elliotb.Entity.Log;
 import com.elliotb.Entity.Workout;
 import com.elliotb.Helpers.UUID;
+import com.elliotb.Helpers.tokenDecrypter;
+import com.elliotb.Services.LogService;
 import com.elliotb.Services.WorkoutService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
-@Path("/API/resource/Log")
+@Path("/API/resource/log")
 public class LogResource implements ICRUDResource<Log> {
 
     @Inject
@@ -25,6 +28,12 @@ public class LogResource implements ICRUDResource<Log> {
 
     @Inject
     WorkoutService workoutService;
+
+    @Inject
+    LogService logService;
+
+    @Inject
+    tokenDecrypter td;
 
     @GET
     @AuthRequired(ROLE.MODERATOR)
@@ -86,6 +95,16 @@ public class LogResource implements ICRUDResource<Log> {
 
         int res = dao.delete(id);
 
+        return Response.ok(res).build();
+    }
+
+    @POST
+    @Path("/quick/{id}")
+    @AuthRequired(ROLE.MEMBER)
+    @Consumes(MediaType.TEXT_PLAIN) //nothing needs to be posted, nothing makes sense to post so a simple boolean is posted
+    public Response quickLog(@PathParam("id")String id, String workoutID, @Context HttpHeaders httpHeaders){
+        String userID = td.getId(httpHeaders);
+        int res = logService.quickLog(id, workoutID, userID);
         return Response.ok(res).build();
     }
 }

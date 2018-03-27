@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {LogService} from './log.service';
 import {SetService} from '../services/set.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import {Workout} from '../myworkout/workout';
 
 @Component({
   selector: 'app-log',
@@ -10,9 +11,15 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class LogComponent implements OnInit {
 
+  workout: Workout;
+
   constructor(private logService: LogService,
               private setService: SetService,
-              @Inject(MAT_DIALOG_DATA)public data: any) { }
+              @Inject(MAT_DIALOG_DATA)public data: any) {
+
+    this.workout = data.workout;
+
+  }
 
   ngOnInit() {
   }

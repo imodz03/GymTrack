@@ -42,6 +42,11 @@
         </mat-autocomplete>
       </li>
     </ul>
-    <button class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button> <button class="btn btn-success">Log Workout</button>
+    <button class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
+    <button mat-button class="btn btn-success" id="options" [matMenuTriggerFor]="options">Log Workout</button>
+    <mat-menu class="bg-light" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
+      <div mat-menu-item class="menu-item" (click)="log()">Log Workout</div>
+      <div mat-menu-item class="menu-item" (click)="quickLog()">Quick Log</div>
+    </mat-menu>
   </div>
 </div>
