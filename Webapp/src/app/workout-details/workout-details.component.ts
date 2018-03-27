@@ -203,7 +203,11 @@ export class WorkoutDetailsComponent implements OnInit {
         if (reason === opts[0]){
           this.logService.quickLog(this.workout.setsID, this.workout.workoutID).subscribe(
             resp => {
-              console.log(resp);
+              if (resp === 1){
+                this.getWorkout();
+              }else{
+                this.snackBar.open('Something went wrong, Please try again', 'dismiss', { duration: 10000});
+              }
             }
           );
 
