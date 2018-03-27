@@ -3,20 +3,20 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WorkoutService} from '../workout/workout.service';
 import {Workout} from '../myworkout/workout';
-import {ExerciselistService} from '../services/exerciselist.service';
-import {ExerciseService} from '../exercise/exercise.service';
-import {Exercise} from '../exercise/exercise';
+import {ExerciselistService} from '../../services/exerciselist.service';
+import {ExerciseService} from '../../exercise-components/exercise/exercise.service';
+import {Exercise} from '../../exercise-components/exercise/exercise';
 
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
-import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
-import {SetService} from '../services/set.service';
-import {Sets} from '../sets/sets';
+import {CreateExerciseComponent} from '../../exercise-components/create-exercise/create-exercise.component';
+import {SetService} from '../../services/set.service';
+import {Sets} from '../../sets-components/sets/sets';
 import {LogComponent} from '../log/log.component';
-import {SimpleDialogComponent} from '../simple-dialog/simple-dialog.component';
+import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
 import {LogService} from '../log/log.service';
 
 @Component({

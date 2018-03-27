@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
-import {UrlService} from '../services/url.service';
+import {UrlService} from '../../services/url.service';
 import {Workout} from '../myworkout/workout';
 
 @Injectable()

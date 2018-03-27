@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {UrlService} from './url.service';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
-import {Exercise} from '../exercise/exercise';
+import {Exercise} from '../exercise-components/exercise/exercise';
 
 @Injectable()
 export class ExerciselistService {

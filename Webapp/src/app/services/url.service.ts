@@ -38,7 +38,7 @@ export class UrlService {
   getPlanWorkouts = this.plan + '/workouts';
 
   log = this.resource + '/log';
-  quickLog = this.log + '/quick'l
+  quickLog = this.log + '/quick';
 
   constructor() { }
 

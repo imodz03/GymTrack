@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {LogService} from './log.service';
-import {SetService} from '../services/set.service';
+import {SetService} from '../../services/set.service';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {Workout} from '../myworkout/workout';
 

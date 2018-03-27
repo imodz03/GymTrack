@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {UrlService} from '../services/url.service';
+import {UrlService} from '../../services/url.service';
 import {Exercise} from './exercise';
 
 @Injectable()

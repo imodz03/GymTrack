@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Sets} from './sets';
-import {Exercise} from '../exercise/exercise';
-import {SetService} from '../services/set.service';
+import {Exercise} from '../../exercise-components/exercise/exercise';
+import {SetService} from '../../services/set.service';
 import {MatDialog} from '@angular/material';
 import {AddSetComponent} from '../add-set/add-set.component';
 

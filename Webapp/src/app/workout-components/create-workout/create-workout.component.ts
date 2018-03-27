@@ -2,14 +2,14 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {WorkoutService} from '../workout/workout.service';
-import {ExerciseService} from '../exercise/exercise.service';
+import {ExerciseService} from '../../exercise-components/exercise/exercise.service';
 import {Observable} from 'rxjs/Observable';
 import {FormControl} from '@angular/forms';
-import {Exercise} from '../exercise/exercise';
+import {Exercise} from '../../exercise-components/exercise/exercise';
 import {Workout} from '../myworkout/workout';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
-import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
+import {CreateExerciseComponent} from '../../exercise-components/create-exercise/create-exercise.component';
 
 @Component({
   selector: 'app-create-workout',

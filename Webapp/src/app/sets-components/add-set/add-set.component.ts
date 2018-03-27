@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {Sets} from '../sets/sets';
-import {SetService} from '../services/set.service';
+import {SetService} from '../../services/set.service';
 
 @Component({
   selector: 'app-add-set',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import {UserService} from '../user/user.service';
+import {UserService} from '../user-components/user/user.service';
 
 @Injectable()
 export class HeaderService implements HttpInterceptor{

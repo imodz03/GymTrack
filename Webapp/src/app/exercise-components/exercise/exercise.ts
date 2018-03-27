@@ -1,4 +1,4 @@
-import {Sets} from '../sets/sets';
+import {Sets} from '../../sets-components/sets/sets';
 
 export class Exercise{
   exerciseID = '';

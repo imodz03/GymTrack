@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { User } from './User';
-import { UrlService } from '../services/url.service';
+import { UrlService } from '../../services/url.service';
 
 @Injectable()
 export class LoginService {
