@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {LogService} from './log.service';
 import {SetService} from '../../services/set.service';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Workout} from '../myworkout/workout';
 import {Sets} from '../../sets-components/sets/sets';
 
@@ -17,7 +17,8 @@ export class LogComponent implements OnInit {
 
   constructor(private logService: LogService,
               private setService: SetService,
-              @Inject(MAT_DIALOG_DATA)public data: any) {
+              @Inject(MAT_DIALOG_DATA)public data: any,
+              public dialogRef: MatDialogRef<LogComponent>) {
 
     this.workout = data.workout;
 
@@ -51,7 +52,13 @@ export class LogComponent implements OnInit {
     console.log(sets);
 
     this.logService.createLog(this.workout.workoutID, sets).subscribe(
-      resp => console.log(resp)
+      resp => {
+        if (resp === 1){
+          this.dialogRef.close('created');
+        }else{
+          this.dialogRef.close('error');
+        }
+      }
     );
   }
 

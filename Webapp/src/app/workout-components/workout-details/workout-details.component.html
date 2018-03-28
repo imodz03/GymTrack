@@ -43,10 +43,10 @@
         </mat-autocomplete>
       </li>
     </ul>
-    <ul *ngIf="logged">
+    <ul *ngIf="logged && workoutLog">
       <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
         {{exercise.exerciseName}}
-        <app-sets [delete]="false" [add]="flase" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+        <app-sets [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
       </li>
     </ul>
     <button *ngIf="!logged" class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button *ngIf="!logged" class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button *ngIf="!logged" (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>

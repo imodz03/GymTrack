@@ -118,8 +118,12 @@ public class LogResource implements ICRUDResource<Log> {
 
     @POST
     @Path("/create/{id}")
-    public Response test(@PathParam("id")String workoutID, List<Set> sets){
+    public Response CreateLog(@PathParam("id")String workoutID, List<Set> sets, @Context HttpHeaders httpHeaders){
 
-        return Response.ok().build();
+        String userID = td.getId(httpHeaders);
+
+        int resp = logService.createLog(workoutID, sets, userID);
+
+        return Response.ok(resp).build();
     }
 }

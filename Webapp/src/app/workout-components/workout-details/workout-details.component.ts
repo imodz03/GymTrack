@@ -18,6 +18,7 @@ import {Sets} from '../../sets-components/sets/sets';
 import {LogComponent} from '../log/log.component';
 import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
 import {LogService} from '../log/log.service';
+import {Log} from '../log/log';
 
 @Component({
   selector: 'app-workout-details',
@@ -48,6 +49,7 @@ export class WorkoutDetailsComponent implements OnInit {
   dialogRef;
   sets = false;
   logged = false;
+  workoutLog: Log;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -194,6 +196,17 @@ export class WorkoutDetailsComponent implements OnInit {
 
   log(): void{
     this.dialogRef = this.dialog.open(LogComponent, { data: {workout: this.workout }});
+
+    this.dialogRef.afterClosed().subscribe(
+      reason => {
+        if (reason === 'created'){
+          this.getWorkout();
+        }else if (reason === 'error'){
+          this.snackBar.open('Error creating log', 'Dismiss', {duration: 10000});
+        }
+      }
+    );
+
   }
 
   quickLog(): void{
@@ -225,6 +238,7 @@ export class WorkoutDetailsComponent implements OnInit {
       resp => {
         if (resp !== null){
           this.logged = true;
+          this.workoutLog = resp;
         }
       }
     );

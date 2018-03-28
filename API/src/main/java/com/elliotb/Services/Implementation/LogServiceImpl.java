@@ -28,4 +28,27 @@ public class LogServiceImpl implements LogService {
 
         return resp;
     }
+
+    @Override
+    public int createLog(String workoutID, List<Set> sets, String userID){
+        int resp = 0;
+
+        String setID = UUID.getUUID();
+        String logID = UUID.getUUID();
+
+        for (Set set : sets) {
+
+            set.setSUID(UUID.getUUID());
+            set.setSetID(setID);
+
+            resp = setDAO.create(set, set.getExercise().getExerciseID(), set.getSUID());
+
+        }
+
+        if (resp == 1){
+            resp = logDAO.create(logID, setID, workoutID, userID);
+        }
+
+        return resp;
+    }
 }
