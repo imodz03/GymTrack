@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {Sets} from '../sets/sets';
 import {SetService} from '../../services/set.service';
@@ -16,6 +16,7 @@ export class AddSetComponent implements OnInit {
   index = 0;
   startPos = 0;
   parent;
+  addToDB = true;
 
   // distance variables
   KM: Array<number> = new Array();
@@ -36,6 +37,11 @@ export class AddSetComponent implements OnInit {
     this.setsID = data.setsID;
     this.startPos = data.startPos;
     this.parent = data.parent;
+    if (data.addToDB !== undefined){
+      this.addToDB = data.addToDB;
+    }
+
+    console.log(this.addToDB);
   }
 
   ngOnInit() {
@@ -91,11 +97,15 @@ export class AddSetComponent implements OnInit {
       const temp = this.sets[i].exercise.exerciseID;
       this.sets[i].exercise = {};
       this.sets[i].exercise.exerciseID = temp;
-      this.setService.addSet(this.setsID, this.sets[i]).subscribe(
-        resp => {
-          this.callback(resp);
-        }
-      );
+      if (this.addToDB){
+        this.setService.addSet(this.setsID, this.sets[i]).subscribe(
+          resp => {
+            this.callback(resp);
+          }
+        );
+      }else{
+        this.callback(1);
+      }
     }
   }
 
@@ -109,6 +119,11 @@ export class AddSetComponent implements OnInit {
     temp.setID = this.setsID;
     temp.exercise = this.exercise;
     temp.position = this.startPos;
+    temp.reps = 0;
+    temp.weight = 0;
+    temp.time = 0;
+    temp.speed = 0;
+    temp.distance = 0;
     this.startPos++;
     this.sets.push(temp);
   }
@@ -130,8 +145,13 @@ export class AddSetComponent implements OnInit {
     if (result === 1){
       this.callbackCount++;
     }
+
     if (this.callbackCount === this.sets.length){
-      this.parent.getSets();
+      if (this.addToDB) {
+        this.parent.getSets();
+      }else{
+        this.parent.updateSet(this.sets);
+      }
       this.parent.dialogRef.close();
     }
   }
@@ -141,7 +161,6 @@ export class AddSetComponent implements OnInit {
       this.sets[i].position--;
     }
     this.sets.splice(index, 1);
-    console.log(this.sets);
   }
 
 }

@@ -47,7 +47,7 @@ export class LogsetComponent implements OnInit {
       startPos = this.sets[length - 1].position + 1;
     }
     this.dialogRef = this.dialog.open(AddSetComponent,
-      {data: {setsID: this.setsID, exercise: this.exercise, startPos: startPos, parent: this }});
+      {data: {setsID: this.setsID, exercise: this.exercise, startPos: startPos, parent: this , addToDB: false}});
   }
 
   delete(set): void{
@@ -61,6 +61,12 @@ export class LogsetComponent implements OnInit {
     this.sets.splice(pos, 1);
 
     this.update.emit(this.sets);
+  }
+
+  updateSet(sets){
+    for (let i = 0; i < sets.length; i++){
+      this.sets.push(sets[i]);
+    }
   }
 
 

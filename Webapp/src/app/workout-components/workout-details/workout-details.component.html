@@ -43,12 +43,26 @@
         </mat-autocomplete>
       </li>
     </ul>
-    <ul *ngIf="logged && workoutLog">
-      <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
-        {{exercise.exerciseName}}
-        <app-sets [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
-      </li>
-    </ul>
+    <div *ngIf="logged && workoutLog">
+      <mat-tab-group>
+        <mat-tab label="Logged">
+          <ul>
+            <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
+              {{exercise.exerciseName}}
+              <app-sets [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
+            </li>
+          </ul>
+        </mat-tab>
+        <mat-tab label="Planned">
+          <ul>
+            <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
+              {{exercise.exerciseName}}
+              <app-sets [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+            </li>
+          </ul>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
     <button *ngIf="!logged" class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button *ngIf="!logged" class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button *ngIf="!logged" (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
     <button *ngIf="!logged" mat-button class="btn btn-success" id="options" [matMenuTriggerFor]="options">Log Workout</button>
     <mat-menu class="bg-light" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
