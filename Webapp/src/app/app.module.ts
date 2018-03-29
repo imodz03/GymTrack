@@ -43,6 +43,8 @@ import { LogService } from './workout-components/log/log.service';
 import { LogComponent } from './workout-components/log/log.component';
 import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { LogsetComponent } from './workout-components/logset/logset.component';
+import { GoalsComponent } from './goals/goals.component';
+import { GoalService } from './goals/goal.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import { LogsetComponent } from './workout-components/logset/logset.component';
     AddSetComponent,
     LogComponent,
     SimpleDialogComponent,
-    LogsetComponent
+    LogsetComponent,
+    GoalsComponent
   ],
   entryComponents:[
     CreateWorkoutComponent,
@@ -114,7 +117,8 @@ import { LogsetComponent } from './workout-components/logset/logset.component';
     ExerciseService,
     PlanService,
     SetService,
-    LogService
+    LogService,
+    GoalService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

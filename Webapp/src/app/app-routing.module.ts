@@ -13,6 +13,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {CreateExerciseComponent} from './exercise-components/create-exercise/create-exercise.component';
 import {PlanComponent} from './workout-components/plan/plan.component';
 import {AddworkoutComponent} from './workout-components/addworkout/addworkout.component';
+import {GoalsComponent} from './goals/goals.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'exercises', component: ExerciseComponent },
   { path: 'ce', component: CreateExerciseComponent },
   { path: 'plan', component: PlanComponent},
-  { path: 'aw', component: AddworkoutComponent}
+  { path: 'aw', component: AddworkoutComponent},
+  { path: 'goal', component: GoalsComponent}
 ];
 
 @NgModule({

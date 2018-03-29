@@ -41,6 +41,9 @@ export class UrlService {
   quickLog = this.log + '/quick';
   createLog = this.log + '/create';
 
+  goal = this.resource + '/goal';
+  myGoals = this.goal + '/mine';
+
   constructor() { }
 
 }
