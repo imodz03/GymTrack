@@ -61,7 +61,11 @@ export class SetDisplayComponent implements OnInit {
 
   setUpView(): void{
     if (this.reps){
-      this.display = this.Set.reps + ' Reps';
+      if (this.Set.reps === 1){
+        this.display = this.Set.reps + ' Rep';
+      }else{
+        this.display = this.Set.reps + ' Reps';
+      }
       if (this.weight){
         this.altDisplay = this.Set.weight + 'KG';
       }

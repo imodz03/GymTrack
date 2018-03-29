@@ -10,8 +10,8 @@ export class GoalService {
   constructor(private http: HttpClient,
               private url: UrlService) { }
 
-  getMine(): Observable<any>{
-    return this.http.get<any>(this.url.myGoals);
+  getMine(): Observable<Goal[]>{
+    return this.http.get<Goal[]>(this.url.myGoals);
   }
 
 }

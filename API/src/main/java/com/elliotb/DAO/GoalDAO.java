@@ -19,6 +19,10 @@ public interface GoalDAO {
     List<Goal> getAll();
 
     @Mapper(GoalMapper.class)
+    @SqlQuery("SELECT * FROM " + GOAL + " where UserID = :id;")
+    List<Goal> getMine(@Bind("id")String userID);
+
+    @Mapper(GoalMapper.class)
     @SqlQuery("SELECT * FROM " + GOAL + " Where GoalID = :id")
     Goal getById(@Bind("id")String id);
 

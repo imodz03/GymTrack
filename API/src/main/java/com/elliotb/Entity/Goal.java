@@ -2,10 +2,12 @@ package com.elliotb.Entity;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
+
 public class Goal {
 
     private String goalID;
-    private Set set;
+    private List<Set> set;
     private User user;
     private DateTime targetDate;
     private DateTime dateAchieved;
@@ -17,7 +19,7 @@ public class Goal {
         this.goalID = goalID;
     }
 
-    public Goal(String goalID, Set sets, User user, DateTime targetDate, DateTime dateAchieved) {
+    public Goal(String goalID, List<Set> sets, User user, DateTime targetDate, DateTime dateAchieved) {
         this();
         this.goalID = goalID;
         this.set = sets;
@@ -34,11 +36,11 @@ public class Goal {
         this.goalID = goalID;
     }
 
-    public Set getSet() {
+    public List<Set> getSet() {
         return set;
     }
 
-    public void setSet(Set set) {
+    public void setSet(List<Set> set) {
         this.set = set;
     }
 

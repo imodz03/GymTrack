@@ -9,6 +9,8 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoalMapper implements ResultSetMapper<Goal> {
 
@@ -20,9 +22,17 @@ public class GoalMapper implements ResultSetMapper<Goal> {
 
         User mappableUser = new User(r.getString(3));
 
-        mappable.setSet(mappableSet);
+        List<Set> sets = new ArrayList<>();
+        sets.add(mappableSet);
+
+        mappable.setSet(sets);
         mappable.setUser(mappableUser);
-        mappable.setTargetDate(new DateTime(r.getDate(4)));
+
+        if (r.getDate(4) != null){
+            mappable.setTargetDate(new DateTime(r.getDate(4)));
+        }else{
+            mappable.setTargetDate(new DateTime(0));
+        }
 
         if (r.getDate(5) != null){
             mappable.setDateAchieved(new DateTime(r.getDate(5)));

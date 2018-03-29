@@ -22,4 +22,8 @@ export class SetService {
     return this.http.post<number>(this.url.sets + '/' + id, set);
   }
 
+  getSets(id): Observable<Sets[]>{
+    return this.http.get<Sets[]>(this.url.sets + '/' + id);
+  }
+
 }

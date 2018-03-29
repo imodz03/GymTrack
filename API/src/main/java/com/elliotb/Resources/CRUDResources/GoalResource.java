@@ -4,13 +4,17 @@ import com.elliotb.Auth.Annotations.AuthRequired;
 import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.GoalDAO;
 import com.elliotb.Entity.Goal;
+import com.elliotb.Entity.Set;
 import com.elliotb.Helpers.UUID;
+import com.elliotb.Helpers.tokenDecrypter;
+import com.elliotb.Services.SetService;
 import com.google.inject.Inject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Produces("Application/JSON")
@@ -21,10 +25,25 @@ public class GoalResource implements ICRUDResource<Goal>{
     @Inject
     private GoalDAO dao;
 
+    @Inject
+    private tokenDecrypter td;
+
+    @Inject
+    private SetService setService;
+
     @GET
     @AuthRequired
     public Response getAll() {
         return Response.ok(dao.getAll()).build();
+    }
+
+    @GET
+    @Path("/mine")
+    @AuthRequired
+    public Response getMine(@Context HttpHeaders httpHeaders){
+        String userID = td.getId(httpHeaders);
+        List<Goal> mine = dao.getMine(userID);
+        return Response.ok(mine).build();
     }
 
     @GET
@@ -44,7 +63,7 @@ public class GoalResource implements ICRUDResource<Goal>{
         System.out.println(goal);
 
         return Response.ok(
-                dao.create(goal.getGoalID(), goal, goal.getSet().getSetID(), goal.getUser().getUserID())
+                dao.create(goal.getGoalID(), goal, goal.getSet().get(0).getSetID(), goal.getUser().getUserID())
         ).build();
     }
 
@@ -52,7 +71,7 @@ public class GoalResource implements ICRUDResource<Goal>{
     @Path("/{id}")
     @AuthRequired
     public Response update(@PathParam("id")String id, Goal goal) {
-        return Response.ok(dao.update(id, goal.getSet().getSetID(), goal)).build();
+        return Response.ok(dao.update(id, goal.getSet().get(0).getSetID(), goal)).build();
     }
 
     @DELETE

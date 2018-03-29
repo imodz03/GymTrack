@@ -1,3 +1,23 @@
-<p>
-  goals works!
-</p>
+<div>
+  <mat-tab-group>
+    <mat-tab label="My Goals">
+      <mat-accordion *ngIf="loaded">
+        <mat-expansion-panel *ngFor="let goal of goals">
+
+          <mat-expansion-panel-header>
+            {{goal.set[0].exercise.exerciseName}} Goal
+          </mat-expansion-panel-header>
+
+          <div *ngFor="let set of goal.set; index as i">
+            {{set.exercise.exerciseName}}
+            <app-sets [setsID]="set.setID" [exercise]="set.exercise" [delete]="false" [add]="false"></app-sets>
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-tab>
+    <mat-tab label="Create a goal">
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

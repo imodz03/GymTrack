@@ -3,6 +3,7 @@ package com.elliotb.Services.Implementation;
 import com.elliotb.DAO.SetDAO;
 import com.elliotb.Entity.Set;
 import com.elliotb.Services.SetService;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 
 import java.util.List;
@@ -35,5 +36,10 @@ public class SetServiceImpl implements SetService {
         }
         return res;
 
+    }
+
+    @Override
+    public List<Set> populateSets(String id) {
+        return setDAO.getById(id);
     }
 }
