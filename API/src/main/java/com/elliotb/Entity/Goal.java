@@ -7,6 +7,7 @@ import java.util.List;
 public class Goal {
 
     private String goalID;
+    private String goalName;
     private List<Set> set;
     private User user;
     private DateTime targetDate;
@@ -66,6 +67,14 @@ public class Goal {
 
     public void setDateAchieved(DateTime dateAchieved) {
         this.dateAchieved = dateAchieved;
+    }
+
+    public String getGoalName() {
+        return goalName;
+    }
+
+    public void setGoalName(String goalName) {
+        this.goalName = goalName;
     }
 
     @Override

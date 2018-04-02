@@ -15,15 +15,15 @@ import static com.elliotb.Helpers.Constants.GOAL;
 public interface GoalDAO {
 
     @Mapper(GoalMapper.class)
-    @SqlQuery("SELECT * FROM " + GOAL + ";")
+    @SqlQuery("SELECT GoalID, SetID, UserID, targetDate, dateAchieved, GoalName FROM " + GOAL + ";")
     List<Goal> getAll();
 
     @Mapper(GoalMapper.class)
-    @SqlQuery("SELECT * FROM " + GOAL + " where UserID = :id;")
+    @SqlQuery("SELECT GoalID, SetID, UserID, targetDate, dateAchieved, GoalName FROM " + GOAL + " where UserID = :id;")
     List<Goal> getMine(@Bind("id")String userID);
 
     @Mapper(GoalMapper.class)
-    @SqlQuery("SELECT * FROM " + GOAL + " Where GoalID = :id")
+    @SqlQuery("SELECT GoalID, SetID, UserID, targetDate, dateAchieved, GoalName FROM " + GOAL + " Where GoalID = :id")
     Goal getById(@Bind("id")String id);
 
     @SqlUpdate("INSERT INTO " + GOAL + " (GoalID, SetID, UserID, targetDate, dateAchieved) values(:goalID, :setID, :userID, :goal.targetDate, :goal.dateAchieved)")

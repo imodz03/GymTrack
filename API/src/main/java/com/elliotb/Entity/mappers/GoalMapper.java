@@ -41,6 +41,8 @@ public class GoalMapper implements ResultSetMapper<Goal> {
             mappable.setDateAchieved(new DateTime(0));
         }
 
+        mappable.setGoalName(r.getString(6));
+
         return mappable;
     }
 }

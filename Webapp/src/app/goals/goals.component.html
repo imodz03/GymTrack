@@ -5,7 +5,7 @@
         <mat-expansion-panel *ngFor="let goal of goals">
 
           <mat-expansion-panel-header>
-            {{goal.set[0].exercise.exerciseName}} Goal
+            {{goal.goalName}}
           </mat-expansion-panel-header>
 
           <div *ngFor="let set of goal.set; index as i">
@@ -17,7 +17,28 @@
       </mat-accordion>
     </mat-tab>
     <mat-tab label="Create a goal">
+      <div class="container">
+        <br>
+        Name <input type="text" [(ngModel)]="goal.goalName">
+        <br>
+        Exercises: <br>
+        <ul>
+          <li *ngFor="let exercise of allExercises">
+            {{exercise.exerciseName}}
 
+          </li>
+          <li>
+            <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="addExercise()">
+            <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
+          </li>
+        </ul>
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
+            {{ exercise }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </div>

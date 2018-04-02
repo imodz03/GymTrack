@@ -32,7 +32,7 @@
       </li>
       <li *ngIf="addItem">
         <!--Exercise search-->
-        <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" >
+        <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="addExercise()" >
         <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
         <button class="btn btn-outline-secondary" (click)="addItem = false">Cancel</button>
         <!-- Autocomplete suggestions for the searchbar -->
