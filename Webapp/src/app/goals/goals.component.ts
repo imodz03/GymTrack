@@ -22,13 +22,14 @@ export class GoalsComponent implements OnInit {
   loaded = false;
 
   // creating goals
-  exercises: Array<Exercise>;
+  exercises: Array<Exercise> = new Array<Exercise>();
   exerciseNames: Array<string> = new Array<string>();
   allExercises: Array<Exercise>;
   goal: Goal = new Goal();
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
+  currentInput;
 
   constructor(private goalService: GoalService,
               private setService: SetService,
@@ -84,12 +85,33 @@ export class GoalsComponent implements OnInit {
   }
 
   addExercise(): void{
-    console.log(this.goal);
+    const check = this.checkExercise(this.currentInput);
+
+    if (check !== null){
+      this.exercises.push(check);
+      this.currentInput = '';
+    }
+
+  }
+
+  checkExercise(name: string): Exercise{
+    for (let i = 0; i < this.allExercises.length; i++){
+      const temp = this.allExercises[i];
+      if (temp.exerciseName === name){
+        return temp;
+      }
+    }
+    return null;
   }
 
   createGoal(){
     this.goal = new Goal();
     this.goal.set = new Array<Sets>();
+  }
+
+  update(event, i): void{
+    this.exercises[i].Set = event;
+    console.log(this.exercises);
   }
 
 }

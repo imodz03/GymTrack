@@ -23,9 +23,9 @@
         <br>
         Exercises: <br>
         <ul>
-          <li *ngFor="let exercise of allExercises">
+          <li *ngFor="let exercise of exercises; index as i">
             {{exercise.exerciseName}}
-
+            <app-goalset [exercise]="exercise" (update)="update($event, i)"></app-goalset>
           </li>
           <li>
             <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="addExercise()">
