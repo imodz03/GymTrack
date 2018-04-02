@@ -111,7 +111,6 @@ export class GoalsComponent implements OnInit {
 
   update(event, i): void{
     this.exercises[i].Set = event;
-    console.log(this.exercises);
   }
 
 }
