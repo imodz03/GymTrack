@@ -54,7 +54,11 @@ public class Goal {
     }
 
     public String getTargetDate() {
-        return targetDate.toString("yyyy-MM-dd");
+        if (targetDate != null){
+            return targetDate.toString("yyyy-MM-dd");
+        }else{
+            return null;
+        }
     }
 
     public void setTargetDate(DateTime targetDate) {
@@ -62,7 +66,11 @@ public class Goal {
     }
 
     public String getDateAchieved() {
-        return dateAchieved.toString("yyyy-MM-dd");
+        if (dateAchieved != null){
+            return dateAchieved.toString("yyyy-MM-dd");
+        }else{
+            return null;
+        }
     }
 
     public void setDateAchieved(DateTime dateAchieved) {

@@ -3,6 +3,7 @@ package com.elliotb.Resources.CRUDResources;
 import com.elliotb.DAO.SetDAO;
 import com.elliotb.Entity.Exercise;
 import com.elliotb.Entity.Set;
+import com.elliotb.Helpers.EasyJSON;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Services.ExerciseService;
 import com.elliotb.Services.SetService;
@@ -107,6 +108,32 @@ public class SetResource implements ICRUDResource<Set> {
         set.setSUID(UUID.getUUID());
         int res = dao.create(set, set.getExercise().getExerciseID(), set.getSUID());
         return Response.ok(res).build();
+    }
+
+    @POST
+    @Path("/list")
+    public Response createList(List<Set> sets){
+        System.out.println(sets);
+
+        String setId = UUID.getUUID();
+
+        int res = 0;
+
+        for (Set set : sets) {
+
+            set.setSetID(setId);
+            String suid = UUID.getUUID();
+            set.setSUID(suid);
+
+            res = dao.create(set, set.getExercise().getExerciseID(), suid);
+
+        }
+
+        if (res == 1){
+            return Response.ok(EasyJSON.convert("setID", setId)).build();
+        }else{
+            return Response.ok().build();
+        }
     }
 
 

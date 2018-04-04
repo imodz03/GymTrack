@@ -9,6 +9,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-goals',
@@ -33,12 +34,13 @@ export class GoalsComponent implements OnInit {
 
   constructor(private goalService: GoalService,
               private setService: SetService,
-              private exerciseService: ExerciseService) { }
+              private exerciseService: ExerciseService,
+              private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.getGoals();
     this.getExercises();
-    this.createGoal();
+    this.newGoal();
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
@@ -104,13 +106,59 @@ export class GoalsComponent implements OnInit {
     return null;
   }
 
-  createGoal(){
+  newGoal(){
     this.goal = new Goal();
     this.goal.set = new Array<Sets>();
   }
 
   update(event, i): void{
     this.exercises[i].Set = event;
+  }
+
+  create(): void{
+    const sets = new Array<Sets>();
+
+    for (const exercise of this.exercises) {
+
+      if (exercise.Set !== undefined){
+        for (let i = 0; i < exercise.Set.length; i++){
+          sets.push(exercise.Set[i]);
+        }
+      }
+    }
+
+    if (sets.length > 0 && this.goal.goalName !== '' && this.goal.goalName !== undefined){
+      console.log(sets.length);
+      this.setService.createList(sets).subscribe(
+        resp => {
+          if (resp !== null){
+            this.createGoal(resp.setID);
+          }else{
+            this.snackbar.open('Something went wrong creating your goal', 'Dismiss', {duration: 10000});
+          }
+        }
+      );
+    }else{
+      this.snackbar.open('You need to enter a name for your goal and at least one exercise', 'Dismiss', {duration: 10000});
+    }
+
+  }
+
+  createGoal(setID): void{
+    const temp = new Sets();
+    temp.setID = setID;
+    this.goal.set.push(temp);
+
+    this.goalService.createGoal(this.goal).subscribe(
+      resp => {
+        if (resp === 1){
+          // redirect
+        } else {
+          this.snackbar.open('Something went wrong creating your goal', 'Dismiss', {duration: 10000});
+        }
+      }
+    );
+
   }
 
 }

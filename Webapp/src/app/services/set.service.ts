@@ -26,4 +26,8 @@ export class SetService {
     return this.http.get<Sets[]>(this.url.sets + '/' + id);
   }
 
+  createList(list: Sets[]): Observable<any>{
+    return this.http.post<string>(this.url.sets + '/list', list);
+  }
+
 }

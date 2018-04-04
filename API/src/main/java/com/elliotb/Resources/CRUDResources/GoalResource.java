@@ -9,6 +9,7 @@ import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
 import com.elliotb.Services.SetService;
 import com.google.inject.Inject;
+import org.joda.time.DateTime;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -56,15 +57,19 @@ public class GoalResource implements ICRUDResource<Goal>{
     @POST
     @AuthRequired
     public Response create(Goal goal, @Context HttpHeaders httpHeaders) {
-        if (goal.getGoalID().isEmpty()){
-            goal.setGoalID(UUID.getUUID());
+        goal.setGoalID(UUID.getUUID());
+
+        if (goal.getDateAchieved() == null){
+            goal.setDateAchieved(new DateTime(0));
         }
 
-        System.out.println(goal);
+        if (goal.getTargetDate() == null){
+            goal.setTargetDate(new DateTime(0));
+        }
 
-        return Response.ok(
-                dao.create(goal.getGoalID(), goal, goal.getSet().get(0).getSetID(), goal.getUser().getUserID())
-        ).build();
+        int res = dao.create(goal.getGoalID(), goal, goal.getSet().get(0).getSetID(), td.getId(httpHeaders));
+
+        return Response.ok(res).build();
     }
 
     @PUT
