@@ -88,7 +88,7 @@ public class Set {
     public String toString() {
         return "Set{\n" +
                 "SetID='" + SetID + '\'' +
-                "\n, exercise=" + exercise.getExerciseID() +
+//                "\n, exercise=" + exercise.getExerciseID() +
                 "\n, position=" + position +
                 "\n, reps=" + reps +
                 "\n, weight=" + weight +

@@ -4,6 +4,6 @@ export class Goal {
   goalID: string;
   goalName: string;
   targetDate: string;
-  achievedDate: string;
+  dateAchieved: string;
   set: Sets[];
 }

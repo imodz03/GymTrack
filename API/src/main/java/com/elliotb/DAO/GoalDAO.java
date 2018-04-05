@@ -35,4 +35,7 @@ public interface GoalDAO {
     @SqlUpdate("DELETE FROM " + GOAL + " Where GoalID = :id")
     int delete(@Bind("id")String goalID);
 
+    @SqlUpdate("UPDATE " + GOAL + " SET dateAchieved = :date where GoalID = :id")
+    int complete(@Bind("id")String goalID, @Bind("date")String date);
+
 }

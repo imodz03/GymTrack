@@ -14,6 +14,7 @@ import org.joda.time.DateTime;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -85,4 +86,16 @@ public class GoalResource implements ICRUDResource<Goal>{
     public Response delete(@PathParam("id") String id) {
         return Response.ok(dao.delete(id)).build();
     }
+
+    @POST
+    @Path("/complete/{id}")
+    @AuthRequired(ROLE.MEMBER)
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response complete(@PathParam("id")String id, String date){
+
+        int res = dao.complete(id, date);
+        return Response.ok(res).build();
+
+    }
+
 }

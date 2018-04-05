@@ -18,4 +18,8 @@ export class GoalService {
     return this.http.post<number>(this.url.goal, goal);
   }
 
+  completeGoal(id: string, date: any): Observable<number>{
+    return this.http.post<number>(this.url.goal + '/complete/' + id, date);
+  }
+
 }

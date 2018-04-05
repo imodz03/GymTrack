@@ -23,11 +23,15 @@ export class GoalsComponent implements OnInit {
   goals: Array<Goal>;
   loaded = false;
 
+  // ui variables
+  si = 0;
+
   // creating goals
   exercises: Array<Exercise> = new Array<Exercise>();
   exerciseNames: Array<string> = new Array<string>();
   allExercises: Array<Exercise>;
   goal: Goal = new Goal();
+  targetDate: Date;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -60,7 +64,18 @@ export class GoalsComponent implements OnInit {
     this.goalService.getMine().subscribe(
       resp => {
         this.goals = resp;
-        console.log(this.goals);
+        console.log(resp);
+        // filter default 0 date out
+
+        for (let i = 0; i < this.goals.length; i++){
+          if (this.goals[i].targetDate === '1970-01-01'){
+            this.goals[i].targetDate = '';
+          }
+          if (this.goals[i].dateAchieved === '1970-01-01'){
+            this.goals[i].dateAchieved = '';
+          }
+        }
+
         this.getSets();
       }
     );
@@ -151,16 +166,40 @@ export class GoalsComponent implements OnInit {
     temp.setID = setID;
     this.goal.set.push(temp);
 
+    if (this.goal.targetDate !== undefined){
+      const tempDate = this.targetDate.getUTCFullYear()
+        + '-' + (this.targetDate.getMonth() + 1) + '-' + this.targetDate.getDate();
+      this.goal.targetDate = tempDate;
+    }
+
     this.goalService.createGoal(this.goal).subscribe(
       resp => {
         if (resp === 1){
-          this.router.navigate(['/goal']);
+          this.getGoals();
+          this.exercises = new Array<Exercise>();
+          this.goal = new Goal();
+          this.snackbar.open('Goal Created', 'Dismiss', {duration: 10000});
         } else {
           this.snackbar.open('Something went wrong creating your goal', 'Dismiss', {duration: 10000});
         }
       }
     );
 
+  }
+
+  complete(goal: Goal): void{
+    // add a confirmation?
+    const curDate = new Date();
+    const date = curDate.getUTCFullYear()
+      + '-' + (curDate.getMonth() + 1) + '-' + curDate.getUTCDate();
+
+    this.goalService.completeGoal(goal.goalID, date).subscribe(
+      resp => {
+        if (resp === 1){
+          this.getGoals();
+        }
+      }
+    );
   }
 
 }

@@ -1,16 +1,29 @@
 <div>
-  <mat-tab-group>
+  <mat-tab-group selectedIndex="{{si}}">
     <mat-tab label="My Goals">
-      <mat-accordion *ngIf="loaded">
+      <br>
+      <mat-accordion *ngIf="loaded" displayMode="flat">
         <mat-expansion-panel *ngFor="let goal of goals">
 
           <mat-expansion-panel-header *ngIf="goal.goalName">
-            {{goal.goalName}}
+            <div *ngIf="goal.dateAchieved">
+              {{goal.goalName}} - Achieved: {{goal.dateAchieved}}
+            </div>
+            <div *ngIf="goal.targetDate && !goal.dateAchieved">
+              {{goal.goalName}} - {{goal.targetDate}}
+            </div>
+            <div *ngIf="!goal.targetDate && !goal.dateAchieved">
+              {{goal.goalName}}
+            </div>
           </mat-expansion-panel-header>
 
           <div *ngFor="let set of goal.set; index as i">
             <div *ngIf="set.exercise">{{set.exercise.exerciseName}}</div>
             <app-sets *ngIf="set.exercise" [setsID]="set.setID" [exercise]="set.exercise" [delete]="false" [add]="false"></app-sets>
+          </div>
+          <div *ngIf="!goal.dateAchieved">
+            <br>
+            <button class="btn btn-success" (click)="complete(goal)">Complete Goal</button>
           </div>
 
         </mat-expansion-panel>
@@ -22,7 +35,7 @@
         Name: <input type="text" [(ngModel)]="goal.goalName">
         <br>
         Target Date:
-        <input [matDatepicker]="myDatepicker">
+        <input [matDatepicker]="myDatepicker" [(ngModel)]="targetDate">
         <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker touchUi="true"></mat-datepicker>
         <br>

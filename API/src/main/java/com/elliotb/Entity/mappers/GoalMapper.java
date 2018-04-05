@@ -29,13 +29,13 @@ public class GoalMapper implements ResultSetMapper<Goal> {
         mappable.setUser(mappableUser);
 
         if (r.getDate(4) != null){
-            mappable.setTargetDate(new DateTime(r.getDate(4)));
+            mappable.setTargetDate(new DateTime(r.getDate(4)).plusDays(1));
         }else{
             mappable.setTargetDate(new DateTime(0));
         }
 
         if (r.getDate(5) != null){
-            mappable.setDateAchieved(new DateTime(r.getDate(5)));
+            mappable.setDateAchieved(new DateTime(r.getDate(5)).plusDays(1));
         }else{
             //if the goal has not been achieved the date will default to 0, will handle display of this in front end
             mappable.setDateAchieved(new DateTime(0));
