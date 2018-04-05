@@ -166,7 +166,7 @@ export class GoalsComponent implements OnInit {
     temp.setID = setID;
     this.goal.set.push(temp);
 
-    if (this.goal.targetDate !== undefined){
+    if (this.targetDate !== undefined && this.targetDate !== null){
       const tempDate = this.targetDate.getUTCFullYear()
         + '-' + (this.targetDate.getMonth() + 1) + '-' + this.targetDate.getDate();
       this.goal.targetDate = tempDate;
@@ -191,7 +191,7 @@ export class GoalsComponent implements OnInit {
     // add a confirmation?
     const curDate = new Date();
     const date = curDate.getUTCFullYear()
-      + '-' + (curDate.getMonth() + 1) + '-' + curDate.getUTCDate();
+      + '-' + (curDate.getMonth() + 1) + '-' + curDate.getDate();
 
     this.goalService.completeGoal(goal.goalID, date).subscribe(
       resp => {
