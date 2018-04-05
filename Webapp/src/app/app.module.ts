@@ -46,6 +46,7 @@ import { LogsetComponent } from './workout-components/logset/logset.component';
 import { GoalsComponent } from './goals/goals.component';
 import { GoalService } from './goals/goal.service';
 import { GoalsetComponent } from './goalset/goalset.component';
+import { StatService } from './stat.service';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { GoalsetComponent } from './goalset/goalset.component';
     PlanService,
     SetService,
     LogService,
-    GoalService
+    GoalService,
+    StatService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -44,6 +44,9 @@ export class UrlService {
   goal = this.resource + '/goal';
   myGoals = this.goal + '/mine';
 
+  // stats
+  stats = this.api + '/stats';
+
   constructor() { }
 
 }

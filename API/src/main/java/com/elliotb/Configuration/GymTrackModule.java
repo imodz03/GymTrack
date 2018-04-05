@@ -109,5 +109,10 @@ public class GymTrackModule extends AbstractModule{
         return jdbi.onDemand(AuthDAO.class);
     }
 
+    @Provides
+    StatsDAO providesStatsDAO(){
+        return jdbi.onDemand(StatsDAO.class);
+    }
+
 
 }
