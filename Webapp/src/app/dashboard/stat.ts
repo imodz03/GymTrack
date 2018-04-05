@@ -1,5 +1,5 @@
 export class Stat {
-  DateTime: string;
+  date: string;
   exerciseID: string;
   position: number;
   reps: number;
