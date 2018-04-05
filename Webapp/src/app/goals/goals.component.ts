@@ -10,6 +10,7 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-goals',
@@ -35,7 +36,8 @@ export class GoalsComponent implements OnInit {
   constructor(private goalService: GoalService,
               private setService: SetService,
               private exerciseService: ExerciseService,
-              private snackbar: MatSnackBar) { }
+              private snackbar: MatSnackBar,
+              private router: Router) { }
 
   ngOnInit() {
     this.getGoals();
@@ -58,6 +60,7 @@ export class GoalsComponent implements OnInit {
     this.goalService.getMine().subscribe(
       resp => {
         this.goals = resp;
+        console.log(this.goals);
         this.getSets();
       }
     );
@@ -128,7 +131,6 @@ export class GoalsComponent implements OnInit {
     }
 
     if (sets.length > 0 && this.goal.goalName !== '' && this.goal.goalName !== undefined){
-      console.log(sets.length);
       this.setService.createList(sets).subscribe(
         resp => {
           if (resp !== null){
@@ -152,7 +154,7 @@ export class GoalsComponent implements OnInit {
     this.goalService.createGoal(this.goal).subscribe(
       resp => {
         if (resp === 1){
-          // redirect
+          this.router.navigate(['/goal']);
         } else {
           this.snackbar.open('Something went wrong creating your goal', 'Dismiss', {duration: 10000});
         }

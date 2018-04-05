@@ -26,7 +26,7 @@ public interface GoalDAO {
     @SqlQuery("SELECT GoalID, SetID, UserID, targetDate, dateAchieved, GoalName FROM " + GOAL + " Where GoalID = :id")
     Goal getById(@Bind("id")String id);
 
-    @SqlUpdate("INSERT INTO " + GOAL + " (GoalID, SetID, UserID, targetDate, dateAchieved) values(:goalID, :setID, :userID, :goal.targetDate, :goal.dateAchieved)")
+    @SqlUpdate("INSERT INTO " + GOAL + " (GoalID, SetID, UserID, targetDate, dateAchieved, GoalName) values(:goalID, :setID, :userID, :goal.targetDate, :goal.dateAchieved, :goal.goalName)")
     int create(@Bind("goalID")String goalID, @BindBean("goal")Goal goal, @Bind("setID")String setID, @Bind("userID")String userID);
 
     @SqlUpdate("UPDATE " + GOAL + " SET SetID = :setID, targetDate = :goal.targetDate, dateAchieved = :goal.dateAchieved where GoalID = :id")
