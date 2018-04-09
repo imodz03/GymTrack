@@ -48,6 +48,8 @@ import { GoalService } from './goals/goal.service';
 import { GoalsetComponent } from './goalset/goalset.component';
 import { StatService } from './stat.service';
 import {AuthGuard} from './auth-guard.service';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,7 @@ import {AuthGuard} from './auth-guard.service';
     GoalsComponent,
     GoalsetComponent
   ],
-  entryComponents:[
+  entryComponents: [
     CreateWorkoutComponent,
     AddSetComponent,
     LogComponent,
@@ -105,7 +107,8 @@ import {AuthGuard} from './auth-guard.service';
     MatGridListModule,
     MatMenuModule,
     MatChipsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [
     LoginService,
