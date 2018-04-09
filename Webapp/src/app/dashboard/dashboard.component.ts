@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       data: {
         labels: [],
         datasets: [{
+          label: 'Weight',
           data: []
         }],
         fill: false
@@ -64,7 +65,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.statService.getStats(Exid).subscribe(
       resp => {
         this.stats = resp;
-        console.log(this.stats);
         this.displayStats();
       }
     );
@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
       for (let i = 0; i < this.stats.length; i++){
 
-        this.myChart.data.labels.push(this.stats[i].date);
+        this.myChart.data.labels.push(this.stats[i].date + '-' + this.stats[i].reps + ' Rep');
         this.myChart.data.datasets.forEach((dataset) => {
           dataset.data.push(this.stats[i].weight);
         });

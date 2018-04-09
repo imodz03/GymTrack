@@ -13,7 +13,8 @@ public interface StatsDAO {
     @SqlQuery("select W.DateOfWorkout, S.ExerciseID, s.`position`, s.reps, s.weight, s.timeTaken, s.distance " +
             "from Logs as L inner join Workout as W on (L.WorkoutID = W.WorkoutID) " +
             "inner join `Sets` as S on (L.SetID = S.SetsID) " +
-            "where L.UserID = :userID and S.ExerciseID = :exID")
+            "where L.UserID = :userID and S.ExerciseID = :exID " +
+            "order by W.DateOfWorkout ASC")
     @Mapper(StatsMapper.class)
     List<Stat> getStats(@Bind("exID")String exerciseID, @Bind("userID")String userID);
 

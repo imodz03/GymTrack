@@ -21,6 +21,10 @@ public class Stat {
         return date.toString("dd-MM-yyyy");
     }
 
+    public DateTime getDateTime(){
+        return this.date;
+    }
+
     public void setDate(DateTime date) {
         this.date = date;
     }
