@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, NgZone} from '@angular/core';
 
 import { User } from './User';
 
@@ -13,7 +13,10 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private userService: UserService, private router: Router) { }
+  constructor(private loginService: LoginService,
+              private userService: UserService,
+              private router: Router,
+              private zone: NgZone) { }
 
   loginFailed = false;
   @Output() userUpdated: EventEmitter<User> = new EventEmitter();
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.user.token = user.token;
         localStorage.setItem('username', this.user.username);
         localStorage.setItem('token', this.user.token);
-        this.router.navigate(['/']);
+        this.router.navigate(['/']); // todo fix bug where username is not updated without page refresh on login
       }
     });
   }
