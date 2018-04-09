@@ -72,9 +72,5 @@ export class UserService {
     return this.http.post<status>(this.url.register, user);
   }
 
-  setUsername(name){
-    this.user.username = name;
-  }
-
 
 }
