@@ -47,6 +47,7 @@ import { GoalsComponent } from './goals/goals.component';
 import { GoalService } from './goals/goal.service';
 import { GoalsetComponent } from './goalset/goalset.component';
 import { StatService } from './stat.service';
+import {AuthGuard} from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { StatService } from './stat.service';
     SetService,
     LogService,
     GoalService,
-    StatService
+    StatService,
+    AuthGuard
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

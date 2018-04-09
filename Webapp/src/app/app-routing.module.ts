@@ -14,20 +14,27 @@ import {CreateExerciseComponent} from './exercise-components/create-exercise/cre
 import {PlanComponent} from './workout-components/plan/plan.component';
 import {AddworkoutComponent} from './workout-components/addworkout/addworkout.component';
 import {GoalsComponent} from './goals/goals.component';
+import {AuthGuard} from './auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'workouts', component: WorkoutComponent },
-  { path: 'workouts/details/:id', component: WorkoutDetailsComponent },
-  { path: 'account', component: UserComponent },
-  { path: 'myworkouts', component: MyworkoutComponent },
-  { path: 'exercises', component: ExerciseComponent },
-  { path: 'ce', component: CreateExerciseComponent },
-  { path: 'plan', component: PlanComponent},
-  { path: 'aw', component: AddworkoutComponent},
-  { path: 'goal', component: GoalsComponent}
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: DashboardComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'workouts', component: WorkoutComponent },
+      { path: 'workouts/details/:id', component: WorkoutDetailsComponent },
+      { path: 'account', component: UserComponent },
+      { path: 'myworkouts', component: MyworkoutComponent },
+      { path: 'exercises', component: ExerciseComponent },
+      { path: 'ce', component: CreateExerciseComponent },
+      { path: 'plan', component: PlanComponent},
+      { path: 'aw', component: AddworkoutComponent},
+      { path: 'goal', component: GoalsComponent}
+    ]
+  }
 ];
 
 @NgModule({

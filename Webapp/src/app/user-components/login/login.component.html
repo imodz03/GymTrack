@@ -12,6 +12,9 @@
       <label for="user">Username</label> <input [(ngModel)]="user.username" type="text" id="user" value=""> <br> <br>
       <label for="pass">Password</label> <input [(ngModel)]="user.pass" type="password" id="pass" value="" (keyup.enter)="login(user)"> <br> <br>
       <button type="button" name="button" class="btn btn-success" (click)="login(user)">Login</button>
+      <a href="/register"><button type="button" name="button" class="btn btn-success">Register</button></a>
+      <br>
+      <i>Please log in to use the rest of the application</i>
     </div>
   </div>
 </div>
