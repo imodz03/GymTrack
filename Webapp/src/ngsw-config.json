@@ -24,17 +24,5 @@
           "/assets/**"
         ]
       }
-    }],
-  "dataGroups": [
-    {
-      "name": "myworkouts",
-      "urls": ["localhost:8080/api/resource/workout/mine"],
-      "cacheConfig": {
-        "strategy": "freshness",
-        "maxSize": 15,
-        "maxAge": "5d",
-        "timeout": "5s"
-      }
-    }
-  ]
+    }]
 }

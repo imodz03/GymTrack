@@ -35,7 +35,8 @@
 
 </nav>
 <div *ngIf="offline" class="alert alert-warning alert-dismissible fade show" role="alert">
-  Information is being displayed offline and will be updated next time the site connects
+  Information is being displayed offline and will be updated next time the site connects,
+  Offline updates to database are an experimental feature and may not work correctly
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true" (click)="offline = false">&times;</span>
   </button>

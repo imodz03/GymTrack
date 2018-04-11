@@ -129,7 +129,8 @@ import {ConnectionService} from './connection.service';
     GoalService,
     StatService,
     AuthGuard,
-    ConnectionService
+    ConnectionService,
+    HeaderService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

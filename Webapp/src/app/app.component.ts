@@ -3,6 +3,8 @@ import {Location} from '@angular/common';
 import {LoginService} from './user-components/login/login.service';
 import {UserService} from './user-components/user/user.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {HeaderService} from './services/header.service';
+import {ConnectionService} from './connection.service';
 
 @NgModule({
   imports: [NgbModule.forRoot()]
@@ -17,12 +19,18 @@ export class AppComponent implements OnInit{
 
   constructor(private loginService: LoginService,
               private userService: UserService,
-              private location: Location ){
+              private location: Location,
+              private connectionS: ConnectionService,
+              private headerService: HeaderService){
 
   }
 
 
   ngOnInit(): void {
+
+    this.connectionS.check().then(() => {
+      this.headerService.executeUpdate();
+    });
 
     this.loginService.verifyToken(this.userService.getUser()).subscribe(
       resp => {

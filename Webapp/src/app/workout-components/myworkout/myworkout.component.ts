@@ -37,11 +37,9 @@ export class MyworkoutComponent implements OnInit {
 
   ngOnInit() {
     this.connectionS.check().then(() => {
-      console.log('connected');
       this.online = true;
       this.getWorkouts();
     }).catch(() => {
-      console.log('no connection');
       this.loadWorkoutFromMemory();
     });
   }
