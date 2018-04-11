@@ -100,4 +100,9 @@ export class MyworkoutComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  navigate(path): void{
+    this.router.navigate(['/workouts/details/' + path]);
+    this.dialogRef.close();
+  }
+
 }

@@ -22,7 +22,7 @@
     </ul>
   </div>
   <div class="modal-footer">
-    <a href="/workouts/details/{{selectedWorkout.workoutID}}" ><button type="button" class="btn btn-outline-dark">Full View</button></a>
+    <button type="button" class="btn btn-outline-dark" (click)="navigate(selectedWorkout.workoutID)">Full View</button>
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
   </div>

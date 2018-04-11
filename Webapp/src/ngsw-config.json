@@ -1,1 +1,40 @@
-g
+{
+  "index": "/index.html",
+  "assetGroups": [{
+    "name": "app",
+    "installMode": "prefetch",
+    "resources": {
+      "files": [
+        "/favicon.ico",
+        "/index.html"
+      ],
+      "versionedFiles": [
+        "/*.bundle.css",
+        "/*.bundle.js",
+        "/*.chun.js"
+      ]
+    }
+  },
+    {
+      "name": "assets",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**"
+        ]
+      }
+    }],
+  "dataGroups": [
+    {
+      "name": "myworkouts",
+      "urls": ["localhost:8080/api/resource/workout/mine"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 15,
+        "maxAge": "5d",
+        "timeout": "5s"
+      }
+    }
+  ]
+}
