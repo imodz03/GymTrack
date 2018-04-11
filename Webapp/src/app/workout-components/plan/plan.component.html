@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group *ngIf="online">
   <mat-tab label="My Plans">
     <br>
     <mat-accordion>
@@ -117,3 +117,7 @@
 
   </mat-tab>
 </mat-tab-group>
+<div *ngIf="!online">
+  <h3>This page does not support offline mode</h3>
+  <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+</div>

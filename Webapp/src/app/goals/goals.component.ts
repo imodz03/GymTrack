@@ -11,6 +11,7 @@ import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {ConnectionService} from '../connection.service';
 
 @Component({
   selector: 'app-goals',
@@ -37,22 +38,30 @@ export class GoalsComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   currentInput;
 
+  online = true;
+
   constructor(private goalService: GoalService,
               private setService: SetService,
               private exerciseService: ExerciseService,
               private snackbar: MatSnackBar,
-              private router: Router) { }
+              private router: Router,
+              private connectionS: ConnectionService) { }
 
   ngOnInit() {
-    this.getGoals();
-    this.getExercises();
-    this.newGoal();
 
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.filter(value))
-      );
+    this.connectionS.check().then(() => {
+      this.getGoals();
+      this.getExercises();
+      this.newGoal();
+
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this.filter(value))
+        );
+    }).catch(() => {
+      this.online = false;
+    });
   }
 
   filter(val: string): string[]{
@@ -200,6 +209,10 @@ export class GoalsComponent implements OnInit {
         }
       }
     );
+  }
+
+  back(): void{
+    this.router.navigate(['/myworkouts']);
   }
 
 }

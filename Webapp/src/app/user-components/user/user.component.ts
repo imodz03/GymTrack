@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from './user.service';
+import {Router} from '@angular/router';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'app-user',
@@ -8,19 +10,27 @@ import {UserService} from './user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private router: Router,
+              private connectionS: ConnectionService) { }
 
   user;
   edit = false;
   editPrefs = false;
 
+  online = true;
+
   ngOnInit() {
-    this.userService.getMe().subscribe(
-      resp => {
-        console.log(resp);
-        this.user = resp;
-      }
-    );
+    this.connectionS.check().then(() => {
+      this.userService.getMe().subscribe(
+        resp => {
+          console.log(resp);
+          this.user = resp;
+        }
+      );
+    }).catch(() => {
+      this.online = false;
+    });
   }
 
   update(): void{
@@ -68,6 +78,10 @@ export class UserComponent implements OnInit {
     prefs.metric = true;
     this.userService.updatePrefs(prefs);
     this.user.preferences = JSON.stringify(prefs);
+  }
+
+  back(): void{
+    this.router.navigate(['/myworkouts']);
   }
 
 }

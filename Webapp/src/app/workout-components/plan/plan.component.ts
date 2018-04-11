@@ -8,6 +8,7 @@ import {AddworkoutComponent} from '../addworkout/addworkout.component';
 import {PlannedWorkout} from './PW';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'app-plan',
@@ -45,23 +46,30 @@ export class PlanComponent implements OnInit {
   plans = new Array<Plan>();
   plan = new Plan();
 
+  online = true;
+
   constructor(private planService: PlanService,
               private workoutService: WorkoutService,
               private dialog: MatDialog,
               private snackbar: MatSnackBar,
-              private router: Router) { }
+              private router: Router,
+              private connectionS: ConnectionService) { }
 
   ngOnInit() {
-    this.getWorkouts();
-    this.getPlans();
-    this.plan.planID = '';
-    this.plan.repeats = 1;
+    this.connectionS.check().then(() => {
+      this.getWorkouts();
+      this.getPlans();
+      this.plan.planID = '';
+      this.plan.repeats = 1;
 
-    this.indexChange.subscribe(
-      out => {
-        this.index = out.index;
-      }
-    );
+      this.indexChange.subscribe(
+        out => {
+          this.index = out.index;
+        }
+      );
+    }).catch(() => {
+      this.online = false;
+    });
 
   }
 
@@ -221,5 +229,10 @@ export class PlanComponent implements OnInit {
 
 
   }
+
+  back(): void{
+    this.router.navigate(['/myworkouts']);
+  }
+
 
 }

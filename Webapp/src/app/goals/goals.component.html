@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="online">
   <mat-tab-group selectedIndex="{{si}}">
     <mat-tab label="My Goals">
       <br>
@@ -60,4 +60,8 @@
       </div>
     </mat-tab>
   </mat-tab-group>
+</div>
+<div *ngIf="!online">
+  <h3>This page does not support offline mode</h3>
+  <button (click)="back()" class="btn btn-success">Back to my workouts</button>
 </div>
