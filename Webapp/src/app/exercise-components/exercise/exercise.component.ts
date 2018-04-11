@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ExerciseService} from './exercise.service';
-import {Exercise} from './exercise';
 import {MatTableDataSource, MatPaginator, MatDialog, MatSort} from '@angular/material';
 import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'app-exercise',
@@ -18,10 +18,16 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   dialogRef;
 
-  constructor(private exerciseService: ExerciseService, private dialog: MatDialog) { }
+  constructor(private exerciseService: ExerciseService,
+              private dialog: MatDialog,
+              private connectionS: ConnectionService) { }
 
   ngOnInit() {
-    this.getExercises();
+    this.connectionS.check().then(() => {
+      this.getExercises();
+    }).catch(() => {
+      this.loadExercises();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -32,10 +38,20 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
   getExercises(): void{
     this.exerciseService.getAll().subscribe(
       resp => {
+        localStorage.setItem('exercises', JSON.stringify(resp));
         this.datasource.data = resp;
         this.datalength = resp.length;
       }
     );
+  }
+
+  loadExercises(): void{
+    const list = JSON.parse(localStorage.getItem('exercises'));
+
+    if (list !== null){
+      this.datasource.data = list;
+      this.datalength = list.length;
+    }
   }
 
   createExercise(): void{

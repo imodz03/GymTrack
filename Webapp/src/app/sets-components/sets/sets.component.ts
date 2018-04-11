@@ -4,6 +4,7 @@ import {Exercise} from '../../exercise-components/exercise/exercise';
 import {SetService} from '../../services/set.service';
 import {MatDialog} from '@angular/material';
 import {AddSetComponent} from '../add-set/add-set.component';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'app-sets',
@@ -22,16 +23,28 @@ export class SetsComponent implements OnInit {
   delete: boolean;
 
   @Input()
-  add: boolean = true;
+  add = true;
+
+  @Input()
+  save = false;
 
   sets = new Array<Sets>();
   dialogRef;
 
   constructor(private setService: SetService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private connectionS: ConnectionService) { }
 
   ngOnInit() {
-    this.getSets();
+    this.connectionS.check().then(() => {
+      this.getSets();
+    }).catch(() => {
+      this.loadSets();
+    });
+  }
+
+  loadSets(): void{
+    this.sets = JSON.parse(localStorage.getItem('set-' + this.setsID + this.exercise.exerciseID));
   }
 
   getSets(): void{
@@ -39,6 +52,11 @@ export class SetsComponent implements OnInit {
       this.setService.getSet(this.setsID, this.exercise.exerciseID).subscribe(
         resp => {
           this.sets = resp;
+          if (this.save && this.sets.length > 0){
+            localStorage.setItem('set-' + this.setsID + this.exercise.exerciseID, JSON.stringify(this.sets));
+          }else{
+            localStorage.removeItem('set-' + this.setsID + this.exercise.exerciseID);
+          }
         }
       );
     }

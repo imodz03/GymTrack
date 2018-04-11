@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {WorkoutService} from '../workout/workout.service';
 import {Workout} from '../myworkout/workout';
 import {ExerciselistService} from '../../services/exerciselist.service';
@@ -19,6 +19,8 @@ import {LogComponent} from '../log/log.component';
 import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
 import {LogService} from '../log/log.service';
 import {Log} from '../log/log';
+import {ConnectionService} from '../../connection.service';
+import {SetsComponent} from '../../sets-components/sets/sets.component';
 
 @Component({
   selector: 'app-workout-details',
@@ -28,15 +30,15 @@ import {Log} from '../log/log';
 
 export class WorkoutDetailsComponent implements OnInit {
 
-  // todo add view for planned vs logged
-
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private workoutService: WorkoutService,
               private elService: ExerciselistService,
               private exerciseService: ExerciseService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog,
-              private logService: LogService) { }
+              private logService: LogService,
+              private connectionS: ConnectionService) { }
 
   workout: Workout;
   canEdit = false;
@@ -54,8 +56,17 @@ export class WorkoutDetailsComponent implements OnInit {
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
 
+  online = false;
+  saveOption = true;
+
   ngOnInit() {
-    this.getWorkout();
+    this.checkSaved();
+    this.connectionS.check().then(() => {
+      this.getWorkout();
+      this.online = true;
+    }).catch(() => {
+      this.loadWorkout();
+    });
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
@@ -67,6 +78,26 @@ export class WorkoutDetailsComponent implements OnInit {
   filter(val: string): string[]{
     return this.exerciseNames.filter(option =>
     option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  loadWorkout(): void{
+
+    const id = this.route.snapshot.paramMap.get('id');
+
+    const workout = JSON.parse(localStorage.getItem('workout-' + id ));
+    const workoutLog = JSON.parse(localStorage.getItem('workoutLog-' + id));
+
+    if (workout !== null){
+      this.workout = workout;
+      this.dateInput = new Date(workout.date);
+      this.workout.setsID = workout.sets[0].setID;
+      this.saveOption = false;
+    }
+
+    if (workoutLog !== null){
+      this.workoutLog = workoutLog;
+      this.logged = true;
+    }
   }
 
   getWorkout(): void{
@@ -242,6 +273,34 @@ export class WorkoutDetailsComponent implements OnInit {
         }
       }
     );
+  }
+
+  saveOffline(): void{
+    const id = this.workout.workoutID;
+    localStorage.setItem('workout-' + id, JSON.stringify(this.workout));
+    if (this.workoutLog !== undefined){
+      localStorage.setItem('workoutLog-' + id, JSON.stringify(this.workoutLog));
+    }
+    this.saveOption = false;
+  }
+
+  removeOffline(): void{
+    const id = this.workout.workoutID;
+    localStorage.removeItem('workout-' + id);
+    localStorage.removeItem('workoutLog-' + id);
+    this.saveOption = true;
+  }
+
+  back(): void{
+    this.router.navigate(['/myworkouts']);
+  }
+
+  checkSaved(): void{
+    const id = this.route.snapshot.paramMap.get('id');
+    const workout = localStorage.getItem('workout-' + id);
+    if  (workout !== null){
+      this.saveOption = false;
+    }
   }
 
 }

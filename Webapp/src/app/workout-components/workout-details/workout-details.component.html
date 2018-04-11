@@ -28,7 +28,7 @@
       <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
         {{exercise.exerciseName}}
         <a *ngIf="!locked" (click)="delete(i)"><i class="fa fa-close"></i></a>
-        <app-sets [delete]="!locked" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+        <app-sets [save]="!saveOption" [delete]="!locked" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
       </li>
       <li *ngIf="addItem">
         <!--Exercise search-->
@@ -49,7 +49,7 @@
           <ul>
             <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
               {{exercise.exerciseName}}
-              <app-sets [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
+              <app-sets [save]="!saveOption" [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
             </li>
           </ul>
         </mat-tab>
@@ -57,7 +57,7 @@
           <ul>
             <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
               {{exercise.exerciseName}}
-              <app-sets [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+              <app-sets [save]="!saveOption" [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
             </li>
           </ul>
         </mat-tab>
@@ -69,5 +69,11 @@
       <div mat-menu-item class="menu-item" (click)="log()">Log Workout</div>
       <div mat-menu-item class="menu-item" (click)="quickLog()">Quick Log</div>
     </mat-menu>
+    <button class="btn btn-success" *ngIf="saveOption" (click)="saveOffline()">Save offline</button>
+    <button class="btn btn-danger" *ngIf="!saveOption" (click)="removeOffline()">Remove offline save</button>
   </div>
+</div>
+<div *ngIf="!workout">
+  <h3>Workout not saved offline</h3>
+  <button (click)="back()" class="btn btn-success">Back to my workouts</button>
 </div>
