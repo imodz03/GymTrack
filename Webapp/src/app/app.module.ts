@@ -50,6 +50,7 @@ import { StatService } from './stat.service';
 import {AuthGuard} from './auth-guard.service';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {ConnectionService} from './connection.service';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import {environment} from '../environments/environment';
     LogService,
     GoalService,
     StatService,
-    AuthGuard
+    AuthGuard,
+    ConnectionService
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

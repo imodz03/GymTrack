@@ -9,6 +9,7 @@ import 'fullcalendar';
 import {MatDialog} from '@angular/material';
 import {CreateWorkoutComponent} from '../create-workout/create-workout.component';
 import {Router} from '@angular/router';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'app-myworkout',
@@ -24,21 +25,32 @@ export class MyworkoutComponent implements OnInit {
   newWorkout = new Workout();
   selectedEvent;
 
+  online = false;
+
   @ViewChild('details')private content;
 
   constructor(private workoutService: WorkoutService,
               private modalService: NgbModal,
               private dialog: MatDialog,
-              private router: Router) { }
+              private router: Router,
+              private connectionS: ConnectionService) { }
 
   ngOnInit() {
-    this.getWorkouts();
+    this.connectionS.check().then(() => {
+      console.log('connected');
+      this.online = true;
+      this.getWorkouts();
+    }).catch(() => {
+      console.log('no connection');
+      this.loadWorkoutFromMemory();
+    });
   }
 
   getWorkouts(): void{
     this.myworkouts = new Array<Workout>();
     this.workoutService.getMine().subscribe(
       list => {
+        localStorage.setItem('userWorkouts', JSON.stringify(list));
         for (let i = 0; i < list.length; i++){
           this.myworkouts.push({title: list[i].workoutName, date: list[i].date, workout: list[i], parent: this});
         }
@@ -48,6 +60,21 @@ export class MyworkoutComponent implements OnInit {
         this.loadCalender();
       }
     );
+  }
+
+  // load for offline usage
+  loadWorkoutFromMemory(){
+
+    const list = JSON.parse(localStorage.getItem('userWorkouts'));
+    console.log(list);
+    for (let i = 0; i < list.length; i++){
+      this.myworkouts.push({title: list[i].workoutName, date: list[i].date, workout: list[i], parent: this});
+    }
+    if (list.length === 0){
+      this.myworkouts.push({parent: this});
+    }
+    this.loadCalender();
+
   }
 
   openQuickView(): void {

@@ -10,6 +10,7 @@ import {Workout} from '../myworkout/workout';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {CreateExerciseComponent} from '../../exercise-components/create-exercise/create-exercise.component';
+import {ConnectionService} from '../../connection.service';
 
 @Component({
   selector: 'app-create-workout',
@@ -35,13 +36,18 @@ export class CreateWorkoutComponent implements OnInit {
               private workoutService: WorkoutService,
               private router: Router,
               private snackbar: MatSnackBar,
-              private modal: MatDialog){
+              private modal: MatDialog,
+              private connectionS: ConnectionService){
     this.workout = data.workout;
     this.workout.public = false;
   }
 
   ngOnInit(){
-    this.getExercises();
+    this.connectionS.check().catch(() => {
+        this.loadExercises();
+      }).then(() => {
+      this.getExercises();
+    });
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -55,12 +61,22 @@ export class CreateWorkoutComponent implements OnInit {
     this.exerciseService.getAll().subscribe(
       resp => {
         this.exercises = resp;
+        localStorage.setItem('exercises', JSON.stringify(resp));
         for (let i = 0; i < resp.length; i++){
           this.exerciseNames.push(resp[i].exerciseName);
-
         }
       }
     );
+  }
+
+  loadExercises(): void{
+
+    const list = JSON.parse(localStorage.getItem('exercises'));
+    this.exercises = list;
+    for (let i = 0; i < list.length; i++){
+      this.exerciseNames.push(list[i].exerciseName);
+    }
+
   }
 
   create(workout: Workout): void{
