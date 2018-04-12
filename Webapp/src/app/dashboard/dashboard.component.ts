@@ -17,11 +17,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   stats = new Array<Stat>();
   selectedExercise: Exercise;
 
+  // stats chart - experimental
   ctx; any;
   chart: any;
   myChart: Chart;
-
-  viewInit = false;
 
   constructor(private router: Router,
               private exerciseService: ExerciseService,
@@ -36,6 +35,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.setupChart();
   }
 
+  // finds chart and initializes the code for it
   setupChart(): void{
     this.ctx = document.getElementById('myChart');
     this.chart = this.ctx.getContext('2d');
@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // pulls down exercises for selecting the stats you wish to view
   getExercises(): void{
     this.exerciseService.getAll().subscribe(
       resp => {
@@ -61,6 +62,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
+  // retrieves the stats for the chart - only works for weighted sets
   getStat(Exid): void{
     this.statService.getStats(Exid).subscribe(
       resp => {
@@ -70,6 +72,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
+  // injects the retrieved stats into the chat
   displayStats(): void{
 
     if (this.stats.length > 0){
@@ -78,6 +81,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
       for (let i = 0; i < this.stats.length; i++){
 
+        // pushing info in to chart
         this.myChart.data.labels.push(this.stats[i].date + '-' + this.stats[i].reps + ' Rep');
         this.myChart.data.datasets.forEach((dataset) => {
           dataset.data.push(this.stats[i].weight);
@@ -87,10 +91,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     }
 
+    // update chart after info has been added
     this.myChart.update();
 
   }
 
+  // the user selects the exercise they want to view stats of
   optionSelected(event): void{
     const select = this.exercises[event.value];
     this.selectedExercise = select;

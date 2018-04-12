@@ -1,7 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ExerciseService} from '../exercise/exercise.service';
 import {Exercise} from '../exercise/exercise';
-import {MAT_DIALOG_DATA, MatSelect, MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-create-exercise',
@@ -13,6 +13,7 @@ export class CreateExerciseComponent implements OnInit {
   modalData: any;
   newExercise: Exercise = new Exercise();
 
+  // match categories upto the enums used in the back end
   exerciseCategories = [
     {name: 'Aerobic', value: 'AEROBIC'},
     {name: 'Anaerobic', value: 'ANAEROBIC'},
@@ -21,6 +22,7 @@ export class CreateExerciseComponent implements OnInit {
     {name: 'Default', value: 'DEFAULT'},
   ];
 
+  // match bodyparts upto the enums used in the back end
   bodyParts = [
     {name: 'Arms', value: 'ARMS'},
     {name: 'Legs', value: 'LEGS'},

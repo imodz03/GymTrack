@@ -11,8 +11,11 @@ import {ConnectionService} from '../../connection.service';
 })
 export class ExerciseComponent implements OnInit, AfterViewInit {
 
+  // datasource used by the MatTable
   datasource = new MatTableDataSource();
+  // colums used by the table
   columns = ['exerciseName', 'exerciseCategory', 'bodypart', 'description'];
+  // variables for the table
   datalength;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -22,6 +25,7 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
               private dialog: MatDialog,
               private connectionS: ConnectionService) { }
 
+  // check internet connection on init
   ngOnInit() {
     this.connectionS.check().then(() => {
       this.getExercises();
@@ -30,11 +34,13 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // assign table controls after the view has loaded
   ngAfterViewInit(): void {
     this.datasource.paginator = this.paginator;
     this.datasource.sort = this.sort;
   }
 
+  // fetches exercise list from api
   getExercises(): void{
     this.exerciseService.getAll().subscribe(
       resp => {
@@ -45,6 +51,7 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
     );
   }
 
+  // fetches exercises from localStorage
   loadExercises(): void{
     const list = JSON.parse(localStorage.getItem('exercises'));
 
@@ -54,6 +61,7 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // opens dialog to create new exercise
   createExercise(): void{
     this.dialogRef = this.dialog.open(CreateExerciseComponent, {data:{parent:this}});
   }

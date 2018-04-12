@@ -47,6 +47,8 @@ export class GoalsComponent implements OnInit {
               private router: Router,
               private connectionS: ConnectionService) { }
 
+
+  // check connection on init
   ngOnInit() {
 
     this.connectionS.check().then(() => {
@@ -54,6 +56,7 @@ export class GoalsComponent implements OnInit {
       this.getExercises();
       this.newGoal();
 
+      // used for the auto complete when selecting exercise
       this.filteredOptions = this.myControl.valueChanges
         .pipe(
           startWith(''),
@@ -69,6 +72,7 @@ export class GoalsComponent implements OnInit {
       option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
+  // retrieves goals from api
   getGoals(): void{
     this.goalService.getMine().subscribe(
       resp => {
@@ -90,6 +94,7 @@ export class GoalsComponent implements OnInit {
     );
   }
 
+  // retrieve sets for the goal from API
   getSets(): void{
     for (let i = 0; i < this.goals.length; i++){
       this.setService.getSets(this.goals[i].set[0].setID).subscribe(
@@ -102,6 +107,7 @@ export class GoalsComponent implements OnInit {
     }
   }
 
+  // retrieve exercises from API
   getExercises(): void{
     this.exerciseService.getAll().subscribe(
       resp => {
@@ -113,6 +119,7 @@ export class GoalsComponent implements OnInit {
     );
   }
 
+  // add exercise
   addExercise(): void{
     const check = this.checkExercise(this.currentInput);
 
@@ -123,16 +130,20 @@ export class GoalsComponent implements OnInit {
 
   }
 
+  // checks if the exercise is a valid one
   checkExercise(name: string): Exercise{
     for (let i = 0; i < this.allExercises.length; i++){
       const temp = this.allExercises[i];
       if (temp.exerciseName === name){
+        // returns the exercise object if it matches
         return temp;
       }
     }
+    // return null if not found
     return null;
   }
 
+  // reset the goal object
   newGoal(){
     this.goal = new Goal();
     this.goal.set = new Array<Sets>();
@@ -142,6 +153,7 @@ export class GoalsComponent implements OnInit {
     this.exercises[i].Set = event;
   }
 
+  // create the postable sets objects and posts the
   create(): void{
     const sets = new Array<Sets>();
 
@@ -170,6 +182,7 @@ export class GoalsComponent implements OnInit {
 
   }
 
+  // creates the postable goal object and posts it
   createGoal(setID): void{
     const temp = new Sets();
     temp.setID = setID;
@@ -181,6 +194,7 @@ export class GoalsComponent implements OnInit {
       this.goal.targetDate = tempDate;
     }
 
+    // posts goal to API
     this.goalService.createGoal(this.goal).subscribe(
       resp => {
         if (resp === 1){
@@ -196,12 +210,14 @@ export class GoalsComponent implements OnInit {
 
   }
 
+  // marks the goal complete
   complete(goal: Goal): void{
     // add a confirmation?
     const curDate = new Date();
     const date = curDate.getUTCFullYear()
       + '-' + (curDate.getMonth() + 1) + '-' + curDate.getDate();
 
+    // posts date object
     this.goalService.completeGoal(goal.goalID, date).subscribe(
       resp => {
         if (resp === 1){
@@ -211,6 +227,7 @@ export class GoalsComponent implements OnInit {
     );
   }
 
+  // navigate back to myworkouts
   back(): void{
     this.router.navigate(['/myworkouts']);
   }
