@@ -50,7 +50,9 @@ export class UserService {
 
   logout(): void{
 
-    localStorage.clear();
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
+    localStorage.removeItem('prefs');
 
   }
 

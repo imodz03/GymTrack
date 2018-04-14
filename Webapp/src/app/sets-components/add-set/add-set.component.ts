@@ -40,8 +40,6 @@ export class AddSetComponent implements OnInit {
     if (data.addToDB !== undefined){
       this.addToDB = data.addToDB;
     }
-
-    console.log(this.addToDB);
   }
 
   ngOnInit() {

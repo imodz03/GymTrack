@@ -81,6 +81,13 @@ export class MyworkoutComponent implements OnInit {
 
   loadCalender(): void{
     $('#calendar').fullCalendar({
+      themeSystem: 'bootstrap4',
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listMonth'
+      },
+      weekNumbers: true,
       events: this.myworkouts,
       eventClick: this.clicked,
       dayClick: this.selectDate

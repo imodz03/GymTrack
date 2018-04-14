@@ -13,7 +13,7 @@
 
     <ng-container matColumnDef="bodypart">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Bodypart</mat-header-cell>
-      <mat-cell *matCellDef="let exercise">{{exercise.bodypart}}</mat-cell>
+      <mat-cell *matCellDef="let exercise">{{exercise.bodypart.toLowerCase()}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">

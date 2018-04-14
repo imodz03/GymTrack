@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" style="color: white" (click)="navigate('/')">GymTrack</a>
   <button class="navbar-toggler" type="button" (click)="toggleNavbar = !toggleNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -6,29 +6,29 @@
   <div class="collapse navbar-collapse" [ngbCollapse]="!toggleNavbar">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a *ngIf="userService.getUser()" class="nav-link" (click)="navigate('/myworkouts')">My Workouts</a>
+        <a *ngIf="userService.getUser()" class="nav-link text-white" (click)="navigate('/myworkouts')">My Workouts</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="navigate('/exercises')">Exercise Library</a>
+        <a class="nav-link text-white" (click)="navigate('/exercises')">Exercise Library</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="userService.getUser()">
-        <div mat-button class="bg-dark" id="options" [matMenuTriggerFor]="options"><a class="nav-link">{{userService.getUser().username}} <i class="fa fa-caret-down"></i></a></div>
+        <div mat-button class="bg-dark" id="options" [matMenuTriggerFor]="options"><a class="nav-link  text-white">{{userService.getUser().username}} <i class="fa fa-caret-down"></i></a></div>
         <mat-menu class="bg-dark" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
-          <div mat-menu-item class="menu-item" (click)="navigate('/account')">My Account</div>
-          <div mat-menu-item class="menu-item" (click)="navigate('/plan')">Plans</div>
-          <div mat-menu-item class="menu-item" (click)="navigate('/goal')">Goals</div>
+          <div mat-menu-item class="menu-item text-white" (click)="navigate('/account')">My Account</div>
+          <div mat-menu-item class="menu-item text-white" (click)="navigate('/plan')">Plans</div>
+          <div mat-menu-item class="menu-item text-white" (click)="navigate('/goal')">Goals</div>
         </mat-menu>
       </li>
       <li class="navbar-item">
-        <a *ngIf="userService.getUser()" (click)="userService.logout()" href="/login" class="nav-link">Logout</a>
+        <a *ngIf="userService.getUser()" (click)="userService.logout()" href="/login" class="nav-link text-white">Logout</a>
       </li>
       <li class="navbar-item">
-        <a *ngIf="!userService.getUser()" (click)="navigate('/login')" class="nav-link">Login</a>
+        <a *ngIf="!userService.getUser()" (click)="navigate('/login')" class="nav-link text-white">Login</a>
       </li>
       <li class="navbar-item">
-        <a *ngIf="!userService.getUser()" (click)="navigate('/register')" class="nav-link">Register</a>
+        <a *ngIf="!userService.getUser()" (click)="navigate('/register')" class="nav-link text-white">Register</a>
       </li>
     </ul>
   </div>

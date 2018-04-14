@@ -29,7 +29,7 @@
 
             <ng-container matColumnDef="goto">
               <mat-header-cell *matHeaderCellDef>Goto</mat-header-cell>
-              <mat-cell *matCellDef="let workout"><button (click)="details(workout.workoutID)">Go to Workout</button></mat-cell>
+              <mat-cell *matCellDef="let workout"><button class="btn btn-secondary" (click)="details(workout.workoutID)">Go to Workout</button></mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
