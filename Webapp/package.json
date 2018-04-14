@@ -26,6 +26,7 @@
     "@angular/service-worker": "^5.2.9",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0",
     "bootstrap": "^4.0.0",
+    "botframework-directlinejs": "^0.9.14",
     "chart.js": "^2.7.2",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",

@@ -1,0 +1,15 @@
+<div class="message">
+  <div>
+    <div *ngIf="!sent" class="from">
+      {{message.from.name}}
+    </div>
+    <div *ngIf="sent" class="sender">
+      {{message.from.name}}
+    </div>
+    <div class="message-body">
+      {{message.text}}
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+</div>
+<br>

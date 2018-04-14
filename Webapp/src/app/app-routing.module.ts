@@ -15,6 +15,7 @@ import {PlanComponent} from './workout-components/plan/plan.component';
 import {AddworkoutComponent} from './workout-components/addworkout/addworkout.component';
 import {GoalsComponent} from './goals/goals.component';
 import {AuthGuard} from './auth-guard.service';
+import {ChatbotComponent} from './chatbot/chatbot.component';
 
 const routes: Routes = [
   {
@@ -29,10 +30,9 @@ const routes: Routes = [
       { path: 'account', component: UserComponent },
       { path: 'myworkouts', component: MyworkoutComponent },
       { path: 'exercises', component: ExerciseComponent },
-      { path: 'ce', component: CreateExerciseComponent },
       { path: 'plan', component: PlanComponent},
-      { path: 'aw', component: AddworkoutComponent},
-      { path: 'goal', component: GoalsComponent}
+      { path: 'goal', component: GoalsComponent},
+      { path: 'cb', component: ChatbotComponent }
     ]
   }
 ];

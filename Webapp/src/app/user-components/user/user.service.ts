@@ -74,5 +74,9 @@ export class UserService {
     return this.http.post<status>(this.url.register, user);
   }
 
+  getToken(): string{
+    return localStorage.getItem('token');
+  }
+
 
 }

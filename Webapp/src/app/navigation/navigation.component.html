@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" style="color: white" (click)="navigate('/')">GymTrack</a>
   <button class="navbar-toggler" type="button" (click)="toggleNavbar = !toggleNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
   </div>
 
 </nav>
-<div *ngIf="offline" class="alert alert-warning alert-dismissible fade show" role="alert">
+<div id="warning" *ngIf="offline" class="alert alert-warning alert-dismissible fade show" role="alert">
   Information is being displayed offline and will be updated next time the site connects,
   Offline updates to database are an experimental feature and may not work correctly
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

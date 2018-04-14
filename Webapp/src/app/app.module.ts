@@ -26,7 +26,8 @@ import { ExerciseComponent } from './exercise-components/exercise/exercise.compo
 import {
   MatAutocompleteModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatNativeDateModule,
   MatSlideToggleModule, MatSnackBarModule, MatProgressSpinnerModule, MatSelectModule, MatTableModule,
-  MatPaginatorModule, MatSortModule, MatTabsModule, MatGridListModule, MatMenuModule, MatChipsModule, MatExpansionModule
+  MatPaginatorModule, MatSortModule, MatTabsModule, MatGridListModule, MatMenuModule, MatChipsModule,
+  MatExpansionModule, MatListModule, MatCardModule
 } from '@angular/material';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateWorkoutComponent } from './workout-components/create-workout/create-workout.component';
@@ -51,6 +52,8 @@ import {AuthGuard} from './auth-guard.service';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {ConnectionService} from './connection.service';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,9 @@ import {ConnectionService} from './connection.service';
     SimpleDialogComponent,
     LogsetComponent,
     GoalsComponent,
-    GoalsetComponent
+    GoalsetComponent,
+    ChatbotComponent,
+    MessageComponent
   ],
   entryComponents: [
     CreateWorkoutComponent,
@@ -109,7 +114,9 @@ import {ConnectionService} from './connection.service';
     MatMenuModule,
     MatChipsModule,
     MatExpansionModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    MatListModule,
+    MatCardModule
   ],
   providers: [
     LoginService,
