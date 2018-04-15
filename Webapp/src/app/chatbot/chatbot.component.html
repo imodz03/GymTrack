@@ -1,8 +1,8 @@
 <br>
 <div class="chat">
-  <div class="chat-feed">
+  <div class="chat-feed" id="chat-feed">
     <mat-list>
-      <app-message *ngFor="let msg of RawMessageFeed" [message]="msg"></app-message>
+      <app-message *ngFor="let msg of RawMessageFeed" [message]="msg" (output)="scroll($event)"></app-message>
     </mat-list>
   </div>
   <input type="text" [(ngModel)]="textInput" (keyup.enter)="sendMessage()"><button class="btn btn-success" (click)="sendMessage()"><i class="fa fa-send"></i></button>

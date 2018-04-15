@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from '../user-components/user/user.service';
 
 @Component({
@@ -6,9 +6,11 @@ import {UserService} from '../user-components/user/user.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, AfterViewInit {
 
   @Input() message: any;
+
+  @Output() output = new EventEmitter();
 
   sent = false;
 
@@ -24,4 +26,10 @@ export class MessageComponent implements OnInit {
 
   }
 
+
+  ngAfterViewInit(): void {
+
+    this.output.emit('loaded');
+
+  }
 }

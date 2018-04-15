@@ -52,9 +52,13 @@ export class ChatbotComponent implements OnInit {
   }
 
   handleMessage(msg){
-    if (msg.type.indexOf('message') == 0){
+    if (msg.type.indexOf('message') === 0){
       this.RawMessageFeed.push(msg);
     }
   }
 
+  scroll(event){
+    const out = document.getElementById('chat-feed');
+    out.scrollTop = out.scrollHeight - out.clientHeight;
+  }
 }
