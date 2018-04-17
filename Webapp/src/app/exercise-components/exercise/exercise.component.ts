@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ExerciseService} from './exercise.service';
 import {MatTableDataSource, MatPaginator, MatDialog, MatSort} from '@angular/material';
 import {CreateExerciseComponent} from '../create-exercise/create-exercise.component';
-import {ConnectionService} from '../../connection.service';
+import {ConnectionService} from '../../services/connection.service';
 
 @Component({
   selector: 'app-exercise',

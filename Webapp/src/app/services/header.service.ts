@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {UserService} from '../user-components/user/user.service';
-import {ConnectionService} from '../connection.service';
+import {ConnectionService} from './connection.service';
 
 @Injectable()
 export class HeaderService implements HttpInterceptor{

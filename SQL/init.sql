@@ -22,4 +22,4 @@ source PlannedWorkouts.sql;
 
 source setPrimarys.sql;
 
-source Relationships.sql;
+--source Relationships.sql;

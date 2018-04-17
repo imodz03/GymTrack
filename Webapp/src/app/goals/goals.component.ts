@@ -11,7 +11,7 @@ import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
-import {ConnectionService} from '../connection.service';
+import {ConnectionService} from '../services/connection.service';
 
 @Component({
   selector: 'app-goals',

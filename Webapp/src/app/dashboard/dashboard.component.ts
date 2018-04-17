@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Router, NavigationExtras} from '@angular/router';
 import {ExerciseService} from '../exercise-components/exercise/exercise.service';
-import {StatService} from '../stat.service';
+import {StatService} from '../services/stat.service';
 import {Exercise} from '../exercise-components/exercise/exercise';
 import {Stat} from './stat';
 import {Chart, ChartData, Point} from 'Chart.js';

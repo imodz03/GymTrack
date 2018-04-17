@@ -4,7 +4,7 @@ import {Exercise} from '../../exercise-components/exercise/exercise';
 import {SetService} from '../../services/set.service';
 import {MatDialog} from '@angular/material';
 import {AddSetComponent} from '../add-set/add-set.component';
-import {ConnectionService} from '../../connection.service';
+import {ConnectionService} from '../../services/connection.service';
 
 @Component({
   selector: 'app-sets',

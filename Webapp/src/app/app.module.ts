@@ -47,11 +47,11 @@ import { LogsetComponent } from './workout-components/logset/logset.component';
 import { GoalsComponent } from './goals/goals.component';
 import { GoalService } from './goals/goal.service';
 import { GoalsetComponent } from './goalset/goalset.component';
-import { StatService } from './stat.service';
+import { StatService } from './services/stat.service';
 import {AuthGuard} from './auth-guard.service';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {ConnectionService} from './connection.service';
+import {ConnectionService} from './services/connection.service';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { MessageComponent } from './message/message.component';
 
@@ -86,7 +86,9 @@ import { MessageComponent } from './message/message.component';
     CreateWorkoutComponent,
     AddSetComponent,
     LogComponent,
-    SimpleDialogComponent
+    SimpleDialogComponent,
+    CreateExerciseComponent,
+    AddworkoutComponent
   ],
   imports: [
     BrowserModule,

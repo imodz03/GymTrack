@@ -8,7 +8,7 @@ import {AddworkoutComponent} from '../addworkout/addworkout.component';
 import {PlannedWorkout} from './PW';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
-import {ConnectionService} from '../../connection.service';
+import {ConnectionService} from '../../services/connection.service';
 
 @Component({
   selector: 'app-plan',

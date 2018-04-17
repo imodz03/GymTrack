@@ -4,7 +4,7 @@ create table Sets(
   position int,
   reps int,
   weight int,
-  timeTaken time,
+  timeTaken int(11),
   distance int,
   SUID varchar(36)
 )

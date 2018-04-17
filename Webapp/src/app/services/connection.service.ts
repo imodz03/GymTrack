@@ -5,6 +5,7 @@ export class ConnectionService {
 
   private connected = false;
   private checkUrl = 'http://localhost:8080/test';
+  // private checkUrl = 'http://api.elliotbrown.me:8080/test';
 
   constructor() {
     this.check();

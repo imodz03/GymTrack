@@ -10,7 +10,7 @@ import {Workout} from '../myworkout/workout';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {CreateExerciseComponent} from '../../exercise-components/create-exercise/create-exercise.component';
-import {ConnectionService} from '../../connection.service';
+import {ConnectionService} from '../../services/connection.service';
 
 @Component({
   selector: 'app-create-workout',

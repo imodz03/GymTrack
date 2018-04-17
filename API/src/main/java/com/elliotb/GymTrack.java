@@ -8,10 +8,12 @@ import io.dropwizard.Application;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.conscrypt.OpenSSLProvider;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import java.security.Security;
 import java.util.EnumSet;
 import java.util.stream.Stream;
 
@@ -33,6 +35,8 @@ public class GymTrack extends Application<ApplicationConfig> {
                 .addModule(myModule)
                 .enableAutoConfig("com/elliotb/Resources")
                 .setConfigClass(ApplicationConfig.class).build();
+
+        Security.addProvider(new OpenSSLProvider());
 
         bootstrap.addBundle(guiceBundle);
     }

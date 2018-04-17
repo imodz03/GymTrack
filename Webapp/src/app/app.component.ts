@@ -4,7 +4,7 @@ import {LoginService} from './user-components/login/login.service';
 import {UserService} from './user-components/user/user.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HeaderService} from './services/header.service';
-import {ConnectionService} from './connection.service';
+import {ConnectionService} from './services/connection.service';
 
 @NgModule({
   imports: [NgbModule.forRoot()]

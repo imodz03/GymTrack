@@ -9,7 +9,7 @@ import 'fullcalendar';
 import {MatDialog} from '@angular/material';
 import {CreateWorkoutComponent} from '../create-workout/create-workout.component';
 import {Router} from '@angular/router';
-import {ConnectionService} from '../../connection.service';
+import {ConnectionService} from '../../services/connection.service';
 
 @Component({
   selector: 'app-myworkout',

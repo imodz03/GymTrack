@@ -19,7 +19,7 @@ import {LogComponent} from '../log/log.component';
 import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
 import {LogService} from '../log/log.service';
 import {Log} from '../log/log';
-import {ConnectionService} from '../../connection.service';
+import {ConnectionService} from '../../services/connection.service';
 import {SetsComponent} from '../../sets-components/sets/sets.component';
 
 @Component({

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class UrlService {
 
   base = 'http://localhost:8080';
-  // base = 'http://172.17.24.30:8080';
+  // base = 'http://api.elliotbrown.me:8080';
 
   // auth
   auth = this.base + '/auth';
