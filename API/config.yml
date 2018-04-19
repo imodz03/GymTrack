@@ -1,13 +1,13 @@
 server:
    applicationConnectors:
        - type: https
-         port: 8087
+         port: 8080
          keyStorePath: ssl.jks
          keyStorePassword: Poppy2911
          validateCerts: false
-         GIT validatePeers: false
+         validatePeers: false
        - type: http
-         port: 8080
+         port: 8087
 name: com.elliotb.GymTrack
 password: Password123
 keyalias: mykey

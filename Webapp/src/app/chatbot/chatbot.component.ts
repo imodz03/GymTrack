@@ -36,8 +36,15 @@ export class ChatbotComponent implements OnInit {
 
     this.msg = new Message();
     this.msg.from.name = user.username;
-    // this.msg.from.id = user.token;
     this.msg.token = user.token;
+
+    this.msg.type = 'conversationUpdate';
+    console.log(this.msg);
+    this.directline.postActivity(this.msg).subscribe(
+      id => console.log('Posted activity, assigned ID ', id),
+      error => console.log('Error posting activity', error)
+    );
+    this.msg.type = 'message';
 
   }
 
@@ -52,7 +59,7 @@ export class ChatbotComponent implements OnInit {
   }
 
   handleMessage(msg){
-    if (msg.type.indexOf('message') === 0){
+    if (msg.type.indexOf('message') === 0 && msg.text !== ''){
       this.RawMessageFeed.push(msg);
     }
   }

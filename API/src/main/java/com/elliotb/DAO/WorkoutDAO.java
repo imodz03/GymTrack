@@ -42,4 +42,8 @@ public interface WorkoutDAO {
     @Mapper(WorkoutMapper.class)
     List<Workout> getFromIdList(@BindIn("idList")List<String> ids);
 
+    @SqlQuery("SELECT * FROM " + WORKOUT + " WHERE dateOfWorkout = :date AND UserID = :uid")
+    @Mapper(WorkoutMapper.class)
+    List<Workout> getByDate(@Bind("date")String date, @Bind("uid")String userID);
+
 }

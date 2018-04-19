@@ -36,7 +36,7 @@ public class WorkoutMapper implements ResultSetMapper<Workout> {
         mappable.setPublic(r.getBoolean(8));
 
         if (r.getDate(9) != null){
-            mappable.setDate(new DateTime(r.getDate(9)).plusDays(1));
+            mappable.setDate(new DateTime(r.getDate(9)));
         }
 
 

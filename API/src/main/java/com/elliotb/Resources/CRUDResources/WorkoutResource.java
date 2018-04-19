@@ -14,6 +14,7 @@ import com.elliotb.Helpers.tokenDecrypter;
 import com.elliotb.Services.PlanService;
 import com.elliotb.Services.WorkoutService;
 import com.google.inject.Inject;
+import org.joda.time.DateTime;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -122,5 +123,27 @@ public class WorkoutResource implements ICRUDResource<Workout> {
     public Response delete(@PathParam("id") String id) {
         int res = planService.deleteWorkout(id);
         return Response.ok(res).build();
+    }
+
+    @GET
+    @Path("/today")
+    public Response getToday(@Context HttpHeaders httpHeaders){
+        DateTime dt = new DateTime();
+        String queryString = dt.getYear() + "-" + dt.getMonthOfYear() + "-" + dt.getDayOfMonth();
+
+        String user = tokenDecrypter.getId(httpHeaders);
+
+        List<Workout> workouts = dao.getByDate(queryString, user);
+
+        System.out.println(queryString);
+        System.out.println(workouts.size());
+
+        for (Workout workout : workouts) {
+            if (workout != null){
+                service.populateExercise(workout);
+            }
+        }
+
+        return Response.ok(workouts).build();
     }
 }
