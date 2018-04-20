@@ -21,6 +21,7 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
+    runGuardsAndResolvers: 'always',
     children: [
       { path: '', component: DashboardComponent },
       { path: 'login', component: LoginComponent },

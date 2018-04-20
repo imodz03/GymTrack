@@ -1,80 +1,84 @@
-<div class="card" *ngIf="workout">
-  <h3 class="card-header" *ngIf="!canEdit && !logged">{{workout.workoutName}} <div class="float-right"><i (click)="edit()" class="fa fa-edit"></i></div> </h3>
-  <h3 class="card-header" *ngIf="logged">{{workout.workoutName}} - Log </h3>
-  <h3 class="card-header" *ngIf="canEdit"><input type="text" [(ngModel)]="workout.workoutName">
-    <div class="float-right" *ngIf="!canEdit">
-      <i (click)="edit()" class="fa fa-edit"></i>
+<app-navigation></app-navigation>
+<div class="container">
+  <div class="card" *ngIf="workout">
+    <h3 class="card-header" *ngIf="!canEdit && !logged">{{workout.workoutName}} <div class="float-right"><i (click)="edit()" class="fa fa-edit"></i></div> </h3>
+    <h3 class="card-header" *ngIf="logged">{{workout.workoutName}} - Log </h3>
+    <h3 class="card-header" *ngIf="canEdit"><input type="text" [(ngModel)]="workout.workoutName">
+      <div class="float-right" *ngIf="!canEdit">
+        <i (click)="edit()" class="fa fa-edit"></i>
+      </div>
+      <div class="float-right" *ngIf="canEdit">
+        <i (click)="edit()" class="fa fa-floppy-o"></i>
+      </div>
+    </h3>
+    <div class="card-body">
+      <p *ngIf="!canEdit">
+        Scheduled: {{workout.date}}<br><br>
+        Description: <br>{{workout.description}}<br><br>
+        Exercises:
+      </p>
+      <p *ngIf="canEdit">
+        Scheduled:
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <br><br>
+        Description: <br><textarea [(ngModel)]="workout.description" rows="4" cols="40"></textarea><br><br>
+        Exercises:
+      </p>
+      <ul *ngIf="!logged">
+        <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
+          {{exercise.exerciseName}}
+          <a *ngIf="!locked" (click)="delete(i)"><i class="fa fa-close"></i></a>
+          <app-sets [save]="!saveOption" [delete]="!locked" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+        </li>
+        <li *ngIf="addItem">
+          <!--Exercise search-->
+          <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="addExercise()" >
+          <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
+          <button class="btn btn-outline-secondary" (click)="addItem = false">Cancel</button>
+          <!-- Autocomplete suggestions for the searchbar -->
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
+              {{ exercise }}
+            </mat-option>
+          </mat-autocomplete>
+        </li>
+      </ul>
+      <div *ngIf="logged && workoutLog">
+        <mat-tab-group>
+          <mat-tab label="Logged">
+            <ul>
+              <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
+                {{exercise.exerciseName}}
+                <app-sets [save]="!saveOption" [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
+              </li>
+            </ul>
+          </mat-tab>
+          <mat-tab label="Planned">
+            <ul>
+              <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
+                {{exercise.exerciseName}}
+                <app-sets [save]="!saveOption" [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
+              </li>
+            </ul>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <button *ngIf="!logged" class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button *ngIf="!logged" class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button *ngIf="!logged" (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
+      <button *ngIf="!logged" mat-button class="btn btn-success" id="options" [matMenuTriggerFor]="options">Log Workout</button>
+      <mat-menu class="bg-light" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
+        <div mat-menu-item class="menu-item" (click)="log()">Log Workout</div>
+        <div mat-menu-item class="menu-item" (click)="quickLog()">Quick Log</div>
+      </mat-menu>
+      <button class="btn btn-success" *ngIf="saveOption" (click)="saveOffline()">Save offline</button>
+      <button class="btn btn-danger" *ngIf="!saveOption" (click)="removeOffline()">Remove offline save</button>
+      <br><i *ngIf="!online">Only quick log works offline, apologies</i>
     </div>
-    <div class="float-right" *ngIf="canEdit">
-      <i (click)="edit()" class="fa fa-floppy-o"></i>
-    </div>
-  </h3>
-  <div class="card-body">
-    <p *ngIf="!canEdit">
-      Scheduled: {{workout.date}}<br><br>
-      Description: <br>{{workout.description}}<br><br>
-      Exercises:
-    </p>
-    <p *ngIf="canEdit">
-      Scheduled:
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <br><br>
-      Description: <br><textarea [(ngModel)]="workout.description" rows="4" cols="40"></textarea><br><br>
-      Exercises:
-    </p>
-    <ul *ngIf="!logged">
-      <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
-        {{exercise.exerciseName}}
-        <a *ngIf="!locked" (click)="delete(i)"><i class="fa fa-close"></i></a>
-        <app-sets [save]="!saveOption" [delete]="!locked" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
-      </li>
-      <li *ngIf="addItem">
-        <!--Exercise search-->
-        <input type="text" matInput [(ngModel)]="currentInput" [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="addExercise()" >
-        <button class="btn btn-outline-secondary" (click)="addExercise()">Add</button>
-        <button class="btn btn-outline-secondary" (click)="addItem = false">Cancel</button>
-        <!-- Autocomplete suggestions for the searchbar -->
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let exercise of filteredOptions | async" [value]="exercise">
-            {{ exercise }}
-          </mat-option>
-        </mat-autocomplete>
-      </li>
-    </ul>
-    <div *ngIf="logged && workoutLog">
-      <mat-tab-group>
-        <mat-tab label="Logged">
-          <ul>
-            <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
-              {{exercise.exerciseName}}
-              <app-sets [save]="!saveOption" [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workoutLog.setID}}"></app-sets>
-            </li>
-          </ul>
-        </mat-tab>
-        <mat-tab label="Planned">
-          <ul>
-            <li *ngFor="let exercise of workout.exerciseList.exercises; index as i">
-              {{exercise.exerciseName}}
-              <app-sets [save]="!saveOption" [delete]="false" [add]="false" [exercise]="exercise" setsID="{{workout.setsID}}"></app-sets>
-            </li>
-          </ul>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <button *ngIf="!logged" class="btn btn-primary" (click)="enableAddItems()">Add exercises</button> <button *ngIf="!logged" class="btn btn-primary" (click)="createExercise()">Create Exercise</button> <button *ngIf="!logged" (click)="locked = !locked" class="btn btn-primary"><i class="fa fa-lock" ></i></button>
-    <button *ngIf="!logged" mat-button class="btn btn-success" id="options" [matMenuTriggerFor]="options">Log Workout</button>
-    <mat-menu class="bg-light" overlapTrigger="false" [FocusOrigin]="program" #options="matMenu">
-      <div mat-menu-item class="menu-item" (click)="log()">Log Workout</div>
-      <div mat-menu-item class="menu-item" (click)="quickLog()">Quick Log</div>
-    </mat-menu>
-    <button class="btn btn-success" *ngIf="saveOption" (click)="saveOffline()">Save offline</button>
-    <button class="btn btn-danger" *ngIf="!saveOption" (click)="removeOffline()">Remove offline save</button>
-    <br><i *ngIf="!online">Only quick log works offline, apologies</i>
   </div>
-</div>
-<div *ngIf="!workout">
-  <h3>Workout not saved offline</h3>
-  <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+  <div *ngIf="!workout">
+    <h3>Workout not saved offline</h3>
+    <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+  </div>
+
 </div>
