@@ -1,20 +1,24 @@
-<div *ngIf="loginFailed" class="alert alert-danger alert-dismissible fade show" role="alert">
-<strong>Login failed</strong> Username or password not recognised
-<button type="button" class="close"  aria-label="Close" (click)="loginFailed = false">
-  <span aria-hidden="true">&times;</span>
-</button>
-</div>
+<app-navigation></app-navigation>
+<div class="container">
+  <div *ngIf="loginFailed" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Login failed</strong> Username or password not recognised
+    <button type="button" class="close"  aria-label="Close" (click)="loginFailed = false">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-<div class="card">
-  <h3 class="card-header">Login</h3>
-  <div class="card-body">
-    <div class="">
-      <label for="user">Username</label> <br><input [(ngModel)]="user.username" type="text" id="user" value=""> <br> <br>
-      <label for="pass">Password</label> <br><input [(ngModel)]="user.pass" type="password" id="pass" value="" (keyup.enter)="login(user)"> <br> <br>
-      <button type="button" name="button" class="btn btn-success" (click)="login(user)">Login</button>
-      <a href="/register"><button type="button" name="button" class="btn btn-success">Register</button></a>
-      <br>
-      <i>Please log in to use the rest of the application</i>
+  <div class="card">
+    <h3 class="card-header">Login</h3>
+    <div class="card-body">
+      <div class="">
+        <label for="user">Username</label> <br><input [(ngModel)]="user.username" type="text" id="user" value=""> <br> <br>
+        <label for="pass">Password</label> <br><input [(ngModel)]="user.pass" type="password" id="pass" value="" (keyup.enter)="login(user)"> <br> <br>
+        <button type="button" name="button" class="btn btn-success" (click)="login(user)">Login</button>
+        <a href="/register"><button type="button" name="button" class="btn btn-success">Register</button></a>
+        <br>
+        <i>Please log in to use the rest of the application</i>
+      </div>
     </div>
   </div>
+
 </div>

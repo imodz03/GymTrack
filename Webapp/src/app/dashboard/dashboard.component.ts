@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Router, NavigationExtras} from '@angular/router';
 import {ExerciseService} from '../exercise-components/exercise/exercise.service';
 import {StatService} from '../services/stat.service';
 import {Exercise} from '../exercise-components/exercise/exercise';
 import {Stat} from './stat';
 import {Chart, ChartData, Point} from 'Chart.js';
+import {NavigationComponent} from '../navigation/navigation.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   chart: any;
   myChart: Chart;
 
+  @ViewChild(NavigationComponent)navComp: NavigationComponent;
+
   constructor(private router: Router,
               private exerciseService: ExerciseService,
               private statService: StatService) { }
@@ -33,6 +36,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.setupChart();
+    this.navComp.update();
+    this.navComp.ngOnInit();
   }
 
   // finds chart and initializes the code for it

@@ -1,35 +1,39 @@
-<div class="container" *ngIf="datasource.data">
-  <mat-table #table [dataSource]="datasource" class="exerciseTable" matSort>
+<app-navigation></app-navigation>
+<div class="container">
+  <div class="container" *ngIf="datasource.data">
+    <mat-table #table [dataSource]="datasource" class="exerciseTable" matSort>
 
-    <ng-container matColumnDef="exerciseName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header [start]="asc">Exercise</mat-header-cell>
-      <mat-cell *matCellDef="let exercise">{{exercise.exerciseName}}</mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="exerciseName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header [start]="asc">Exercise</mat-header-cell>
+        <mat-cell *matCellDef="let exercise">{{exercise.exerciseName}}</mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="exerciseCategory">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-      <mat-cell *matCellDef="let exercise">{{exercise.exerciseCategory}}</mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="exerciseCategory">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+        <mat-cell *matCellDef="let exercise">{{exercise.exerciseCategory}}</mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="bodypart">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Bodypart</mat-header-cell>
-      <mat-cell *matCellDef="let exercise">{{exercise.bodypart.toLowerCase()}}</mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="bodypart">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Bodypart</mat-header-cell>
+        <mat-cell *matCellDef="let exercise">{{exercise.bodypart.toLowerCase()}}</mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-      <mat-cell *matCellDef="let exercise"><div *ngIf="exercise.description">{{exercise.description}}</div></mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+        <mat-cell *matCellDef="let exercise"><div *ngIf="exercise.description">{{exercise.description}}</div></mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row *matRowDef="let exercise; columns: columns;"></mat-row>
-  </mat-table>
-  <mat-paginator #paginator
-                 [length]="datalength"
-                 [pageSize]="10"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 [showFirstLastButtons]="true"></mat-paginator>
+      <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+      <mat-row *matRowDef="let exercise; columns: columns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator
+                   [length]="datalength"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   [showFirstLastButtons]="true"></mat-paginator>
+  </div>
+  <br>
+  <button class="btn btn-primary" (click)="createExercise()">Add exercise</button>
+  <br>
+
 </div>
-<br>
-<button class="btn btn-primary" (click)="createExercise()">Add exercise</button>
-<br>

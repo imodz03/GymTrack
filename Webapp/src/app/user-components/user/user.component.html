@@ -1,54 +1,55 @@
-<div class="card"  *ngIf="user && !edit && online">
-  <h3 class="card-header">Your profile: {{user.username}}</h3>
-  <div class="container">
-    <div class="card-body">
-      <br>
-      <br>
-      <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
-      <div class="container"><h4>Email:  {{user.email}}</h4></div>
-      <div class="container"><p>Bio:     {{user.bio}}</p></div>
-      <div class="container"><p>Height:  {{user.height}}cm</p></div>
-      <div class="container"><p>Weight:  {{user.weight}}KG</p></div>
-      <div class="container"><p>BMI:     {{user.bmi}}</p></div>
-      <div class="container"><p>Bodyfat: {{user.bodyfatPerc}}%</p></div>
-      <br>
-      <button class="btn btn-success" (click)="update()">Update profile</button>
-    </div>
-
-  </div>
-</div>
-
-<div class="card"  *ngIf="user && edit">
-  <h3 class="card-title">Your profile: {{user.username}}</h3>
-  <div class="container">
-    <div class="card-body">
-      <a href="#" class="">
-        <img class="col-sm-4" src="../../../assets/blank-profile.png" alt="...">
-      </a>
-      <br>
-      <br>
-      <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
-      <div class="container"><h4>Email:  {{user.email}}</h4></div>
-      <div class="container"><p>Bio:     <input [(ngModel)]="user.bio" type="text"></p></div>
-      <div class="container"><p>Height:  <input [(ngModel)]="user.height" type="number"> cm</p></div>
-      <div class="container"><p>Weight:  <input [(ngModel)]="user.weight" type="number">KG</p></div>
-      <div class="container"><p>BMI:     {{user.bmi}}</p></div>
-      <div class="container"><p>Bodyfat: <input [(ngModel)]="user.bodyfatPerc" type="number">%</p></div>
-      <br>
-      <div *ngIf="editPrefs">
-        <h2>Preferences</h2>
-        <div class="container"><p>Units: {{getUnit()}}</p>
-          <button class="btn btn-default" (click)="setImp()">Imperial</button> <button class="btn btn-default" (click)="setMet()">Metric</button>
-        </div>
+<app-navigation></app-navigation>
+<div class="container">
+  <div class="card"  *ngIf="user && !edit && online">
+    <h3 class="card-header">Your profile: {{user.username}}</h3>
+    <div class="container">
+      <div class="card-body">
         <br>
+        <br>
+        <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
+        <div class="container"><h4>Email:  {{user.email}}</h4></div>
+        <div class="container"><p>Bio:     {{user.bio}}</p></div>
+        <div class="container"><p>Height:  {{user.height}}cm</p></div>
+        <div class="container"><p>Weight:  {{user.weight}}KG</p></div>
+        <div class="container"><p>BMI:     {{user.bmi}}</p></div>
+        <div class="container"><p>Bodyfat: {{user.bodyfatPerc}}%</p></div>
+        <br>
+        <button class="btn btn-success" (click)="update()">Update profile</button>
       </div>
-      <button class="btn btn-success" (click)="save()">Save updates</button> <button class="btn btn-success" (click)="editPref()" >Update preferences</button>
+
     </div>
-
   </div>
-</div>
 
-<div *ngIf="!online">
-  <h3>This page does not support offline mode</h3>
-  <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+  <div class="card"  *ngIf="user && edit">
+    <h3 class="card-title">Your profile: {{user.username}}</h3>
+    <div class="container">
+      <div class="card-body">
+        <br>
+        <br>
+        <div class="container"><h4>Name:   {{user.firstname}} {{user.surname}}</h4></div>
+        <div class="container"><h4>Email:  {{user.email}}</h4></div>
+        <div class="container"><p>Bio:     <input [(ngModel)]="user.bio" type="text"></p></div>
+        <div class="container"><p>Height:  <input [(ngModel)]="user.height" type="number"> cm</p></div>
+        <div class="container"><p>Weight:  <input [(ngModel)]="user.weight" type="number">KG</p></div>
+        <div class="container"><p>BMI:     {{user.bmi}}</p></div>
+        <div class="container"><p>Bodyfat: <input [(ngModel)]="user.bodyfatPerc" type="number">%</p></div>
+        <br>
+        <div *ngIf="editPrefs">
+          <h2>Preferences</h2>
+          <div class="container"><p>Units: {{getUnit()}}</p>
+            <button class="btn btn-default" (click)="setImp()">Imperial</button> <button class="btn btn-default" (click)="setMet()">Metric</button>
+          </div>
+          <br>
+        </div>
+        <button class="btn btn-success" (click)="save()">Save updates</button> <button class="btn btn-success" (click)="editPref()" >Update preferences</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="!online">
+    <h3>This page does not support offline mode</h3>
+    <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+  </div>
+
 </div>

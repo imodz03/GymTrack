@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../user-components/user/user.service';
 import {Router} from '@angular/router';
 import {ConnectionService} from '../services/connection.service';
+import {User} from '../user-components/login/User';
 
 @Component({
   selector: 'app-navigation',
@@ -11,6 +12,7 @@ import {ConnectionService} from '../services/connection.service';
 export class NavigationComponent implements OnInit {
 
   offline = false;
+  @Input()user: User;
 
   constructor(public userService: UserService,
               private router: Router,
@@ -23,6 +25,9 @@ export class NavigationComponent implements OnInit {
     }).catch(() => {
       this.offline = true;
     });
+
+    this.user = this.userService.getUser();
+
   }
 
   navigate(navTo): void{
@@ -30,6 +35,11 @@ export class NavigationComponent implements OnInit {
     this.router.navigate([navTo]);
     this.toggleNavbar = false;
 
+  }
+
+  update(): void{
+    console.log('test');
+    this.user = this.userService.getUser();
   }
 
 }

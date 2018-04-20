@@ -1,123 +1,127 @@
-<mat-tab-group *ngIf="online">
-  <mat-tab label="My Plans">
-    <br>
-    <mat-accordion>
-      <mat-expansion-panel *ngFor="let plan of plans; index as i">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{plan.planName}}
-          </mat-panel-title>
-          <mat-panel-description>
-            Start Date: {{plan.startDate}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>
-          Description: {{plan.description}}
-        </p>
-        <div *ngIf="datasource[i].data.length > 0">Workouts:<br>
-          <mat-table #table [dataSource]="datasource[i]">
+<app-navigation></app-navigation>
+<div class="container">
+  <mat-tab-group *ngIf="online">
+    <mat-tab label="My Plans">
+      <br>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let plan of plans; index as i">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{plan.planName}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Start Date: {{plan.startDate}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+            Description: {{plan.description}}
+          </p>
+          <div *ngIf="datasource[i].data.length > 0">Workouts:<br>
+            <mat-table #table [dataSource]="datasource[i]">
 
-            <ng-container matColumnDef="workoutName">
-              <mat-header-cell *matHeaderCellDef >Workout</mat-header-cell>
-              <mat-cell *matCellDef="let workout">{{workout.workoutName}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="workoutName">
+                <mat-header-cell *matHeaderCellDef >Workout</mat-header-cell>
+                <mat-cell *matCellDef="let workout">{{workout.workoutName}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="date">
-              <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
-              <mat-cell *matCellDef="let workout">{{workout.date}}</mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+                <mat-cell *matCellDef="let workout">{{workout.date}}</mat-cell>
+              </ng-container>
 
-            <ng-container matColumnDef="goto">
-              <mat-header-cell *matHeaderCellDef>Goto</mat-header-cell>
-              <mat-cell *matCellDef="let workout"><button class="btn btn-secondary" (click)="details(workout.workoutID)">Go to Workout</button></mat-cell>
-            </ng-container>
+              <ng-container matColumnDef="goto">
+                <mat-header-cell *matHeaderCellDef>Goto</mat-header-cell>
+                <mat-cell *matCellDef="let workout"><button class="btn btn-secondary" (click)="details(workout.workoutID)">Go to Workout</button></mat-cell>
+              </ng-container>
 
-            <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-            <mat-row *matRowDef="let workout; columns: columns;"></mat-row>
+              <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+              <mat-row *matRowDef="let workout; columns: columns;"></mat-row>
 
-          </mat-table>
-        </div>
-        <div *ngIf="datasource[i].data.length === 0">
-          No Workouts<br>
-        </div>
+            </mat-table>
+          </div>
+          <div *ngIf="datasource[i].data.length === 0">
+            No Workouts<br>
+          </div>
+          <br>
+          <button (click)="deletePlan(i)" class="btn btn-danger">Delete Plan</button>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <h1 *ngIf="plans.length === 0">No Plans created</h1>
+    </mat-tab>
+    <mat-tab label="Create Plan">
+      <div>
         <br>
-        <button (click)="deletePlan(i)" class="btn btn-danger">Delete Plan</button>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <h1 *ngIf="plans.length === 0">No Plans created</h1>
-  </mat-tab>
-  <mat-tab label="Create Plan">
-    <div>
-      <br>
-      Plan Name: <input type="text" [(ngModel)]="plan.planName"><br>
-      Description:<br>
-      <textarea [(ngModel)]="plan.description"></textarea><br>
-      Public: <mat-checkbox [(ngModel)]="plan.public"></mat-checkbox><br>
-      Start date:
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker><br>
-      Repetitions: <input type="number" [(ngModel)]="plan.repeats"><br><br>
-      <mat-tab-group (selectedTabChange)="indexChange.emit($event)">
+        Plan Name: <input type="text" [(ngModel)]="plan.planName"><br>
+        Description:<br>
+        <textarea [(ngModel)]="plan.description"></textarea><br>
+        Public: <mat-checkbox [(ngModel)]="plan.public"></mat-checkbox><br>
+        Start date:
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateInput">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker><br>
+        Repetitions: <input type="number" [(ngModel)]="plan.repeats"><br><br>
+        <mat-tab-group (selectedTabChange)="indexChange.emit($event)">
 
-        <mat-tab label="Days Of The Week">
-          <br>
-          <mat-grid-list cols="4" rowHeight="100px">
-            <mat-grid-tile
-              *ngFor="let tile of days; index as i"
-              [colspan]="1"
-              [rowspan]="1"
-              [style.background]="tileColour"
-              gutterSize="5px"
-              (click)="addWorkout(i)">
-              <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
-              <i *ngIf="!tile.workout" class="fa fa-plus"></i>
-              <div *ngIf="tile.workout" class="workoutname">
-                {{tile.workout.workoutName}}
-              </div>
-            </mat-grid-tile>
-          </mat-grid-list>
+          <mat-tab label="Days Of The Week">
+            <br>
+            <mat-grid-list cols="4" rowHeight="100px">
+              <mat-grid-tile
+                *ngFor="let tile of days; index as i"
+                [colspan]="1"
+                [rowspan]="1"
+                [style.background]="tileColour"
+                gutterSize="5px"
+                (click)="addWorkout(i)">
+                <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+                <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+                <div *ngIf="tile.workout" class="workoutname">
+                  {{tile.workout.workoutName}}
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
 
-          <br>
-          <button (click)="toggleWeekend()" class="btn btn-success">Toggle weekends</button>
-        </mat-tab>
+            <br>
+            <button (click)="toggleWeekend()" class="btn btn-success">Toggle weekends</button>
+          </mat-tab>
 
-        <mat-tab label="Numeric Days">
-          <br>
-          <mat-grid-list cols="4" rowHeight="100px">
-            <mat-grid-tile
-              *ngFor="let tile of daysn; index as i"
-              [colspan]="1"
-              [rowspan]="1"
-              [style.background]="tileColour"
-              gutterSize="5px"
-              (click)="addWorkout(i)">
-              <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
-              <i *ngIf="!tile.workout" class="fa fa-plus"></i>
-              <div *ngIf="tile.workout" class="workoutname">
-                {{tile.workout.workoutName}}
-              </div>
-            </mat-grid-tile>
-            <mat-grid-tile
-              [colspan]="1"
-              [rowspan]="1"
-              [style.background]="tileColour"
-              gutterSize="5px"
-              (click)="addDay()">
-              <mat-grid-tile-header>Add Day</mat-grid-tile-header>
-              <i class="fa fa-plus"></i>
-            </mat-grid-tile>
-          </mat-grid-list>
-        </mat-tab>
+          <mat-tab label="Numeric Days">
+            <br>
+            <mat-grid-list cols="4" rowHeight="100px">
+              <mat-grid-tile
+                *ngFor="let tile of daysn; index as i"
+                [colspan]="1"
+                [rowspan]="1"
+                [style.background]="tileColour"
+                gutterSize="5px"
+                (click)="addWorkout(i)">
+                <mat-grid-tile-header>{{tile.text}}</mat-grid-tile-header>
+                <i *ngIf="!tile.workout" class="fa fa-plus"></i>
+                <div *ngIf="tile.workout" class="workoutname">
+                  {{tile.workout.workoutName}}
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile
+                [colspan]="1"
+                [rowspan]="1"
+                [style.background]="tileColour"
+                gutterSize="5px"
+                (click)="addDay()">
+                <mat-grid-tile-header>Add Day</mat-grid-tile-header>
+                <i class="fa fa-plus"></i>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-tab>
 
-      </mat-tab-group>
-      <br>
-      <button class="btn btn-primary" (click)="createPlan()">Create Plan</button>
-    </div>
+        </mat-tab-group>
+        <br>
+        <button class="btn btn-primary" (click)="createPlan()">Create Plan</button>
+      </div>
 
-  </mat-tab>
-</mat-tab-group>
-<div *ngIf="!online">
-  <h3>This page does not support offline mode</h3>
-  <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+    </mat-tab>
+  </mat-tab-group>
+  <div *ngIf="!online">
+    <h3>This page does not support offline mode</h3>
+    <button (click)="back()" class="btn btn-success">Back to my workouts</button>
+  </div>
+
 </div>

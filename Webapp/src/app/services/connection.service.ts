@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 export class ConnectionService {
 
   private connected = false;
-  // private checkUrl = 'http://localhost:8087/test';
-  private checkUrl = 'https://elliotbrown.me:8080/test';
+  private checkUrl = 'http://localhost:8087/test';
+  // private checkUrl = 'https://elliotbrown.me:8080/test';
 
   constructor() {
     this.check();

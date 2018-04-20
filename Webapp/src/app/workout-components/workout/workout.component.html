@@ -1,14 +1,18 @@
-<ol>
-  <li *ngFor="let workout of workouts" (click)="selected(workout)">{{workout.workoutName}}</li>
-</ol>
-<div class="" *ngIf="workout">
-  <h2>{{workout.workoutName}}</h2>
-  <p>
-    Description: {{workout.description}} <br>
-    Date: {{workout.date}}
-  </p>
-  <h2>Exercises</h2>
-  <ul>
-    <li *ngFor="let exercise of workout.exerciseList.exercises">{{exercise.exerciseName}}</li>
-  </ul>
+<app-navigation></app-navigation>
+<div class="container">
+  <ol>
+    <li *ngFor="let workout of workouts" (click)="selected(workout)">{{workout.workoutName}}</li>
+  </ol>
+  <div class="" *ngIf="workout">
+    <h2>{{workout.workoutName}}</h2>
+    <p>
+      Description: {{workout.description}} <br>
+      Date: {{workout.date}}
+    </p>
+    <h2>Exercises</h2>
+    <ul>
+      <li *ngFor="let exercise of workout.exerciseList.exercises">{{exercise.exerciseName}}</li>
+    </ul>
+  </div>
+
 </div>
