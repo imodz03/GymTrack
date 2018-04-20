@@ -76,9 +76,20 @@ public class UserResource implements ICRUDResource<User> {
 
     @Path("/{id}")
     @DELETE
+    @AuthRequired(ROLE.ADMIN)
     public Response delete(@PathParam("id") String id) {
         int delete = dao.delete(id);
         return Response.ok(delete).build();
+    }
+
+    @Path("/deleteMe")
+    @DELETE
+    @AuthRequired(ROLE.MEMBER)
+    public Response deleteMe(@Context HttpHeaders httpHeaders){
+
+        int resp = dao.delete(decrypter.getId(httpHeaders));
+        return Response.ok(resp).build();
+
     }
 
     @Path("/mine")

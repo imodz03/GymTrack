@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from './user.service';
 import {Router} from '@angular/router';
 import {ConnectionService} from '../../services/connection.service';
+import {MatDialog, MatDialogRef, MatSnackBar} from '@angular/material';
+import {SimpleDialogComponent} from '../../simple-dialog/simple-dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -12,13 +14,16 @@ export class UserComponent implements OnInit {
 
   constructor(private userService: UserService,
               private router: Router,
-              private connectionS: ConnectionService) { }
+              private connectionS: ConnectionService,
+              private dialog: MatDialog,
+              private snackbar: MatSnackBar) { }
 
   user;
   edit = false;
   editPrefs = false;
 
   online = true;
+  dialogRef;
 
   ngOnInit() {
     this.connectionS.check().then(() => {
@@ -82,6 +87,32 @@ export class UserComponent implements OnInit {
 
   back(): void{
     this.router.navigate(['/myworkouts']);
+  }
+
+  delete(): void{
+    const options = ['Confirm', 'Cancel'];
+    this.dialogRef = this.dialog.open(SimpleDialogComponent,
+      {data: {msg: 'Are you sure you want to delete your account, It will not be recoverable', options: options}});
+
+    this.dialogRef.afterClosed().subscribe(
+      res => {
+        if (res === options[0]){
+          this.userService.deleteMyAccount().subscribe(
+            resp => {
+              if (resp === 1){
+                this.userService.logout();
+                this.router.navigate(['/login']);
+              }else{
+                this.snackbar.open('Something went wrong deleting your account please try later',
+                  'Dismiss', {duration: 10000});
+              }
+            }
+          );
+        }else{
+          this.dialogRef.close();
+        }
+      }
+    );
   }
 
 }

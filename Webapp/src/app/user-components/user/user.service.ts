@@ -78,5 +78,9 @@ export class UserService {
     return localStorage.getItem('token');
   }
 
+  deleteMyAccount(): Observable<any>{
+    return this.http.delete(this.url.account + 'deleteMe');
+  }
+
 
 }
