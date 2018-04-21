@@ -36,8 +36,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.setupChart();
-    this.navComp.update();
-    this.navComp.ngOnInit();
   }
 
   // finds chart and initializes the code for it

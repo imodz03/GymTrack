@@ -26,9 +26,9 @@ public interface UserDAO {
     @SqlQuery("Select preferences from " + USER + " WHERE UserID = :id;")
     String getPrefs(@Bind("id") String id);
 
-    @SqlUpdate("insert into " + USER + "(UserID, firstname, surname, email, username, bio, photo, preferences, weight, height, BMI, password)" +
-            " values(:user.userID, :user.firstname, :user.surname, :user.email, :user.username, :user.bio, :user.photo, :user.preferences, :user.weight, :user.height, :user.bmi, :user.password);")
-    int createUser(@BindBean("user")User user);
+    @SqlUpdate("insert into " + USER + "(UserID, firstname, surname, email, username, bio, photo, preferences, weight, height, BMI, password, salt)" +
+            " values(:user.userID, :user.firstname, :user.surname, :user.email, :user.username, :user.bio, :user.photo, :user.preferences, :user.weight, :user.height, :user.bmi, :user.password, :salt);")
+    int createUser(@BindBean("user")User user, @Bind("salt")String salt);
 
     @SqlUpdate("update " + USER + " set firstname = :user.firstname, surname = :user.surname, email = :user.email, username = :user.username, preferences = :user.preferences, bio = :user.bio, photo = :user.photo, height = :user.height, weight = :user.weight, BMI = :user.bmi, bodyFatPercentage = :user.bodyfatPerc")
     int update(@BindBean("user")User user);
@@ -38,5 +38,8 @@ public interface UserDAO {
 
     @SqlQuery("select username from " + USER + " WHERE username = :name LIMIT 1;")
     String getUsernames(@Bind("name")String username);
+
+    @SqlQuery("select salt from " + USER + " WHERE username = :name LIMIT 1;")
+    String getSalt(@Bind("name")String username);
 
 }

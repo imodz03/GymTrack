@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
 
   gotTo(router: Router){
     this.loading = false;
-    router.navigate(['']);
+    router.navigate(['/']);
   }
 
   validate(): void{

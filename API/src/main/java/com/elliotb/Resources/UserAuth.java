@@ -3,6 +3,8 @@ package com.elliotb.Resources;
 import com.elliotb.Auth.Beans.AuthUser;
 import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.AuthDAO;
+import com.elliotb.DAO.UserDAO;
+import com.elliotb.Helpers.PasswordHash;
 import com.elliotb.Helpers.tokenVerifier;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -28,11 +30,18 @@ public class UserAuth {
     @Inject
     private AuthDAO dao;
 
+    @Inject
+    private UserDAO userDAO;
+
     @POST
     @Path("/login")
     public String login(AuthUser au){
 
-        String userID = dao.login(au.getUsername(), au.getPass());
+        String salt = userDAO.getSalt(au.getUsername());
+
+        byte[] password = PasswordHash.hashPassword(au.getPass().toCharArray(), salt.getBytes());
+
+        String userID = dao.login(au.getUsername(), new String(password));
         String token;
 
 

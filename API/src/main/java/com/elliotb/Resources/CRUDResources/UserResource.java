@@ -5,6 +5,7 @@ import com.elliotb.Auth.Beans.AuthUser;
 import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.UserDAO;
 import com.elliotb.Entity.User;
+import com.elliotb.Helpers.PasswordHash;
 import com.elliotb.Helpers.UUID;
 import com.elliotb.Helpers.tokenDecrypter;
 import com.auth0.jwt.JWT;
@@ -15,6 +16,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
+import java.util.Random;
 
 @Produces("Application/JSON")
 @Consumes("Application/JSON")
@@ -50,8 +52,10 @@ public class UserResource implements ICRUDResource<User> {
         }
 
         System.out.println(user);
+        byte[] salt = new byte[20];
+        new Random().nextBytes(salt);
 
-        int resp = dao.createUser(user);
+        int resp = dao.createUser(user, new String(salt));
 
         return Response.ok(resp).build();
 
@@ -118,13 +122,21 @@ public class UserResource implements ICRUDResource<User> {
 
         System.out.println(available);
 
+
         if (available != null){
             return "{\"status\": \"NA\"}";
         }else{
 
             String uuid = UUID.getUUID();
             user.setUserID(uuid);
-            int res = dao.createUser(user);
+            byte[] salt = new byte[20];
+            byte[] hashed = PasswordHash.hashPassword(user.getPassword().toCharArray(), salt);
+
+            String password = new String(hashed);
+
+            user.setPassword(password);
+            int res = dao.createUser(user, new String(salt));
+
             if(res == 1){
                 AuthUser AU = new AuthUser(user.getUsername(), uuid);
                 AU.setRole(ROLE.ADMIN); // TODO: 23/02/2018 set roles in db
