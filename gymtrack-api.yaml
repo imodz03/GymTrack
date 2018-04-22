@@ -1,0 +1,854 @@
+swagger: '2.0'
+info:
+  description: ''
+  version: 1.0.0
+  title: GymTrack
+  contact:
+    email: Brown-E17@ulster.ac.uk
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: 'elliotbrown.me:8080'
+schemes:
+  - https
+tags:
+  - name: Workout
+  - name: Exercise List
+  - name: Set
+  - name: PlannedWorkout
+  - name: Plan
+  - name: Log
+  - name: Goal
+  - name: ExerciseList
+  - name: Exercise
+paths:
+  /API/resource/workout:
+    post:
+      summary: Create a workout
+      tags:
+        - Workout
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Workout'
+      responses:
+        '200':
+          description: OK
+        '405':
+          description: FORBIDDEN
+  '/API/resource/workout/{id}':
+    get:
+      summary: get a specific workout
+      description: Retrieve a workout via it's workoutID
+      tags:
+        - Workout
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Workout'
+    put:
+      summary: Update a workout
+      description: Update a workout
+      tags:
+        - Workout
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+        - name: workout
+          in: body
+          schema:
+            $ref: '#/definitions/Workout'
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Delete a workout
+      description: Delete a workout
+      tags:
+        - Workout
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+        '405':
+          description: FORBIDDEN
+  /API/resource/workout/mine:
+    get:
+      summary: Retrieve a users workouts
+      description: Retrieve a users workouts
+      tags:
+        - Workout
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Workout'
+  /API/resource/workout/today:
+    get:
+      summary: Get the workout for today
+      description: Get the workout for today
+      tags:
+        - Workout
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Workout'
+  /API/resource/el:
+    post:
+      summary: Create an exercise list
+      description: Create an exercise list
+      tags:
+        - Exercise List
+      parameters:
+        - in: body
+          name: exerciseList
+          schema:
+            $ref: '#/definitions/ExerciseList'
+      responses:
+        '200':
+          description: OK
+  '/API/resource/el/{id}':
+    get:
+      summary: Get an exercise list by id
+      description: Get an exercise list by id
+      parameters:
+        - type: string
+          in: path
+          name: id
+          required: true
+      tags:
+        - Exercise List
+      responses:
+        '200':
+          description: OK
+  '/API/resource/el/{ELID}/{ExerciseID}':
+    delete:
+      summary: Delete specific EL entries
+      description: Delete specific EL entries
+      tags:
+        - Exercise List
+      parameters:
+        - in: path
+          name: ELID
+          type: string
+          required: true
+        - in: path
+          name: ExerciseID
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+  '/API/resource/el/{ELID}/add':
+    post:
+      summary: Add an exercise to list
+      description: Add an exercise to list
+      tags:
+        - Exercise List
+      parameters:
+        - in: path
+          name: ELID
+          type: string
+          required: true
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/Exercise'
+      responses:
+        '200':
+          description: OK
+  /API/reource/exercise:
+    get:
+      summary: get all exercises
+      description: get all exercises
+      tags:
+        - Exercise
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Exercise'
+    post:
+      summary: Create an exercise
+      description: Create an exercise
+      tags:
+        - Exercise
+      parameters:
+        - in: body
+          name: exercise
+          schema:
+            $ref: '#/definitions/Exercise'
+      responses:
+        '200':
+          description: OK
+  '/API/resource/exercise/{id}':
+    get:
+      summary: Get a specific exercise
+      description: Get a specific exercise
+      tags:
+        - Exercise
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Exercise'
+  /API/resource/goal:
+    post:
+      summary: Create a goal
+      description: Create a goal
+      tags:
+        - Goal
+      parameters:
+        - in: body
+          name: goal
+          schema:
+            $ref: '#/definitions/Goal'
+      responses:
+        '200':
+          description: OK
+  '/API/resource/goal/{id}':
+    delete:
+      summary: Delete a goal
+      description: Delete a goal
+      tags:
+        - Goal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+    get:
+      summary: Get a goal
+      description: Get a goal
+      tags:
+        - Goal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Goal'
+  '/API/resource/goal/complete/{id}':
+    post:
+      summary: Complete a goal
+      description: Quick complete a goal
+      tags:
+        - Goal
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: formData
+          name: date
+          type: string
+          format: YYYY-MM-DD
+          required: true
+      responses:
+        '200':
+          description: OK
+  /API/resource/log:
+    post:
+      summary: Create a log
+      description: Create a log
+      tags:
+        - Log
+      parameters:
+        - in: body
+          name: Log
+          schema:
+            $ref: '#/definitions/Log'
+      responses:
+        '200':
+          description: OK
+  '/API/resource/log/{id}':
+    get:
+      summary: Get a specfic log
+      description: Get a specfic log
+      tags:
+        - Log
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Log'
+    put:
+      summary: Update a log
+      description: Update a log
+      tags:
+        - Log
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: delete a log
+      description: delete a log
+      tags:
+        - Log
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+  '/API/resource/log/quick/{id}':
+    post:
+      summary: Quick log a workout
+      description: Log a workout with the pre planned sets
+      tags:
+        - Log
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+        - in: formData
+          name: workoutid
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+  '/API/resource/log/workout/{id}':
+    get:
+      summary: Get the log for a workout
+      description: Get the logs for a workout by the workout id
+      tags:
+        - Log
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+          description: Id for the workout not Log
+      responses:
+        '200':
+          description: OK
+  '/API/resource/log/create/{id}':
+    post:
+      summary: Create log for workout
+      description: Create the log for a workout by the workout id
+      tags:
+        - Log
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Workout id not Log
+        - in: body
+          name: log
+          schema:
+            $ref: '#/definitions/Log'
+      responses:
+        '200':
+          description: OK
+  /API/resource/pw:
+    post:
+      summary: "Create a planned workout"
+      description: "Create a planned workout"
+      tags: 
+        - "PlannedWorkout"
+      parameters: 
+        - in: 'body'
+          name: 'plannedWorkout'
+          schema:
+            $ref: '#/definitions/PlannedWorkout'
+      responses:
+        200:
+          description: OK
+  /API/resource/pw/{id}:
+    get:
+      summary: "Get a planned workout"
+      description: "Get a planned workout"
+      tags: 
+        - "PlannedWorkout"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/PlannedWorkout'
+    put:
+      summary: "Update a planned workout"
+      description: "Update a planned workout"
+      tags: 
+        - "PlannedWorkout"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          required: true
+          type: string
+        - in: 'body'
+          name: 'plannedWorkout'
+          required: true
+          schema:
+            $ref: '#/definitions/PlannedWorkout'
+      responses:
+        200:
+          description: OK
+    delete:
+      summary: "Delete a planned workout"
+      description: "Delete a planned workout"
+      tags: 
+        - "PlannedWorkout"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+  /API/resource/pw/pid/{id}:
+    get:
+      summary: "Get all workouts in a plan"
+      description: "Get all workouts in a plan using a plan id"
+      tags: 
+        - "PlannedWorkout"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+          description: "Use the plan id"
+      responses:
+        200:
+          description: OK
+  /API/resource/plan:
+    post:
+      summary: "Create a plan"
+      description: "Create a plan"
+      tags:
+        - "Plan"
+      parameters: 
+        - in: body
+          name: "Plan"
+          schema:
+            $ref: '#/definitions/Plan'
+      responses:
+        200:
+          description: OK
+  /API/resource/plan/{id}:
+    get:
+      summary: "Retrieve a plan"
+      description: "Retrieve a plan"
+      tags: 
+        - "Plan"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+    put:
+      summary: "Update a plan"
+      description: "Update a plan"
+      tags: 
+        - "Plan"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+        - in: 'body'
+          name: 'body'
+          schema:
+            $ref: '#/definitions/Plan'
+      responses:
+        200:
+          description: OK
+    delete:
+      summary: "Delete a plan"
+      description: "Delete a plan"
+      tags: 
+        - "Plan"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+  /API/resource/plan/mine:
+    get:
+      summary: "Retrieve a users plan"
+      description: "Retrieves a users plan"
+      tags: 
+        - "Plan"
+      parameters: 
+        - in: 'header'
+          name: 'userToken'
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Plan'
+  /API/resource/set:
+    post:
+      summary: "Create a set"
+      description: "Create a set"
+      tags: 
+        - "Set"
+      parameters: 
+        - in: 'body'
+          name: 'body'
+          schema:
+            $ref: '#/definitions/Set'
+      responses:
+        200:
+          description: OK
+  /API/resource/set/{id}:
+    get:
+      summary: "Get a set"
+      description: "Get a set"
+      tags:
+        - "Set"
+      parameters:
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+      responses: 
+        200:
+          description: OK
+    put:
+      summary: "Update a set"
+      description: "Update a set"
+      tags:
+        - "Set"
+      parameters:
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+        - in: 'body'
+          name: 'body'
+          schema:
+            $ref: '#/definitions/Set'
+      responses:
+        200:
+          description: OK
+    delete:
+      summary: "Delete a workout"
+      description: "Delete a workout"
+      tags:
+        - "Set"
+      parameters:
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+  /API/resource/set/{id}/{exid}:
+    get:
+      summary: "Get a list of sets"
+      description: "Get a list of sets by set id and exercise id"
+      tags: 
+        - "Set"
+      parameters: 
+        - in: 'path'
+          name: 'id'
+          type: string
+          required: true
+          description: ""
+        - in: 'path'
+          name: 'exid'
+          type: string
+          required: true
+          description: "Exercise id"
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Set'
+  /API/resource/set/list:
+    post:
+      summary: "Create list"
+      description: "Create list"
+      tags: 
+        - "Set"
+      parameters: 
+        - in: 'body'
+          name: 'body'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Set'
+      responses:
+        200:
+          description: OK
+    
+definitions:
+  Workout:
+    type: object
+    properties:
+      WorkoutID:
+        type: string
+        format: UUID
+      WorkoutName:
+        type: string
+      ExerciseList:
+        $ref: '#/definitions/ExerciseList'
+      Description:
+        type: string
+      ExerciseCategory:
+        type: string
+        enum:
+          - AEROBIC
+          - ANAEROBIC
+          - STRENGTH_TRAINING
+          - STRETCHING
+          - BALANCING
+          - DEFAULT
+      Sets:
+        type: array
+        items:
+          $ref: '#/definitions/Set'
+      User:
+        $ref: '#/definitions/User'
+      isPublic:
+        type: boolean
+      date:
+        description: Uses JodaTime date time
+        type: string
+        format: YYYY-MM-DD
+  User:
+    type: object
+    properties:
+      userID:
+        type: string
+        format: UUID
+      firstname:
+        type: string
+      surname:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      bio:
+        type: string
+      height:
+        type: integer
+      weight:
+        type: integer
+      bmi:
+        type: integer
+      bodyfatPerc:
+        type: integer
+  Set:
+    type: object
+    properties:
+      SUID:
+        type: string
+        format: UUID
+      SetID:
+        type: string
+        format: UUID
+        description: The id of the collection of sets that the set belongs to.
+      Exercise:
+        $ref: '#/definitions/Exercise'
+      position:
+        type: integer
+      reps:
+        type: integer
+      weight:
+        type: number
+      time:
+        type: number
+      speed:
+        type: number
+      distance:
+        type: number
+  PlannedWorkout:
+    type: object
+    properties:
+      pwID:
+        type: string
+        format: UUID
+      planID:
+        type: string
+        format: UUID
+        description: Id of the plan that the workout is associated with
+      workout:
+        $ref: '#/definitions/Workout'
+      workoutDay:
+        type: integer
+        description: This is the day in the plan that you would like the workout to occur
+      dayOfWeek:
+        type: string
+        enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+  Plan:
+    type: object
+    properties:
+      planID:
+        type: string
+        format: UUID
+      planName:
+        type: string
+      description:
+        type: string
+      user:
+        $ref: '#/definitions/User'
+      isPublic:
+        type: boolean
+      repeats:
+        type: integer
+        description: >-
+          How many times you would like the workout plan to repeat from the
+          start date
+      startDate:
+        type: string
+        description: Uses jodatime datetime
+        format: YYYY-MM-DD
+  Log:
+    type: object
+    properties:
+      logID:
+        type: string
+        format: UUID
+      sets:
+        type: array
+        items:
+          $ref: '#/definitions/Set'
+      workout:
+        $ref: '#/definitions/Workout'
+      user:
+        $ref: '#/definitions/User'
+  Goal:
+    type: object
+    properties:
+      goalID:
+        type: string
+        format: UUID
+      goalName:
+        type: string
+      set:
+        type: array
+        items:
+          $ref: '#/definitions/Set'
+      user:
+        $ref: '#/definitions/User'
+      targetDate:
+        type: string
+        format: YYYY-MM-DD
+      achievedDate:
+        type: string
+        format: YYYY-MM-DD
+        description: Defaults to 1970-01-01 if not set
+  ExerciseList:
+    type: object
+    properties:
+      ELID:
+        type: string
+        format: UUID
+      exercises:
+        $ref: '#/definitions/Exercise'
+  Exercise:
+    type: object
+    properties:
+      exerciseID:
+        type: string
+        format: UUID
+      exerciseName:
+        type: string
+      description:
+        type: string
+      bodypart:
+        type: string
+        enum:
+          - ARMS
+          - LEGS
+          - BACK
+          - CHEST
+          - SHOULDERS
+      exerciseCategory:
+        type: string
+        enum:
+          - AEROBIC
+          - ANAEROBIC
+          - STRENGTH_TRAINING
+          - STRETCHING
+          - BALANCING
+          - DEFAULT
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: userToken
+    in: header
