@@ -40,6 +40,7 @@ export class MyworkoutComponent implements OnInit {
       this.online = true;
       this.getWorkouts();
     }).catch(() => {
+      console.log('Loading from offline');
       this.loadWorkoutFromMemory();
     });
   }

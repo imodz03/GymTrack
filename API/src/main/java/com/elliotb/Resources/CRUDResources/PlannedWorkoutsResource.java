@@ -1,5 +1,7 @@
 package com.elliotb.Resources.CRUDResources;
 
+import com.elliotb.Auth.Annotations.AuthRequired;
+import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.PlannedWorkoutsDAO;
 import com.elliotb.Entity.PlannedWorkouts;
 import com.elliotb.Helpers.UUID;
@@ -28,6 +30,7 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     private PlanService planService;
 
     @GET
+    @AuthRequired(ROLE.MODERATOR)
     public Response getAll() {
 
         List<PlannedWorkouts> res = dao.getAll();
@@ -45,7 +48,7 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     @Path("/pid/{id}")
     public Response getPlan(@PathParam("id")String id) {
 
-        List<PlannedWorkouts> res = dao.getAll();
+        List<PlannedWorkouts> res = dao.getPlan(id);
 
         if (res.size() > 0){
             for (PlannedWorkouts re : res) {
@@ -70,6 +73,7 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
     }
 
     @POST
+    @AuthRequired
     public Response create(PlannedWorkouts plannedWorkouts, @Context HttpHeaders httpHeaders) {
 
         if (plannedWorkouts.getPwID().isEmpty()){
@@ -83,6 +87,7 @@ public class PlannedWorkoutsResource implements ICRUDResource<PlannedWorkouts> {
 
     @PUT
     @Path("/{id}")
+    @AuthRequired
     public Response update(@PathParam("id") String id, PlannedWorkouts plannedWorkouts) {
 
         System.out.println(plannedWorkouts);

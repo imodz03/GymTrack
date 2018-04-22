@@ -1,5 +1,7 @@
 package com.elliotb.Resources.CRUDResources;
 
+import com.elliotb.Auth.Annotations.AuthRequired;
+import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.SetDAO;
 import com.elliotb.Entity.Exercise;
 import com.elliotb.Entity.Set;
@@ -31,6 +33,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     @Override
     @GET
+    @AuthRequired(ROLE.ADMIN)
     public Response getAll() {
         List<Set> dbres = dao.getAll();
 
@@ -47,6 +50,7 @@ public class SetResource implements ICRUDResource<Set> {
     @Override
     @GET
     @Path("/{id}")
+    @AuthRequired
     public Response getByID(@PathParam("id")String id) {
 
         List<Set> dbres = dao.getById(id);
@@ -63,6 +67,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     @GET
     @Path("/{id}/{exID}")
+    @AuthRequired
     public Response getByIDandEx(@PathParam("id")String id, @PathParam("exID")String exid) {
 
         List<Set> dbres = dao.getByIdAndEx(id, exid);
@@ -79,6 +84,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     // TODO: 24/12/2017 proper response codes
     @POST
+    @AuthRequired
     public Response create(Set set, @Context HttpHeaders httpHeaders) {
 
         set.setSUID(UUID.getUUID());
@@ -90,6 +96,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     @PUT
     @Path("/{id}")
+    @AuthRequired
     public Response update(@PathParam("id")String id, Set set) {
         int res = dao.update(id, set.getExercise().getExerciseID(), set);
         return Response.ok(res).build();
@@ -104,6 +111,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     @POST
     @Path("/{id}")
+    @AuthRequired
     public Response addSet(@PathParam("id")String id, Set set){
         set.setSUID(UUID.getUUID());
         int res = dao.create(set, set.getExercise().getExerciseID(), set.getSUID());
@@ -112,6 +120,7 @@ public class SetResource implements ICRUDResource<Set> {
 
     @POST
     @Path("/list")
+    @AuthRequired
     public Response createList(List<Set> sets){
         System.out.println(sets);
 

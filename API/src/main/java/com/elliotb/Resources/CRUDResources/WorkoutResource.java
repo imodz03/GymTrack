@@ -44,6 +44,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
 
     @GET
+    @AuthRequired(ROLE.MODERATOR)
     public Response getAll() {
         List<Workout> get = dao.getAll();
 
@@ -127,6 +128,7 @@ public class WorkoutResource implements ICRUDResource<Workout> {
 
     @GET
     @Path("/today")
+    @AuthRequired
     public Response getToday(@Context HttpHeaders httpHeaders){
         DateTime dt = new DateTime();
         String queryString = dt.getYear() + "-" + dt.getMonthOfYear() + "-" + dt.getDayOfMonth();

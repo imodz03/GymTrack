@@ -1,6 +1,7 @@
 package com.elliotb.Resources.CRUDResources;
 
 import com.elliotb.Auth.Annotations.AuthRequired;
+import com.elliotb.Auth.Beans.ROLE;
 import com.elliotb.DAO.PlanDAO;
 import com.elliotb.DAO.PlannedWorkoutsDAO;
 import com.elliotb.DAO.WorkoutDAO;
@@ -39,6 +40,7 @@ public class PlanResource implements ICRUDResource<Plan> {
     tokenDecrypter decrypter;
 
     @GET
+    @AuthRequired(ROLE.MODERATOR)
     public Response getAll() {
         //doesn't return all associated workouts
         return Response.ok(dao.getAll()).build();
@@ -61,6 +63,7 @@ public class PlanResource implements ICRUDResource<Plan> {
     }
 
     @POST
+    @AuthRequired
     public Response create(Plan plan, @Context HttpHeaders httpHeaders) {
 
         if (plan.getPlanID().isEmpty()){
@@ -80,12 +83,14 @@ public class PlanResource implements ICRUDResource<Plan> {
 
     @PUT
     @Path("/{id}")
+    @AuthRequired
     public Response update(@PathParam("id") String id, Plan plan) {
         return Response.ok(dao.update(plan, plan.getUser().getUserID(), id)).build();
     }
 
     @DELETE
     @Path("{id}")
+    @AuthRequired
     public Response delete(@PathParam("id") String id) {
         int res = planService.deletePlan(id);
         return Response.ok(res).build();

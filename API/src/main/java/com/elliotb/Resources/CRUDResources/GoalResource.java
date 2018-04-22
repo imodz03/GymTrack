@@ -34,7 +34,7 @@ public class GoalResource implements ICRUDResource<Goal>{
     private SetService setService;
 
     @GET
-    @AuthRequired
+    @AuthRequired(ROLE.MEMBER)
     public Response getAll() {
         return Response.ok(dao.getAll()).build();
     }
