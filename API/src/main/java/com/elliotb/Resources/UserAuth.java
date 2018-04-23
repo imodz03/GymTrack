@@ -48,7 +48,7 @@ public class UserAuth {
         if (userID != null){
 
             AuthUser AU = new AuthUser(au.getUsername(), userID);
-            AU.setRole(ROLE.ADMIN); // TODO: 23/02/2018 set roles in db 
+            AU.setRole(ROLE.MEMBER); // TODO: 23/02/2018 set roles in db
 
             token = JWT.create().withIssuer("ElliotB")
                     .withClaim("username", AU.getUsername())
