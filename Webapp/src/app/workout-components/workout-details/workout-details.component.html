@@ -70,8 +70,6 @@
         <div mat-menu-item class="menu-item" (click)="log()">Log Workout</div>
         <div mat-menu-item class="menu-item" (click)="quickLog()">Quick Log</div>
       </mat-menu>
-      <button class="btn btn-success" *ngIf="saveOption" (click)="saveOffline()">Save offline</button>
-      <button class="btn btn-danger" *ngIf="!saveOption" (click)="removeOffline()">Remove offline save</button>
       <br><i *ngIf="!online">Only quick log works offline, apologies</i>
     </div>
   </div>

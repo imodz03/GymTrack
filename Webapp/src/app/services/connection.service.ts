@@ -22,6 +22,7 @@ export class ConnectionService {
       xhr.onerror = () => {
         // Set online status
         this.connected = false;
+        console.log('Error connecting');
         reject(false);
       };
       xhr.open('GET', this.checkUrl, true);
