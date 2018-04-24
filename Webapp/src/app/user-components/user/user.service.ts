@@ -1,15 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {User} from '../login/User';
 import {UrlService} from '../../services/url.service';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {Pref} from '../login/Pref';
 import {status} from '../register/status';
+import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class UserService {
+export class UserService{
   constructor(private url: UrlService,
-              private http: HttpClient) { }
+              private http: HttpClient) {
+    this._user = new BehaviorSubject<User>(this.user);
+  }
 
   user: User = {
     username: localStorage.getItem('username'),
@@ -17,9 +21,24 @@ export class UserService {
     pass: ''
   };
 
+  private _user: BehaviorSubject<User>;
+
   prefs: Pref = {
     metric: true
   };
+
+  refresh(): void{
+    this.user = {
+      username: localStorage.getItem('username'),
+      token: localStorage.getItem('token'),
+      pass: ''
+    };
+    this._user.next(this.user);
+  }
+
+  getSubscriber(): Observable<User>{
+    return this._user.asObservable();
+  }
 
   getUser(): User{
     if (this.user.username === null){

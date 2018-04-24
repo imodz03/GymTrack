@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
         this.user.token = user.token;
         localStorage.setItem('username', this.user.username);
         localStorage.setItem('token', this.user.token);
+        this.userService.refresh();
         this.router.navigate(['/']); // todo fix bug where username is not updated without page refresh on login
       }
     });

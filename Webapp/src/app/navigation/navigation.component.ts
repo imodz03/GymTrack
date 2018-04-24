@@ -25,7 +25,13 @@ export class NavigationComponent implements OnInit {
     }).catch(() => {
       this.offline = true;
     });
-    this.user = this.userService.getUser();
+    this.userService.getSubscriber().subscribe(
+      user => {
+        if (user.username !== null){
+          this.user = user;
+        }
+      }
+    );
 
   }
 
