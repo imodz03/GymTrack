@@ -38,29 +38,32 @@ public class UserAuth {
     public String login(AuthUser au){
 
         String salt = userDAO.getSalt(au.getUsername());
+        String token = "invalid";
 
-        byte[] password = PasswordHash.hashPassword(au.getPass().toCharArray(), salt.getBytes());
+        if (salt != null){
+            byte[] password = PasswordHash.hashPassword(au.getPass().toCharArray(), salt.getBytes());
 
-        String userID = dao.login(au.getUsername(), new String(password));
-        String token;
+            String userID = dao.login(au.getUsername(), new String(password));
 
+            if (userID != null){
 
-        if (userID != null){
+                AuthUser AU = new AuthUser(au.getUsername(), userID);
+                AU.setRole(ROLE.MEMBER); // TODO: 23/02/2018 set roles in db
 
-            AuthUser AU = new AuthUser(au.getUsername(), userID);
-            AU.setRole(ROLE.MEMBER); // TODO: 23/02/2018 set roles in db
+                token = JWT.create().withIssuer("ElliotB")
+                        .withClaim("username", AU.getUsername())
+                        .withClaim("userID", AU.getUserID())
+                        .withClaim("role", AU.getRole().val)
+                        .sign(algorithm);
 
-            token = JWT.create().withIssuer("ElliotB")
-                    .withClaim("username", AU.getUsername())
-                    .withClaim("userID", AU.getUserID())
-                    .withClaim("role", AU.getRole().val)
-                    .sign(algorithm);
+            }else{
 
-        }else{
+                token = "invalid";
 
-            token = "invalid";
+            }
 
         }
+
 
         return "{\"token\": \"" + token + "\"}";
 
