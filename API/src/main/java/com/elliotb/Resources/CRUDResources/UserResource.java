@@ -37,6 +37,7 @@ public class UserResource implements ICRUDResource<User> {
     public UserResource(){}
 
     @GET
+    @AuthRequired(ROLE.ADMIN)
     public Response getAll(){
         return Response.ok(dao.getAll()).build();
     }
@@ -63,12 +64,14 @@ public class UserResource implements ICRUDResource<User> {
 
     @Path("/{id}")
     @GET
+    @AuthRequired
     public Response getByID(@PathParam("id")String id) {
         return Response.ok(dao.getById(id)).build();
     }
 
     @Path("/{id}")
     @PUT
+    @AuthRequired
     public Response update(@PathParam("id") String id, User user) {
 
         System.out.println(user.getWeight());

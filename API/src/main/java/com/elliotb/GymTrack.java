@@ -1,10 +1,11 @@
 package com.elliotb;
 
+import com.elliotb.Auth.AuthDynamicFeature;
 import com.elliotb.Configuration.ApplicationConfig;
 import com.elliotb.Configuration.GymTrackModule;
-import com.elliotb.Auth.AuthDynamicFeature;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -35,6 +36,9 @@ public class GymTrack extends Application<ApplicationConfig> {
                 .setConfigClass(ApplicationConfig.class).build();
 
         bootstrap.addBundle(guiceBundle);
+
+        bootstrap.addBundle(new AssetsBundle("/resources", "/resources"));
+
     }
 
     @Override
