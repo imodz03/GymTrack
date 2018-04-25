@@ -20,6 +20,6 @@ source Plan.sql;
 
 source PlannedWorkouts.sql;
 
-source setPrimarys.sql;
+--source setPrimarys.sql;
 
 --source Relationships.sql;

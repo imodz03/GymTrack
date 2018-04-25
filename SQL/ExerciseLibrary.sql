@@ -1,8 +1,8 @@
-create table ExerciseLibrary(
-  ExerciseLibraryID varchar(36),
-  exerciseName varchar(50),
-  description TEXT,
-  category ENUM('Aerobic', 'Anaerobic', 'Strength Training', 'Stretching', 'Balancing'),
-  bodypart ENUM('Arms', 'Legs', 'Back', 'Chest', 'Shoulders')
-);
-/*needs expanding, potentially not enum?*/
+CREATE TABLE `ExerciseLibrary` (
+  `ExerciseLibraryID` varchar(36) NOT NULL,
+  `exerciseName` varchar(50) DEFAULT NULL,
+  `description` text,
+  `category` enum('Aerobic','Anaerobic','Strength Training','Stretching','Balancing') DEFAULT NULL,
+  `bodypart` enum('Arms','Legs','Back','Chest','Shoulders') DEFAULT NULL,
+  PRIMARY KEY (`ExerciseLibraryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
